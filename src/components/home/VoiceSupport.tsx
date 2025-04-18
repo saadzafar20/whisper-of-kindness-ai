@@ -35,11 +35,28 @@ export const VoiceSupport = () => {
             </p>
             <div className="mt-auto pt-4">
               <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
+                className="flex gap-2 justify-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
               >
-                <VoiceWaveform isActive={true} />
+                {[0.3, 0.5, 0.7, 0.6, 0.4].map((height, index) => (
+                  <motion.div
+                    key={index}
+                    className="w-2 bg-empathy-purple rounded-full"
+                    initial={{ height: "20px" }}
+                    animate={{
+                      height: ["20px", `${height * 60}px`, "20px"],
+                    }}
+                    transition={{
+                      duration: 2,
+                      ease: "easeInOut",
+                      delay: index * 0.2,
+                      repeat: Infinity,
+                      repeatDelay: 1
+                    }}
+                  />
+                ))}
               </motion.div>
             </div>
           </motion.div>
