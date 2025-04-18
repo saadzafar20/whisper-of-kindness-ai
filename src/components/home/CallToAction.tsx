@@ -21,13 +21,18 @@ export const CallToAction = () => {
           </div>
           
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-8">
-            <UserStats />
+            <div className="text-center">
+              <p className="text-3xl font-bold">50,000+</p>
+              <p className="text-sm text-muted-foreground">Active Users</p>
+            </div>
             <Separator className="hidden sm:block h-8 w-px bg-border" orientation="vertical" />
-            <RatingStats />
+            <div className="text-center">
+              <p className="text-3xl font-bold">4.9/5</p>
+              <p className="text-sm text-muted-foreground">User Satisfaction</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
 };
-

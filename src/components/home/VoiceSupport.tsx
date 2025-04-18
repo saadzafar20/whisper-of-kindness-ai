@@ -29,12 +29,59 @@ export const VoiceSupport = () => {
             </div>
           </div>
           
-          <SecurityFeature />
-          <AvailabilityFeature />
-          <ResearchFeature />
+          <SecurityFeatureSection />
+          <AvailabilityFeatureSection />
+          <ResearchFeatureSection />
         </div>
       </div>
     </section>
   );
 };
 
+const SecurityFeatureSection = () => {
+  return (
+    <div className="flex flex-col rounded-xl border p-6 animate-fade-in">
+      <div className="flex items-center gap-4 mb-4">
+        <div className="h-12 w-12 rounded-lg bg-empathy-soft-purple flex items-center justify-center">
+          <Lock className="h-6 w-6 text-empathy-purple" />
+        </div>
+        <h3 className="text-xl font-semibold">Privacy & Security</h3>
+      </div>
+      <p className="text-muted-foreground">
+        Your conversations are encrypted and never shared. We prioritize your privacy and maintain the highest security standards.
+      </p>
+    </div>
+  );
+};
+
+const AvailabilityFeatureSection = () => {
+  return (
+    <div className="flex flex-col rounded-xl border p-6 animate-fade-in">
+      <div className="flex items-center gap-4 mb-4">
+        <div className="h-12 w-12 rounded-lg bg-empathy-soft-purple flex items-center justify-center">
+          <Clock className="h-6 w-6 text-empathy-purple" />
+        </div>
+        <h3 className="text-xl font-semibold">24/7 Availability</h3>
+      </div>
+      <p className="text-muted-foreground">
+        Feel heard whenever you need it. Our AI companion is available day or night, weekends and holidays, without scheduling.
+      </p>
+    </div>
+  );
+};
+
+const ResearchFeatureSection = () => {
+  return (
+    <div className="flex flex-col rounded-xl border p-6 animate-fade-in">
+      <div className="flex items-center gap-4 mb-4">
+        <div className="h-12 w-12 rounded-lg bg-empathy-soft-purple flex items-center justify-center">
+          <HeartPulse className="h-6 w-6 text-empathy-purple" />
+        </div>
+        <h3 className="text-xl font-semibold">Research-Backed</h3>
+      </div>
+      <p className="text-muted-foreground">
+        Our approach is based on established therapeutic techniques and emotional support methodologies validated by research.
+      </p>
+    </div>
+  );
+};
