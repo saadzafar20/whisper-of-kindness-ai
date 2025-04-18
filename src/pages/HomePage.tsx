@@ -35,6 +35,16 @@ const HomePage = () => {
       icon: <MessageCircle className="h-8 w-8 text-empathy-purple" />,
       title: "Stress Relief",
       description: "Evidence-based techniques and real-time support for managing stress and anxiety."
+    },
+    {
+      icon: <ShieldCheck className="h-8 w-8 text-empathy-purple" />,
+      title: "Secure Daily Journal",
+      description: "Document your thoughts and feelings in a private, encrypted digital space for self-reflection."
+    },
+    {
+      icon: <Headphones className="h-8 w-8 text-empathy-purple" />,
+      title: "Guided Meditation",
+      description: "Access a library of AI-powered meditation sessions tailored to your emotional state."
     }
   ];
 
