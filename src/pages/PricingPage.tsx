@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Check, HelpCircle } from "lucide-react";
@@ -67,7 +66,7 @@ const PricingPage = () => {
   return (
     <>
       {/* Header Section */}
-      <section className="relative pt-32 pb-16 overflow-hidden">
+      <section className="relative pt-32 pb-16 overflow-hidden bg-empathy-champagne">
         <FloatingElements count={8} />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
@@ -148,7 +147,7 @@ const PricingPage = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 bg-muted/50">
+      <section className="py-16 bg-empathy-champagne">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold mb-8 text-center">Pricing FAQs</h2>
