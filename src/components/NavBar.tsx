@@ -1,8 +1,8 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,7 +43,6 @@ const NavBar = () => {
           </span>
         </Link>
 
-        {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <Link 
@@ -57,6 +56,7 @@ const NavBar = () => {
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
+          <ThemeToggle />
           <Button variant="ghost" className="text-gray-800 dark:text-gray-200 hover:bg-empathy-soft-purple/10 hover:text-empathy-deep-purple">
             Sign In
           </Button>
@@ -65,7 +65,6 @@ const NavBar = () => {
           </Button>
         </div>
 
-        {/* Mobile Navigation Toggle */}
         <button 
           className="md:hidden text-gray-800 dark:text-gray-200" 
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -74,9 +73,8 @@ const NavBar = () => {
         </button>
       </div>
 
-      {/* Mobile Navigation Menu */}
       {isMenuOpen && (
-        <div className="md:hidden absolute top-16 left-0 right-0 bg-sky-50 dark:bg-empathy-dark-navy shadow-lg animate-fade-in">
+        <div className="md:hidden absolute top-16 left-0 right-0 bg-background dark:bg-empathy-dark-navy shadow-lg animate-fade-in">
           <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link 
@@ -89,13 +87,16 @@ const NavBar = () => {
               </Link>
             ))}
             <hr className="my-2 border-gray-200 dark:border-gray-700" />
-            <div className="flex flex-col gap-3 mt-2">
-              <Button variant="ghost" className="justify-center text-gray-800 dark:text-gray-200 hover:bg-empathy-soft-purple/10 hover:text-empathy-deep-purple">
-                Sign In
-              </Button>
-              <Button className="justify-center bg-empathy-purple hover:bg-empathy-dark-purple text-white">
-                Get Started
-              </Button>
+            <div className="flex items-center justify-between mt-2">
+              <ThemeToggle />
+              <div className="flex flex-col gap-3">
+                <Button variant="ghost" className="justify-center text-gray-800 dark:text-gray-200 hover:bg-empathy-soft-purple/10 hover:text-empathy-deep-purple">
+                  Sign In
+                </Button>
+                <Button className="justify-center bg-empathy-purple hover:bg-empathy-dark-purple text-white">
+                  Get Started
+                </Button>
+              </div>
             </div>
           </div>
         </div>
