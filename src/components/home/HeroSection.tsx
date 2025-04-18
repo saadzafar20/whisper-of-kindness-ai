@@ -39,7 +39,6 @@ export const HeroSection = () => {
             animate={{
               y: [0, 20, 0],
               rotate: [0, 10, -10, 0],
-              scale: [1, 1.1, 1],
             }}
             transition={{
               duration: 8,
@@ -199,4 +198,3 @@ const WaveBackgroundSection = () => {
     </div>
   );
 };
-
