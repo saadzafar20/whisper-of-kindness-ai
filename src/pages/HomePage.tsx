@@ -60,7 +60,7 @@ const HomePage = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden bg-gradient-to-b from-empathy-dark-navy via-empathy-deep-purple to-empathy-dark-navy">
+      <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden bg-gradient-to-b from-white via-empathy-soft-purple/10 to-white dark:from-empathy-dark-navy dark:via-empathy-deep-purple/20 dark:to-empathy-dark-navy">
         <FloatingElements count={25} />
         {backgroundImages.map((image, index) => (
           <motion.img
@@ -89,7 +89,7 @@ const HomePage = () => {
         <div className="container mx-auto px-4 pt-16 z-10">
           <div className="max-w-3xl mx-auto text-center">
             <motion.h1 
-              className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-empathy-royal-gold via-empathy-pearl to-empathy-royal-gold"
+              className="text-4xl md:text-6xl font-bold mb-6 text-empathy-deep-purple dark:text-white"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -147,48 +147,40 @@ const HomePage = () => {
               <Button 
                 size="lg" 
                 onClick={toggleVoiceDemo}
-                className="bg-gradient-to-r from-empathy-royal-gold to-empathy-royal-gold/90 hover:from-empathy-royal-gold/90 hover:to-empathy-royal-gold text-empathy-dark-navy font-semibold"
+                className="bg-empathy-purple hover:bg-empathy-dark-purple text-white font-semibold"
               >
-                Try Talking Now
+                Start Talking Now
                 <Mic className="ml-2 h-4 w-4" />
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
                 asChild
-                className="border-empathy-royal-gold text-empathy-royal-gold hover:bg-empathy-royal-gold/10 group transition-all duration-300"
+                className="border-empathy-purple text-empathy-purple hover:bg-empathy-soft-purple/10"
               >
                 <Link to="/privacy" className="flex items-center gap-2">
-                  <motion.div
-                    animate={{ 
-                      rotate: [0, 10, -10, 0],
-                      scale: [1, 1.1, 1]
-                    }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  >
-                    <ShieldCheck className="h-4 w-4 text-empathy-royal-gold group-hover:text-empathy-royal-gold transition-colors" />
-                  </motion.div>
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-empathy-royal-gold to-empathy-pearl font-medium">
-                    Your Privacy Protected
-                  </span>
+                  <ShieldCheck className="h-4 w-4" />
+                  <span>Your Privacy Protected</span>
                 </Link>
               </Button>
             </div>
             
-            <div className={`max-w-md mx-auto p-6 rounded-xl glass-card dark:glass-card-dark transition-all animate-fade-in mb-6 ${isVoiceActive ? 'shadow-lg scale-105' : ''}`} style={{ animationDelay: "600ms" }}>
-              <p className="text-base mb-4">
+            <div className={`max-w-md mx-auto p-6 rounded-xl bg-white/70 dark:bg-empathy-dark-navy/70 backdrop-blur-md shadow-lg transition-all animate-fade-in mb-6 ${isVoiceActive ? 'scale-105' : ''}`} style={{ animationDelay: "600ms" }}>
+              <p className="text-base mb-4 text-empathy-deep-purple dark:text-white">
                 {isVoiceActive 
-                  ? "I'm listening... Tell me how you're feeling." 
-                  : "Click 'Try Talking Now' to experience EmpathyVoice AI"}
+                  ? "I'm listening... Share how you're feeling" 
+                  : "Click 'Start Talking Now' to experience EmpathyVoice AI"}
               </p>
               <VoiceWaveform isActive={isVoiceActive} />
             </div>
 
             <Link to="/pricing" className="block max-w-md mx-auto">
-              <div className="p-6 rounded-xl bg-empathy-soft-purple/30 border border-empathy-purple/20 transition-all hover:shadow-lg hover:scale-105 animate-fade-in" style={{ animationDelay: "800ms" }}>
-                <h3 className="text-lg font-semibold mb-3">Ready to Start Your Journey?</h3>
+              <div className="p-6 rounded-xl bg-empathy-soft-purple/20 border border-empathy-purple/10 transition-all hover:shadow-lg hover:scale-105 animate-fade-in" style={{ animationDelay: "800ms" }}>
+                <h3 className="text-xl font-semibold mb-3 text-empathy-deep-purple dark:text-white">
+                  Ready to Begin Your Emotional Wellness Journey?
+                </h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  View our pricing plans and begin your path to emotional wellness
+                  Explore our personalized support plans and take the first step
                 </p>
                 <Button className="bg-empathy-purple hover:bg-empathy-dark-purple text-white">
                   View Pricing Plans
@@ -197,7 +189,7 @@ const HomePage = () => {
             </Link>
 
             <p className="text-xs text-muted-foreground animate-fade-in" style={{ animationDelay: "800ms" }}>
-              No sign-up required. Your privacy is our priority.
+              No sign-up required. Your emotional well-being is our priority.
             </p>
           </div>
         </div>
