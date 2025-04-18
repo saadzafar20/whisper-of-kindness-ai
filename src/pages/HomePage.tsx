@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Headphones, Mic, Play, ShieldCheck, Heart } from "lucide-react";
+import { Headphones, Mic, Play, ShieldCheck, Heart, MessageCircle, Lock, Clock, HeartPulse } from "lucide-react";
 import FloatingElements from "@/components/FloatingElements";
 import VoiceWaveform from "@/components/VoiceWaveform";
 import TestimonialCard from "@/components/TestimonialCard";
@@ -59,6 +59,7 @@ const HomePage = () => {
 
   return (
     <>
+      {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden bg-gradient-to-b from-empathy-champagne to-white dark:from-empathy-dark-navy dark:to-empathy-dark-navy/90">
         <FloatingElements count={15} />
         {backgroundImages.map((image, index) => (
@@ -201,37 +202,90 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Why AI Support Section */}
       <section className="py-24 bg-white dark:bg-empathy-dark-navy">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">A Voice That Feels. A Mind That Understands.</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Free from fear. Full of empathy. Speak freely — heal gently.
+          <div className="max-w-3xl mx-auto mb-16 text-center">
+            <h2 className="text-3xl font-bold mb-6">The Power of Voice-Based Support</h2>
+            <p className="text-lg text-muted-foreground">
+              Expressing emotions verbally is more natural and therapeutic than typing. Our voice AI captures nuances that text-based solutions miss.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div 
-                key={index} 
-                className="p-6 rounded-xl border border-border bg-card animate-fade-in"
-                style={{ animationDelay: `${index * 200}ms` }}
-              >
-                <div className="h-14 w-14 rounded-lg bg-empathy-soft-purple flex items-center justify-center mb-6">
-                  {feature.icon}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div className="flex flex-col rounded-xl border p-6 animate-fade-in">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="h-12 w-12 rounded-lg bg-empathy-soft-purple flex items-center justify-center">
+                  <MessageCircle className="h-6 w-6 text-empathy-purple" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <h3 className="text-xl font-semibold">Natural Conversation Flow</h3>
               </div>
-            ))}
-          </div>
-          
-          <div className="text-center mt-16">
-            <Button asChild>
-              <Link to="/pricing" className="bg-empathy-purple hover:bg-empathy-dark-purple text-white">
-                Experience AI Emotional Support
-              </Link>
-            </Button>
+              <p className="text-muted-foreground mb-6">
+                Speaking allows you to express emotions more naturally than typing. Our AI responds to tone, pace, and emotional cues.
+              </p>
+              <div className="mt-auto pt-4">
+                <VoiceWaveform isActive={false} />
+              </div>
+            </div>
+            
+            <div className="flex flex-col rounded-xl border p-6 animate-fade-in" style={{ animationDelay: "200ms" }}>
+              <div className="flex items-center gap-4 mb-4">
+                <div className="h-12 w-12 rounded-lg bg-empathy-soft-purple flex items-center justify-center">
+                  <Lock className="h-6 w-6 text-empathy-purple" />
+                </div>
+                <h3 className="text-xl font-semibold">100% Private & Secure</h3>
+              </div>
+              <p className="text-muted-foreground mb-6">
+                Unlike human counseling, your conversations remain completely private. No human reviewers, no judgment, and military-grade encryption.
+              </p>
+              <div className="mt-auto grid grid-cols-3 gap-2">
+                <div className="h-10 rounded bg-empathy-soft-purple/50 flex items-center justify-center">
+                  <span className="text-xs font-medium">Encrypted</span>
+                </div>
+                <div className="h-10 rounded bg-empathy-soft-purple/50 flex items-center justify-center">
+                  <span className="text-xs font-medium">Private</span>
+                </div>
+                <div className="h-10 rounded bg-empathy-soft-purple/50 flex items-center justify-center">
+                  <span className="text-xs font-medium">Secure</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex flex-col rounded-xl border p-6 animate-fade-in" style={{ animationDelay: "300ms" }}>
+              <div className="flex items-center gap-4 mb-4">
+                <div className="h-12 w-12 rounded-lg bg-empathy-soft-purple flex items-center justify-center">
+                  <Clock className="h-6 w-6 text-empathy-purple" />
+                </div>
+                <h3 className="text-xl font-semibold">Always Available</h3>
+              </div>
+              <p className="text-muted-foreground mb-6">
+                Emotional support whenever you need it - day or night. No scheduling, no waiting for appointments, no time limitations.
+              </p>
+              <div className="mt-auto grid grid-cols-7 gap-1">
+                {[...Array(7)].map((_, i) => (
+                  <div key={i} className="h-8 rounded bg-empathy-soft-purple/50 flex items-center justify-center">
+                    <span className="text-[10px] font-medium">{['M','T','W','T','F','S','S'][i]}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div className="flex flex-col rounded-xl border p-6 animate-fade-in" style={{ animationDelay: "400ms" }}>
+              <div className="flex items-center gap-4 mb-4">
+                <div className="h-12 w-12 rounded-lg bg-empathy-soft-purple flex items-center justify-center">
+                  <HeartPulse className="h-6 w-6 text-empathy-purple" />
+                </div>
+                <h3 className="text-xl font-semibold">Evidence-Based Support</h3>
+              </div>
+              <p className="text-muted-foreground mb-6">
+                Our AI is built on established therapeutic principles and continuously improves through research partnerships.
+              </p>
+              <div className="mt-auto flex justify-center">
+                <div className="h-8 px-3 rounded-full bg-empathy-soft-purple/50 flex items-center justify-center">
+                  <span className="text-xs font-medium">Research-backed approaches</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
