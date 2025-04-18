@@ -89,7 +89,7 @@ const HomePage = () => {
         <div className="container mx-auto px-4 pt-16 z-10">
           <div className="max-w-3xl mx-auto text-center">
             <motion.h1 
-              className="text-3xl md:text-5xl font-bold mb-6 text-gray-800"
+              className="text-3xl md:text-5xl font-bold mb-6 text-empathy-deep-purple"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -158,7 +158,7 @@ const HomePage = () => {
                 onClick={toggleVoiceDemo}
                 className="bg-empathy-purple hover:bg-empathy-dark-purple text-white font-semibold"
               >
-                Start Talking Now
+                Free Demo
                 <Mic className="ml-2 h-4 w-4" />
               </Button>
               <Button 
