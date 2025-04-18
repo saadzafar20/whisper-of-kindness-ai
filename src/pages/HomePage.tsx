@@ -87,19 +87,21 @@ const HomePage = () => {
         <div className="container mx-auto px-4 pt-16 z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-3xl md:text-5xl font-bold mb-4 animate-fade-in bg-clip-text text-transparent bg-gradient-to-r from-empathy-purple to-empathy-dark-purple">
-              A Supportive Voice When You Need to Be Heard
+              An Emotionally Intelligent Voice That Truly Cares
             </h1>
             <p className="text-lg md:text-xl mb-8 animate-fade-in bg-clip-text text-transparent bg-gradient-to-r from-empathy-deep-purple to-empathy-purple" style={{ animationDelay: "200ms" }}>
-              Your compassionate AI companion for emotional wellness - 100% secure and always listening.
+              No fear of judgment. No awkward silence. Just a safe space to speak your mind and ease your heart.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10 animate-fade-in" style={{ animationDelay: "400ms" }}>
               <Button 
                 size="lg" 
-                onClick={toggleVoiceDemo}
+                asChild
                 className="bg-empathy-purple hover:bg-empathy-dark-purple text-white"
               >
-                {isVoiceActive ? "Stop Demo" : "Try Talking Now"}
-                <Mic className="ml-2 h-4 w-4" />
+                <Link to="/pricing" className="flex items-center gap-2">
+                  <Mic className="h-4 w-4" />
+                  Try Talking Now
+                </Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
                 <Link to="/privacy" className="flex items-center gap-2">
@@ -109,14 +111,14 @@ const HomePage = () => {
               </Button>
             </div>
             
-            <div className={`max-w-md mx-auto p-6 rounded-xl glass-card dark:glass-card-dark transition-all animate-fade-in mb-6 ${isVoiceActive ? 'shadow-lg scale-105' : ''}`} style={{ animationDelay: "600ms" }}>
-              <p className="text-base mb-4">
-                {isVoiceActive 
-                  ? "I'm listening... Tell me how you're feeling." 
-                  : "Click 'Try Talking Now' to experience EmpathyVoice AI"}
-              </p>
-              <VoiceWaveform isActive={isVoiceActive} />
-            </div>
+            <Link to="/pricing" className="block">
+              <div className={`max-w-md mx-auto p-6 rounded-xl glass-card dark:glass-card-dark transition-all animate-fade-in mb-6 hover:shadow-lg hover:scale-105`} style={{ animationDelay: "600ms" }}>
+                <p className="text-base mb-4">
+                  Click 'Try Talking Now' to experience EmpathyVoice AI
+                </p>
+                <VoiceWaveform isActive={true} />
+              </div>
+            </Link>
 
             <p className="text-xs text-muted-foreground animate-fade-in" style={{ animationDelay: "800ms" }}>
               No sign-up required. Your privacy is our priority.
@@ -139,9 +141,9 @@ const HomePage = () => {
       <section className="py-24 bg-white dark:bg-empathy-dark-navy">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Why EmpathyVoice AI?</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">A Voice That Feels. A Mind That Understands.</h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              A new approach to emotional wellness, powered by empathetic AI that truly listens.
+              Free from fear. Full of empathy. Speak freely — heal gently.
             </p>
           </div>
           
@@ -163,8 +165,8 @@ const HomePage = () => {
           
           <div className="text-center mt-16">
             <Button asChild>
-              <Link to="/why-ai-support" className="bg-empathy-purple hover:bg-empathy-dark-purple text-white">
-                Learn More About AI Support
+              <Link to="/pricing" className="bg-empathy-purple hover:bg-empathy-dark-purple text-white">
+                Experience AI Emotional Support
               </Link>
             </Button>
           </div>
