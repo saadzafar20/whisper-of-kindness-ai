@@ -25,7 +25,7 @@ const NavBar = () => {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Why AI Support", path: "/why-ai-support" },
-    { name: "How It Works", path: "/how-it-works" },
+    { name: "Talk to Consultants", path: "/talk-to-consultants" },
     { name: "Pricing", path: "/pricing" },
     { name: "Blog", path: "/blog" },
     { name: "Join Network", path: "/join-network" },

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Headphones, Mic, Play } from "lucide-react";
+import { Headphones, Mic, Play, ShieldCheck } from "lucide-react";
 import FloatingElements from "@/components/FloatingElements";
 import VoiceWaveform from "@/components/VoiceWaveform";
 import TestimonialCard from "@/components/TestimonialCard";
 import { Separator } from "@/components/ui/separator";
+import { motion } from "framer-motion";
 
 const HomePage = () => {
   const [isVoiceActive, setIsVoiceActive] = useState(false);
@@ -50,16 +51,45 @@ const HomePage = () => {
     }
   ];
 
+  const backgroundImages = [
+    { src: "/mental-wellness.svg", alt: "Mental Wellness" },
+    { src: "/mindfulness.svg", alt: "Mindfulness" },
+    { src: "/emotional-support.svg", alt: "Emotional Support" }
+  ];
+
   return (
     <>
-      <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden">
+      <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden bg-gradient-to-b from-empathy-champagne to-white dark:from-empathy-dark-navy dark:to-empathy-dark-navy/90">
         <FloatingElements count={15} />
+        {backgroundImages.map((image, index) => (
+          <motion.img
+            key={index}
+            src={image.src}
+            alt={image.alt}
+            className="absolute opacity-10 dark:opacity-5"
+            style={{
+              top: `${20 + index * 30}%`,
+              right: `${10 + index * 20}%`,
+              width: '300px',
+              height: '300px',
+            }}
+            animate={{
+              y: [0, 20, 0],
+              opacity: [0.1, 0.15, 0.1],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              delay: index * 2,
+            }}
+          />
+        ))}
         <div className="container mx-auto px-4 pt-16 z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl md:text-5xl font-bold mb-4 animate-fade-in text-empathy-deep-purple">
-              A Supportive Voice When You Need to <span className="text-empathy-purple">Be Heard</span>
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 animate-fade-in bg-clip-text text-transparent bg-gradient-to-r from-empathy-purple to-empathy-dark-purple">
+              A Supportive Voice When You Need to Be Heard
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 animate-fade-in" style={{ animationDelay: "200ms" }}>
+            <p className="text-lg md:text-xl mb-8 animate-fade-in bg-clip-text text-transparent bg-gradient-to-r from-empathy-deep-purple to-empathy-purple" style={{ animationDelay: "200ms" }}>
               Your compassionate AI companion for emotional wellness - 100% secure and always listening.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10 animate-fade-in" style={{ animationDelay: "400ms" }}>
@@ -71,8 +101,11 @@ const HomePage = () => {
                 {isVoiceActive ? "Stop Demo" : "Try Talking Now"}
                 <Mic className="ml-2 h-4 w-4" />
               </Button>
-              <Button variant="outline" size="lg">
-                Learn More
+              <Button variant="outline" size="lg" asChild>
+                <Link to="/privacy" className="flex items-center gap-2">
+                  <ShieldCheck className="h-4 w-4" />
+                  Your Privacy Protected
+                </Link>
               </Button>
             </div>
             
@@ -91,7 +124,6 @@ const HomePage = () => {
           </div>
         </div>
         
-        {/* Curved Divider */}
         <div className="absolute bottom-0 left-0 right-0 h-16">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full h-full">
             <path 
@@ -104,7 +136,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Features Section */}
       <section className="py-24 bg-white dark:bg-empathy-dark-navy">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -140,7 +171,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* How It Works Section */}
       <section className="py-24 bg-muted/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
@@ -186,7 +216,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Testimonials Section */}
       <section className="py-24 relative overflow-hidden bg-white dark:bg-empathy-dark-navy">
         <FloatingElements count={8} />
         <div className="container mx-auto px-4 relative z-10">
@@ -211,7 +240,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-24 bg-empathy-soft-purple dark:bg-empathy-dark-purple/20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
