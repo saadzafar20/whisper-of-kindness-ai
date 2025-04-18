@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -18,19 +17,19 @@ const HomePage = () => {
 
   const features = [
     {
-      icon: <Headphones className="h-8 w-8 text-empathy-purple" />,
-      title: "100% Private",
-      description: "Conversations remain completely confidential."
+      icon: <ShieldCheck className="h-8 w-8 text-empathy-purple" />,
+      title: "100% Private & Confidential",
+      description: "Your conversations remain completely secure with end-to-end encryption."
     },
     {
-      icon: <Mic className="h-8 w-8 text-empathy-purple" />,
-      title: "Voice-First",
-      description: "Express emotions more naturally through voice."
+      icon: <HeartPulse className="h-8 w-8 text-empathy-purple" />,
+      title: "Non-judgmental Active Listening",
+      description: "Express yourself freely without fear of judgment."
     },
     {
-      icon: <Play className="h-8 w-8 text-empathy-purple" />,
-      title: "Always Available",
-      description: "Emotional support anytime, anywhere."
+      icon: <Clock className="h-8 w-8 text-empathy-purple" />,
+      title: "Available 24/7",
+      description: "Get support anytime, anywhere you need it."
     }
   ];
 
@@ -61,7 +60,7 @@ const HomePage = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden bg-gradient-to-b from-sky-50 via-sky-100/20 to-sky-50 dark:from-sky-100/10 dark:via-sky-200/20 dark:to-sky-100/10">
+      <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden bg-sky-50">
         <FloatingElements count={25} />
         {backgroundImages.map((image, index) => (
           <motion.img
@@ -90,29 +89,38 @@ const HomePage = () => {
         <div className="container mx-auto px-4 pt-16 z-10">
           <div className="max-w-3xl mx-auto text-center">
             <motion.h1 
-              className="text-4xl md:text-6xl font-bold mb-6 text-empathy-deep-purple dark:text-white"
+              className="text-4xl md:text-6xl font-bold mb-6 text-gray-800"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              An Emotionally Intelligent Voice That Truly Cares
+              Experience a Revolutionary Approach to Emotional Wellness
             </motion.h1>
+            
+            <motion.p
+              className="text-xl text-gray-600 mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              Backed by cutting-edge research and designed with empathy at its core, our AI provides consistent, judgment-free support whenever you need it.
+            </motion.p>
 
             <div className="space-y-6 mb-8">
               {[
                 {
-                  text: "No fear of judgment.",
-                  icon: <ShieldCheck className="h-5 w-5 text-empathy-purple" />,
+                  text: "Evidence-based Coping Strategies",
+                  icon: <HeartPulse className="h-5 w-5 text-empathy-purple" />,
                   delay: 0.2
                 },
                 {
-                  text: "No awkward silence. EVER!",
-                  icon: <Mic className="h-5 w-5 text-empathy-purple" />,
+                  text: "Personalized Support Journey",
+                  icon: <Heart className="h-5 w-5 text-empathy-purple" />,
                   delay: 0.4
                 },
                 {
-                  text: "Just a safe space - 100%",
-                  icon: <Heart className="h-5 w-5 text-empathy-purple" />,
+                  text: "Secure End-to-end Encryption",
+                  icon: <Lock className="h-5 w-5 text-empathy-purple" />,
                   delay: 0.6
                 }
               ].map((item, index) => (
@@ -207,6 +215,36 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Features Section */}
+      <section className="py-24 bg-white dark:bg-empathy-dark-navy">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto mb-16 text-center">
+            <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">Your AI Companion for Emotional Wellness</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300">
+              Experience support that adapts to your needs, available whenever and wherever you need it.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                className="p-6 rounded-xl bg-sky-50 dark:bg-empathy-dark-navy border border-gray-200 dark:border-gray-700"
+              >
+                <div className="h-12 w-12 rounded-lg bg-white dark:bg-gray-800 flex items-center justify-center mb-4">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-white">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Why AI Support Section */}
       <section className="py-24 bg-white dark:bg-empathy-dark-navy">
         <div className="container mx-auto px-4">
@@ -291,51 +329,6 @@ const HomePage = () => {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-24 bg-muted/50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Getting emotional support has never been easier. Just three simple steps.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center animate-fade-in" style={{ animationDelay: "0ms" }}>
-              <div className="h-16 w-16 rounded-full bg-empathy-soft-purple text-empathy-purple text-xl font-bold flex items-center justify-center mx-auto mb-6">
-                1
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Tap to Speak</h3>
-              <p className="text-muted-foreground">Open the app and tap the microphone button whenever you need to talk.</p>
-            </div>
-            
-            <div className="text-center animate-fade-in" style={{ animationDelay: "200ms" }}>
-              <div className="h-16 w-16 rounded-full bg-empathy-soft-purple text-empathy-purple text-xl font-bold flex items-center justify-center mx-auto mb-6">
-                2
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Talk Freely</h3>
-              <p className="text-muted-foreground">Express your thoughts and feelings naturally. EmpathyVoice is listening.</p>
-            </div>
-            
-            <div className="text-center animate-fade-in" style={{ animationDelay: "400ms" }}>
-              <div className="h-16 w-16 rounded-full bg-empathy-soft-purple text-empathy-purple text-xl font-bold flex items-center justify-center mx-auto mb-6">
-                3
-              </div>
-              <h3 className="text-xl font-semibold mb-3">Feel Better</h3>
-              <p className="text-muted-foreground">Receive empathetic responses and guided support to help you process emotions.</p>
-            </div>
-          </div>
-          
-          <div className="text-center mt-16">
-            <Button asChild>
-              <Link to="/how-it-works" className="bg-empathy-purple hover:bg-empathy-dark-purple text-white">
-                See Detailed Walkthrough
-              </Link>
-            </Button>
           </div>
         </div>
       </section>
