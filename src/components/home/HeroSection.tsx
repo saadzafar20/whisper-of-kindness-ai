@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -52,6 +51,7 @@ export const HeroSection = () => {
           </motion.div>
         );
       })}
+      
       <div className="container mx-auto px-4 pt-16 z-10 text-center">
         <motion.h1 
           className="text-3xl md:text-5xl font-bold mb-6 text-empathy-deep-purple"
@@ -78,7 +78,6 @@ export const HeroSection = () => {
         <HeroActionsSection toggleVoiceDemo={toggleVoiceDemo} />
         <VoiceDemoSection isActive={isVoiceActive} />
         <StartNowCardSection />
-        <WhatMakesUsDifferentSection />
       </div>
       
       <WaveBackgroundSection />
@@ -167,25 +166,6 @@ const VoiceDemoSection = ({ isActive }: { isActive: boolean }) => {
       <VoiceWaveform isActive={true} />
     </div>
   ) : null;
-};
-
-const WhatMakesUsDifferentSection = () => {
-  return (
-    <motion.div 
-      className="mt-16 mb-10 max-w-3xl mx-auto"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
-    >
-      <h2 className="text-2xl md:text-3xl font-bold mb-4 text-empathy-deep-purple">What Makes Us Different</h2>
-      <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-md border border-gray-200">
-        <h3 className="text-xl font-bold mb-3 text-empathy-deep-purple">The Power of Voice-Based Support</h3>
-        <p className="text-gray-700">
-          Expressing emotions verbally is more natural and therapeutic than typing. Our voice AI captures nuances that text-based solutions miss.
-        </p>
-      </div>
-    </motion.div>
-  );
 };
 
 const StartNowCardSection = () => {
