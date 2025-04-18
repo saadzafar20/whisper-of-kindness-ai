@@ -1,8 +1,9 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, Users, Clock, Calendar, Star, Shield, Heart, MessageCircle, Brain as BrainIcon } from "lucide-react";
+import { Brain, Users, Clock, Calendar, Star, Shield, Heart, MessageCircle, Brain as BrainIcon, Sparkles, Clock4 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { motion } from "framer-motion";
 
 const TalkToConsultantsPage = () => {
   const options = [
@@ -164,51 +165,130 @@ const TalkToConsultantsPage = () => {
             </Card>
           </div>
 
-          {/* Expert Consultants Section */}
-          <h2 className="text-3xl font-bold mb-8 text-center text-empathy-deep-purple">Our Expert Consultants</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            {options[1].experts.map((expert, index) => (
-              <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="aspect-w-16 aspect-h-9 relative">
-                  <img 
-                    src={expert.image} 
-                    alt={expert.name}
-                    className="object-cover w-full h-64"
-                  />
+          {/* Why AI Support Section */}
+          <h2 className="text-3xl font-bold mb-8 text-center text-empathy-deep-purple">Why AI Support?</h2>
+          
+          {/* Our Experts */}
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="text-2xl mb-4">Our Experts</CardTitle>
+              <CardDescription>
+                Meet the team who developed this revolutionary AI support system
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-3 gap-6">
+                <div className="flex flex-col items-center text-center">
+                  <div className="rounded-full bg-empathy-soft-purple p-4 mb-4">
+                    <Brain className="h-8 w-8 text-empathy-purple" />
+                  </div>
+                  <h3 className="font-semibold mb-2">AI Research Team</h3>
+                  <p className="text-muted-foreground">Leading experts in natural language processing and emotional intelligence AI</p>
                 </div>
-                <CardHeader>
-                  <div className="flex justify-between items-start">
+                <div className="flex flex-col items-center text-center">
+                  <div className="rounded-full bg-empathy-soft-purple p-4 mb-4">
+                    <Heart className="h-8 w-8 text-empathy-purple" />
+                  </div>
+                  <h3 className="font-semibold mb-2">Mental Health Professionals</h3>
+                  <p className="text-muted-foreground">Licensed therapists and counselors guiding AI development</p>
+                </div>
+                <div className="flex flex-col items-center text-center">
+                  <div className="rounded-full bg-empathy-soft-purple p-4 mb-4">
+                    <Shield className="h-8 w-8 text-empathy-purple" />
+                  </div>
+                  <h3 className="font-semibold mb-2">Ethics & Privacy Team</h3>
+                  <p className="text-muted-foreground">Ensuring secure, ethical, and responsible AI interactions</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Comparison Section */}
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <Card className="h-full">
+              <CardHeader>
+                <CardTitle className="text-xl mb-4">AI Support vs Traditional Therapy</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="h-[300px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <BarChart
+                      data={[
+                        { name: 'Accessibility', ai: 100, traditional: 40 },
+                        { name: 'Cost', ai: 90, traditional: 30 },
+                        { name: 'Availability', ai: 100, traditional: 45 },
+                        { name: 'Response Time', ai: 95, traditional: 50 },
+                      ]}
+                      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis />
+                      <Tooltip />
+                      <Bar dataKey="ai" name="AI Support" fill="#7C3AED" />
+                      <Bar dataKey="traditional" name="Traditional" fill="#E9D5FF" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="h-full">
+              <CardHeader>
+                <CardTitle className="text-xl mb-4">Key Benefits</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <motion.div 
+                  className="space-y-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="flex items-start gap-3">
+                    <Clock4 className="h-5 w-5 text-empathy-purple mt-1" />
                     <div>
-                      <CardTitle className="text-xl mb-1">{expert.name}</CardTitle>
-                      <CardDescription className="text-lg font-semibold text-empathy-purple">
-                        {expert.type}
-                      </CardDescription>
-                    </div>
-                    <span className="text-xl font-bold text-empathy-deep-purple">{expert.price}</span>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="mb-4 text-muted-foreground">{expert.description}</p>
-                  <div className="space-y-2">
-                    <p className="font-semibold text-empathy-deep-purple">Specializations:</p>
-                    <div className="flex flex-wrap gap-2">
-                      {expert.expertise.map((item, i) => (
-                        <span 
-                          key={i}
-                          className="px-3 py-1 rounded-full bg-empathy-soft-purple text-empathy-purple text-sm"
-                        >
-                          {item}
-                        </span>
-                      ))}
+                      <h4 className="font-semibold">24/7 Availability</h4>
+                      <p className="text-muted-foreground">Access support anytime, anywhere without scheduling appointments</p>
                     </div>
                   </div>
-                  <Button className="w-full mt-6 bg-empathy-purple hover:bg-empathy-dark-purple">
-                    Schedule Consultation
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+                  <div className="flex items-start gap-3">
+                    <Sparkles className="h-5 w-5 text-empathy-purple mt-1" />
+                    <div>
+                      <h4 className="font-semibold">Immediate Response</h4>
+                      <p className="text-muted-foreground">No waiting lists or delayed responses - get help when you need it</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Shield className="h-5 w-5 text-empathy-purple mt-1" />
+                    <div>
+                      <h4 className="font-semibold">Complete Privacy</h4>
+                      <p className="text-muted-foreground">Share your thoughts without fear of judgment or social stigma</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <Brain className="h-5 w-5 text-empathy-purple mt-1" />
+                    <div>
+                      <h4 className="font-semibold">Consistent Quality</h4>
+                      <p className="text-muted-foreground">AI-powered responses maintain high quality across all interactions</p>
+                    </div>
+                  </div>
+                </motion.div>
+              </CardContent>
+            </Card>
           </div>
+
+          {/* Call to Action */}
+          <Card className="bg-gradient-to-r from-empathy-purple to-empathy-dark-purple text-white">
+            <CardContent className="p-8">
+              <div className="text-center">
+                <h3 className="text-2xl font-bold mb-4">Ready to Experience the Future of Emotional Support?</h3>
+                <p className="mb-6 opacity-90">Join thousands of users who have already discovered the power of AI support</p>
+                <Button asChild className="bg-white text-empathy-purple hover:bg-gray-100">
+                  <Link to="/pricing">Get Started Now</Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
