@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -36,15 +37,15 @@ export const HeroSection = () => {
               right: `${10 + index * 15}%`,
             }}
             animate={{
-              y: [0, 20, 0],
-              rotate: [0, 10, -10, 0],
+              y: [0, 20],
+              rotate: [0, 10],
             }}
             transition={{
               duration: 8,
               repeat: Infinity,
+              repeatType: "reverse",
               delay: index * 1.5,
-              type: "spring",
-              stiffness: 100,
+              ease: "easeInOut",
             }}
           >
             <Icon size={64} color={item.color} />
@@ -121,10 +122,14 @@ const HeroFeaturesSection = () => {
               boxShadow: [
                 "0 0 0 0 rgba(155, 135, 245, 0)",
                 "0 0 0 10px rgba(155, 135, 245, 0.1)",
-                "0 0 0 20px rgba(155, 135, 245, 0)"
               ]
             }}
-            transition={{ duration: 2, repeat: Infinity }}
+            transition={{ 
+              duration: 2,
+              repeat: Infinity,
+              repeatType: "reverse",
+              ease: "easeInOut"
+            }}
           >
             {item.icon}
           </motion.div>
