@@ -19,22 +19,22 @@ const HomePage = () => {
     {
       icon: <HeartPulse className="h-8 w-8 text-empathy-purple" />,
       title: "Personalized Wellness Plan",
-      description: "Tailored strategies for your unique journey."
+      description: "Custom-designed strategies that adapt to your emotional growth and personal needs."
     },
     {
       icon: <Heart className="h-8 w-8 text-empathy-purple" />,
       title: "Personalized Support Journey",
-      description: "Support that adapts to your unique needs."
+      description: "A companion that learns and evolves with you, offering tailored guidance at every step."
     },
     {
-      icon: <Lock className="h-8 w-8 text-empathy-purple" />,
-      title: "Enhanced Emotional Support",
-      description: "Expert guidance available 24/7."
+      icon: <Clock className="h-8 w-8 text-empathy-purple" />,
+      title: "Progress Tracking",
+      description: "Monitor your emotional well-being journey with intuitive insights and milestone tracking."
     },
     {
       icon: <MessageCircle className="h-8 w-8 text-empathy-purple" />,
       title: "Stress Relief",
-      description: "Effective techniques for managing daily stress."
+      description: "Evidence-based techniques and real-time support for managing stress and anxiety."
     }
   ];
 
@@ -106,9 +106,32 @@ const HomePage = () => {
               className="text-lg text-gray-600 mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              transition={{ 
+                duration: 0.8, 
+                delay: 0.2 
+              }}
             >
-              Your AI companion for judgment-free emotional support, available 24/7.
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                Inspired by Humanity.{' '}
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+              >
+                Made with ❤️ to Heal.{' '}
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1.3 }}
+              >
+                Devoted to You 24/7
+              </motion.span>
             </motion.p>
 
             <div className="space-y-4 mb-8">
