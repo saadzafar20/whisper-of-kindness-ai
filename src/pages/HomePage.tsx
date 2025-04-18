@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -13,24 +12,23 @@ const HomePage = () => {
   
   const toggleVoiceDemo = () => {
     setIsVoiceActive(!isVoiceActive);
-    // In a real implementation, this would trigger voice recording/playback
   };
 
   const features = [
     {
       icon: <Headphones className="h-8 w-8 text-empathy-purple" />,
       title: "100% Private",
-      description: "Your conversations remain completely confidential. No human reviewers, ever."
+      description: "Conversations remain completely confidential."
     },
     {
       icon: <Mic className="h-8 w-8 text-empathy-purple" />,
-      title: "Voice-First Design",
-      description: "Expressing emotions through voice is more natural than typing your feelings."
+      title: "Voice-First",
+      description: "Express emotions more naturally through voice."
     },
     {
       icon: <Play className="h-8 w-8 text-empathy-purple" />,
       title: "Always Available",
-      description: "Get emotional support any time, day or night, whenever you need someone to listen."
+      description: "Emotional support anytime, anywhere."
     }
   ];
 
@@ -54,19 +52,17 @@ const HomePage = () => {
 
   return (
     <>
-      {/* Hero Section */}
       <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden">
         <FloatingElements count={15} />
         <div className="container mx-auto px-4 pt-16 z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
-              A Supportive Voice When You Need Someone to <span className="text-empathy-purple">Listen</span>
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 animate-fade-in text-empathy-deep-purple">
+              A Supportive Voice When You Need to <span className="text-empathy-purple">Be Heard</span>
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground mb-10 animate-fade-in" style={{ animationDelay: "200ms" }}>
-              Your trusted voice-based companion for emotional wellness - 100% secure.
-              Get compassionate support, whenever you need it.
+            <p className="text-lg md:text-xl text-muted-foreground mb-8 animate-fade-in" style={{ animationDelay: "200ms" }}>
+              Your compassionate AI companion for emotional wellness - 100% secure and always listening.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in" style={{ animationDelay: "400ms" }}>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10 animate-fade-in" style={{ animationDelay: "400ms" }}>
               <Button 
                 size="lg" 
                 onClick={toggleVoiceDemo}
@@ -80,18 +76,17 @@ const HomePage = () => {
               </Button>
             </div>
             
-            {/* Voice Waveform Demo */}
-            <div className={`max-w-md mx-auto p-6 rounded-xl glass-card dark:glass-card-dark transition-all animate-fade-in mb-8 ${isVoiceActive ? 'shadow-lg scale-105' : ''}`} style={{ animationDelay: "600ms" }}>
-              <p className="text-lg mb-5">
+            <div className={`max-w-md mx-auto p-6 rounded-xl glass-card dark:glass-card-dark transition-all animate-fade-in mb-6 ${isVoiceActive ? 'shadow-lg scale-105' : ''}`} style={{ animationDelay: "600ms" }}>
+              <p className="text-base mb-4">
                 {isVoiceActive 
-                  ? "I'm listening... Tell me how you're feeling today." 
+                  ? "I'm listening... Tell me how you're feeling." 
                   : "Click 'Try Talking Now' to experience EmpathyVoice AI"}
               </p>
               <VoiceWaveform isActive={isVoiceActive} />
             </div>
 
-            <p className="text-sm text-muted-foreground animate-fade-in" style={{ animationDelay: "800ms" }}>
-              No sign-up required for demo. Your privacy is our priority.
+            <p className="text-xs text-muted-foreground animate-fade-in" style={{ animationDelay: "800ms" }}>
+              No sign-up required. Your privacy is our priority.
             </p>
           </div>
         </div>
