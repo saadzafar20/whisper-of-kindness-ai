@@ -147,20 +147,6 @@ const TalkToConsultantsPage = () => {
                     </Button>
                   </div>
                 </div>
-
-                {/* Important Note Section */}
-                <div className="mt-8 p-4 bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-lg">
-                  <h4 className="text-lg font-semibold mb-2 text-red-700 dark:text-red-400">Important Note:</h4>
-                  <p className="text-sm text-red-600 dark:text-red-300 mb-2">
-                    While AI mental health support is powerful, it cannot replace:
-                  </p>
-                  <ul className="list-disc list-inside text-sm text-red-600 dark:text-red-300 space-y-1">
-                    <li>Professional diagnosis of mental illness</li>
-                    <li>Prescription of medication</li>
-                    <li>Crisis intervention (suicidal thoughts, severe depression, psychosis)</li>
-                    <li>Deep trauma work or complex disorders</li>
-                  </ul>
-                </div>
               </CardContent>
             </Card>
           </div>
@@ -278,17 +264,31 @@ const TalkToConsultantsPage = () => {
           </div>
 
           {/* Call to Action */}
-          <Card className="bg-gradient-to-r from-empathy-purple to-empathy-dark-purple text-white">
+          <Card className="bg-gradient-to-r from-empathy-purple to-empathy-dark-purple mb-8">
             <CardContent className="p-8">
               <div className="text-center">
-                <h3 className="text-2xl font-bold mb-4">Ready to Experience the Future of Emotional Support?</h3>
-                <p className="mb-6 opacity-90">Join thousands of users who have already discovered the power of AI support</p>
+                <h3 className="text-2xl font-bold mb-4 text-white">Ready to Experience the Future of Emotional Support?</h3>
+                <p className="mb-6 text-white/90">Join thousands of users who have already discovered the power of AI support</p>
                 <Button asChild className="bg-white text-empathy-purple hover:bg-gray-100">
                   <Link to="/pricing">Get Started Now</Link>
                 </Button>
               </div>
             </CardContent>
           </Card>
+
+          {/* Important Note Section - Moved to the end */}
+          <div className="mt-8 p-6 bg-red-50 dark:bg-red-900/10 border border-red-200 dark:border-red-800 rounded-lg">
+            <h4 className="text-lg font-semibold mb-3 text-red-700 dark:text-red-400">Important Note:</h4>
+            <p className="text-sm text-red-600 dark:text-red-300 mb-3">
+              While AI mental health support is powerful, it cannot replace:
+            </p>
+            <ul className="list-disc list-inside text-sm text-red-600 dark:text-red-300 space-y-2">
+              <li>Professional diagnosis of mental illness</li>
+              <li>Prescription of medication</li>
+              <li>Crisis intervention (suicidal thoughts, severe depression, psychosis)</li>
+              <li>Deep trauma work or complex disorders</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
