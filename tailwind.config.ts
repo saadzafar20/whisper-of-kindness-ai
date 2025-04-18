@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -64,15 +63,29 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				empathy: {
-					purple: '#9b87f5',
-					'dark-purple': '#7E69AB',
-					'soft-purple': '#E5DEFF',
-					'soft-blue': '#D3E4FD',
-					'sky-blue': '#33C3F0',
-					'bright-blue': '#1EAEDB',
-					'dark-navy': '#1A1F2C',
-					'neutral-gray': '#8E9196',
-					'cool-gray': '#aaadb0',
+					purple: '#6A0DAD',
+					'dark-purple': '#4B0082',
+					'soft-purple': '#9965CC',
+					'dark-navy': '#1A2B3C',
+					'deep-purple': '#4B0082',
+					'royal-gold': '#D4AF37',
+					'rich-plum': '#663854',
+					'midnight-blue': '#191970',
+					'champagne': '#F7E7CE',
+					'emerald': '#50C878',
+					'lavender-silk': '#E6E6FA',
+					'platinum': '#E5E4E2',
+					'pearl': '#F0EAD6',
+					'wine': '#722F37',
+				},
+				backgroundImage: {
+					'luxury-gradient': 'linear-gradient(135deg, #4B0082 0%, #663854 100%)',
+					'gold-gradient': 'linear-gradient(90deg, #D4AF37 0%, #FFD700 100%)',
+					'pearl-gradient': 'linear-gradient(135deg, #F0EAD6 0%, #E5E4E2 100%)',
+				},
+				boxShadow: {
+					'luxury': '0 10px 25px rgba(75, 0, 130, 0.2), 0 5px 15px rgba(102, 56, 84, 0.15)',
+					'gold-shine': '0 8px 20px rgba(212, 175, 55, 0.3)',
 				},
 			},
 			borderRadius: {

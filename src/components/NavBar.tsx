@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -36,10 +35,10 @@ const NavBar = () => {
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/80 dark:bg-empathy-dark-navy/80 backdrop-blur-md shadow-md' : 'bg-transparent'}`}>
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <div className="h-10 w-10 rounded-lg gradient-bg-purple flex items-center justify-center">
-            <span className="text-white font-bold text-xl">E</span>
+          <div className="h-12 w-12 rounded-xl bg-luxury-gradient flex items-center justify-center shadow-luxury">
+            <span className="text-white font-bold text-2xl font-serif">EV</span>
           </div>
-          <span className={`font-bold text-xl ${isScrolled ? 'text-empathy-dark-navy dark:text-white' : 'text-empathy-dark-navy dark:text-white'}`}>
+          <span className={`font-serif font-bold text-xl ${isScrolled ? 'text-empathy-deep-purple dark:text-white' : 'text-empathy-deep-purple dark:text-white'}`}>
             EmpathyVoice
           </span>
         </Link>
@@ -50,7 +49,7 @@ const NavBar = () => {
             <Link 
               key={link.path} 
               to={link.path} 
-              className={`${isScrolled ? 'text-empathy-dark-navy dark:text-white' : 'text-empathy-dark-navy dark:text-white'} hover:text-empathy-purple transition-colors`}
+              className={`${isScrolled ? 'text-empathy-deep-purple dark:text-white' : 'text-empathy-deep-purple dark:text-white'} hover:text-empathy-purple transition-colors`}
             >
               {link.name}
             </Link>
@@ -83,7 +82,7 @@ const NavBar = () => {
               <Link 
                 key={link.path} 
                 to={link.path} 
-                className="text-empathy-dark-navy dark:text-white hover:text-empathy-purple transition-colors py-2"
+                className="text-empathy-deep-purple dark:text-white hover:text-empathy-purple transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.name}
