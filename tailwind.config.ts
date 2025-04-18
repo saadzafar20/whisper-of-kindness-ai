@@ -64,25 +64,25 @@ export default {
         },
         
         empathy: {
-          purple: '#1877F2', // Facebook Blue
-          'dark-purple': '#166DE0', // Darker Facebook Blue
-          'soft-purple': '#E7F3FF', // Light Facebook Blue
-          'dark-navy': '#18191A', // Facebook Dark Mode Background
-          'deep-purple': '#1877F2', // Facebook Blue
-          'royal-gold': '#1877F2', // Facebook Blue
-          'rich-plum': '#166DE0', // Darker Facebook Blue
-          'midnight-blue': '#18191A', // Facebook Dark Mode
-          'champagne': '#F0F2F5', // Facebook Light Background
-          'emerald': '#42B72A', // Facebook Green
-          'lavender-silk': '#E7F3FF', // Light Facebook Blue
-          'platinum': '#F0F2F5', // Facebook Light Background
-          'pearl': '#FFFFFF', // White
-          'wine': '#DC3545', // Error Red
+          purple: '#9b87f5', // Rich purple
+          'dark-purple': '#7E69AB', // Deep royal purple
+          'soft-purple': '#D6BCFA', // Soft lavender
+          'dark-navy': '#1A1F2C', // Rich dark background
+          'deep-purple': '#6E59A5', // Deep accent purple
+          'royal-gold': '#D4AF37', // Luxury gold
+          'rich-plum': '#8B5CF6', // Vibrant plum
+          'midnight-blue': '#1A1F2C', // Elegant dark blue
+          'champagne': '#F7E7CE', // Warm champagne
+          'emerald': '#50C878', // Rich emerald
+          'lavender-silk': '#E6E6FA', // Soft lavender
+          'platinum': '#E5E4E2', // Metallic platinum
+          'pearl': '#FDEEF4', // Soft pearl
+          'wine': '#722F37', // Deep wine
         },
         backgroundImage: {
-          'luxury-gradient': 'linear-gradient(135deg, #1877F2 0%, #166DE0 100%)',
-          'gold-gradient': 'linear-gradient(90deg, #1877F2 0%, #166DE0 100%)',
-          'pearl-gradient': 'linear-gradient(135deg, #F0F2F5 0%, #FFFFFF 100%)',
+          'luxury-gradient': 'linear-gradient(135deg, #9b87f5 0%, #7E69AB 100%)',
+          'gold-gradient': 'linear-gradient(90deg, #D4AF37 0%, #B4974C 100%)',
+          'pearl-gradient': 'linear-gradient(135deg, #FDEEF4 0%, #E5E4E2 100%)',
         },
         boxShadow: {
           'luxury': '0 10px 25px rgba(75, 0, 130, 0.2), 0 5px 15px rgba(102, 56, 84, 0.15)',

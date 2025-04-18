@@ -60,14 +60,14 @@ const HomePage = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden bg-gradient-to-b from-empathy-champagne to-white dark:from-empathy-dark-navy dark:to-empathy-dark-navy/90">
-        <FloatingElements count={15} />
+      <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden bg-gradient-to-b from-empathy-dark-navy via-empathy-deep-purple to-empathy-dark-navy">
+        <FloatingElements count={25} />
         {backgroundImages.map((image, index) => (
           <motion.img
             key={index}
             src={image.src}
             alt={image.alt}
-            className="absolute opacity-10 dark:opacity-5"
+            className="absolute opacity-5 dark:opacity-5"
             style={{
               top: `${20 + index * 30}%`,
               right: `${10 + index * 20}%`,
@@ -76,10 +76,11 @@ const HomePage = () => {
             }}
             animate={{
               y: [0, 20, 0],
-              opacity: [0.1, 0.15, 0.1],
+              opacity: [0.05, 0.08, 0.05],
+              scale: [1, 1.1, 1],
             }}
             transition={{
-              duration: 5,
+              duration: 8,
               repeat: Infinity,
               delay: index * 2,
             }}
@@ -87,76 +88,87 @@ const HomePage = () => {
         ))}
         <div className="container mx-auto px-4 pt-16 z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl md:text-5xl font-bold mb-4 animate-fade-in bg-clip-text text-transparent bg-gradient-to-r from-empathy-purple to-empathy-dark-purple">
+            <motion.h1 
+              className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-empathy-royal-gold via-empathy-pearl to-empathy-royal-gold"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
               An Emotionally Intelligent Voice That Truly Cares
-            </h1>
-            <div className="space-y-4 mb-8">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="flex items-center justify-center gap-3"
-              >
-                <div className="h-8 w-8 rounded-full bg-empathy-soft-purple flex items-center justify-center">
-                  <ShieldCheck className="h-5 w-5 text-empathy-purple" />
-                </div>
-                <p className="text-xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-empathy-deep-purple to-empathy-purple">
-                  No fear of judgment.
-                </p>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="flex items-center justify-center gap-3"
-              >
-                <div className="h-8 w-8 rounded-full bg-empathy-soft-purple flex items-center justify-center">
-                  <Mic className="h-5 w-5 text-empathy-purple" />
-                </div>
-                <p className="text-xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-empathy-purple to-empathy-dark-purple">
-                  No awkward silence. EVER!
-                </p>
-              </motion.div>
-              
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="flex items-center justify-center gap-3"
-              >
-                <div className="h-8 w-8 rounded-full bg-empathy-soft-purple flex items-center justify-center">
-                  <Heart className="h-5 w-5 text-empathy-purple" />
-                </div>
-                <p className="text-xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-empathy-dark-purple to-empathy-purple">
-                  Just a safe space - 100%
-                </p>
-              </motion.div>
+            </motion.h1>
+
+            <div className="space-y-6 mb-8">
+              {[
+                {
+                  text: "No fear of judgment.",
+                  icon: <ShieldCheck className="h-5 w-5 text-empathy-royal-gold" />,
+                  delay: 0.2
+                },
+                {
+                  text: "No awkward silence. EVER!",
+                  icon: <Mic className="h-5 w-5 text-empathy-royal-gold" />,
+                  delay: 0.4
+                },
+                {
+                  text: "Just a safe space - 100%",
+                  icon: <Heart className="h-5 w-5 text-empathy-royal-gold" />,
+                  delay: 0.6
+                }
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: item.delay }}
+                  className="flex items-center justify-center gap-3"
+                >
+                  <motion.div 
+                    className="h-10 w-10 rounded-full bg-empathy-dark-navy/50 backdrop-blur-sm flex items-center justify-center border border-empathy-royal-gold/30"
+                    whileHover={{ scale: 1.1 }}
+                    animate={{
+                      boxShadow: [
+                        "0 0 0 0 rgba(212, 175, 55, 0)",
+                        "0 0 0 10px rgba(212, 175, 55, 0.1)",
+                        "0 0 0 20px rgba(212, 175, 55, 0)"
+                      ]
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    {item.icon}
+                  </motion.div>
+                  <p className="text-2xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-empathy-pearl via-empathy-royal-gold to-empathy-pearl">
+                    {item.text}
+                  </p>
+                </motion.div>
+              ))}
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10 animate-fade-in" style={{ animationDelay: "400ms" }}>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10 animate-fade-in">
               <Button 
                 size="lg" 
                 onClick={toggleVoiceDemo}
-                className="bg-empathy-purple hover:bg-empathy-dark-purple text-white"
+                className="bg-gradient-to-r from-empathy-royal-gold to-empathy-royal-gold/90 hover:from-empathy-royal-gold/90 hover:to-empathy-royal-gold text-empathy-dark-navy font-semibold"
               >
-                {isVoiceActive ? "Stop Demo" : "Try Talking Now"}
+                Try Talking Now
                 <Mic className="ml-2 h-4 w-4" />
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
                 asChild
-                className="border-empathy-purple hover:bg-empathy-soft-purple/50 group transition-all duration-300"
+                className="border-empathy-royal-gold text-empathy-royal-gold hover:bg-empathy-royal-gold/10 group transition-all duration-300"
               >
                 <Link to="/privacy" className="flex items-center gap-2">
                   <motion.div
-                    animate={{ rotate: [0, 10, -10, 0] }}
+                    animate={{ 
+                      rotate: [0, 10, -10, 0],
+                      scale: [1, 1.1, 1]
+                    }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                   >
-                    <ShieldCheck className="h-4 w-4 text-empathy-purple group-hover:text-empathy-dark-purple transition-colors" />
+                    <ShieldCheck className="h-4 w-4 text-empathy-royal-gold group-hover:text-empathy-royal-gold transition-colors" />
                   </motion.div>
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-empathy-purple to-empathy-dark-purple font-medium">
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-empathy-royal-gold to-empathy-pearl font-medium">
                     Your Privacy Protected
                   </span>
                 </Link>
@@ -190,7 +202,7 @@ const HomePage = () => {
           </div>
         </div>
         
-        <div className="absolute bottom-0 left-0 right-0 h-16">
+        <div className="absolute bottom-0 left-0 right-0 h-32">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full h-full">
             <path 
               fill="currentColor" 
