@@ -32,7 +32,7 @@ const NavBar = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/80 dark:bg-empathy-dark-navy/80 backdrop-blur-md shadow-md' : 'bg-white/10 dark:bg-empathy-dark-navy/10 backdrop-blur-sm'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/80 dark:bg-empathy-dark-navy/80 backdrop-blur-md shadow-md' : 'bg-sky-50/10 dark:bg-empathy-dark-navy/10 backdrop-blur-sm'}`}>
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <div className="h-12 w-12 rounded-xl bg-luxury-gradient flex items-center justify-center shadow-luxury">
@@ -49,7 +49,7 @@ const NavBar = () => {
             <Link 
               key={link.path} 
               to={link.path} 
-              className={`text-gray-700 dark:text-gray-300 hover:text-empathy-deep-purple transition-colors`}
+              className={`text-gray-800 dark:text-gray-200 hover:text-empathy-deep-purple transition-colors`}
             >
               {link.name}
             </Link>
@@ -57,7 +57,7 @@ const NavBar = () => {
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
-          <Button variant="ghost" className="text-gray-700 dark:text-gray-300 hover:bg-empathy-soft-purple/10 hover:text-empathy-deep-purple">
+          <Button variant="ghost" className="text-gray-800 dark:text-gray-200 hover:bg-empathy-soft-purple/10 hover:text-empathy-deep-purple">
             Sign In
           </Button>
           <Button className="bg-empathy-purple hover:bg-empathy-dark-purple text-white">
@@ -67,7 +67,7 @@ const NavBar = () => {
 
         {/* Mobile Navigation Toggle */}
         <button 
-          className="md:hidden text-gray-700 dark:text-gray-300" 
+          className="md:hidden text-gray-800 dark:text-gray-200" 
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -76,13 +76,13 @@ const NavBar = () => {
 
       {/* Mobile Navigation Menu */}
       {isMenuOpen && (
-        <div className="md:hidden absolute top-16 left-0 right-0 bg-white dark:bg-empathy-dark-navy shadow-lg animate-fade-in">
+        <div className="md:hidden absolute top-16 left-0 right-0 bg-sky-50 dark:bg-empathy-dark-navy shadow-lg animate-fade-in">
           <div className="container mx-auto px-4 py-4 flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link 
                 key={link.path} 
                 to={link.path} 
-                className="text-gray-700 dark:text-gray-300 hover:text-empathy-deep-purple transition-colors py-2"
+                className="text-gray-800 dark:text-gray-200 hover:text-empathy-deep-purple transition-colors py-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.name}
@@ -90,7 +90,7 @@ const NavBar = () => {
             ))}
             <hr className="my-2 border-gray-200 dark:border-gray-700" />
             <div className="flex flex-col gap-3 mt-2">
-              <Button variant="ghost" className="justify-center text-gray-700 dark:text-gray-300 hover:bg-empathy-soft-purple/10 hover:text-empathy-deep-purple">
+              <Button variant="ghost" className="justify-center text-gray-800 dark:text-gray-200 hover:bg-empathy-soft-purple/10 hover:text-empathy-deep-purple">
                 Sign In
               </Button>
               <Button className="justify-center bg-empathy-purple hover:bg-empathy-dark-purple text-white">

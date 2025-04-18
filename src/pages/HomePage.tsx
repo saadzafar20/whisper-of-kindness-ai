@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -60,14 +61,14 @@ const HomePage = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden bg-gradient-to-b from-white via-empathy-soft-purple/10 to-white dark:from-empathy-dark-navy dark:via-empathy-deep-purple/20 dark:to-empathy-dark-navy">
+      <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden bg-gradient-to-b from-sky-50 via-sky-100/20 to-sky-50 dark:from-sky-100/10 dark:via-sky-200/20 dark:to-sky-100/10">
         <FloatingElements count={25} />
         {backgroundImages.map((image, index) => (
           <motion.img
             key={index}
             src={image.src}
             alt={image.alt}
-            className="absolute opacity-5 dark:opacity-5"
+            className="absolute opacity-10 dark:opacity-5"
             style={{
               top: `${20 + index * 30}%`,
               right: `${10 + index * 20}%`,
@@ -76,7 +77,7 @@ const HomePage = () => {
             }}
             animate={{
               y: [0, 20, 0],
-              opacity: [0.05, 0.08, 0.05],
+              opacity: [0.1, 0.2, 0.1],
               scale: [1, 1.1, 1],
             }}
             transition={{
@@ -101,17 +102,17 @@ const HomePage = () => {
               {[
                 {
                   text: "No fear of judgment.",
-                  icon: <ShieldCheck className="h-5 w-5 text-empathy-royal-gold" />,
+                  icon: <ShieldCheck className="h-5 w-5 text-empathy-purple" />,
                   delay: 0.2
                 },
                 {
                   text: "No awkward silence. EVER!",
-                  icon: <Mic className="h-5 w-5 text-empathy-royal-gold" />,
+                  icon: <Mic className="h-5 w-5 text-empathy-purple" />,
                   delay: 0.4
                 },
                 {
                   text: "Just a safe space - 100%",
-                  icon: <Heart className="h-5 w-5 text-empathy-royal-gold" />,
+                  icon: <Heart className="h-5 w-5 text-empathy-purple" />,
                   delay: 0.6
                 }
               ].map((item, index) => (
@@ -123,20 +124,20 @@ const HomePage = () => {
                   className="flex items-center justify-center gap-3"
                 >
                   <motion.div 
-                    className="h-10 w-10 rounded-full bg-empathy-dark-navy/50 backdrop-blur-sm flex items-center justify-center border border-empathy-royal-gold/30"
+                    className="h-10 w-10 rounded-full bg-sky-100/50 backdrop-blur-sm flex items-center justify-center border border-empathy-purple/30"
                     whileHover={{ scale: 1.1 }}
                     animate={{
                       boxShadow: [
-                        "0 0 0 0 rgba(212, 175, 55, 0)",
-                        "0 0 0 10px rgba(212, 175, 55, 0.1)",
-                        "0 0 0 20px rgba(212, 175, 55, 0)"
+                        "0 0 0 0 rgba(155, 135, 245, 0)",
+                        "0 0 0 10px rgba(155, 135, 245, 0.1)",
+                        "0 0 0 20px rgba(155, 135, 245, 0)"
                       ]
                     }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
                     {item.icon}
                   </motion.div>
-                  <p className="text-2xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-empathy-pearl via-empathy-royal-gold to-empathy-pearl">
+                  <p className="text-2xl font-medium text-empathy-deep-purple dark:text-white">
                     {item.text}
                   </p>
                 </motion.div>
@@ -175,11 +176,11 @@ const HomePage = () => {
             </div>
 
             <Link to="/pricing" className="block max-w-md mx-auto">
-              <div className="p-6 rounded-xl bg-empathy-soft-purple/20 border border-empathy-purple/10 transition-all hover:shadow-lg hover:scale-105 animate-fade-in" style={{ animationDelay: "800ms" }}>
+              <div className="p-6 rounded-xl bg-sky-100/30 border border-sky-200/50 transition-all hover:shadow-lg hover:scale-105 animate-fade-in" style={{ animationDelay: "800ms" }}>
                 <h3 className="text-xl font-semibold mb-3 text-empathy-deep-purple dark:text-white">
                   Ready to Begin Your Emotional Wellness Journey?
                 </h3>
-                <p className="text-sm text-muted-foreground mb-4">
+                <p className="text-sm text-empathy-deep-purple/70 mb-4">
                   Explore our personalized support plans and take the first step
                 </p>
                 <Button className="bg-empathy-purple hover:bg-empathy-dark-purple text-white">
@@ -188,7 +189,7 @@ const HomePage = () => {
               </div>
             </Link>
 
-            <p className="text-xs text-muted-foreground animate-fade-in" style={{ animationDelay: "800ms" }}>
+            <p className="text-xs text-empathy-deep-purple/50 animate-fade-in" style={{ animationDelay: "800ms" }}>
               No sign-up required. Your emotional well-being is our priority.
             </p>
           </div>
@@ -200,7 +201,7 @@ const HomePage = () => {
               fill="currentColor" 
               fillOpacity="1" 
               d="M0,96L48,112C96,128,192,160,288,165.3C384,171,480,149,576,128C672,107,768,85,864,96C960,107,1056,149,1152,154.7C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-              className="text-white dark:text-empathy-dark-navy"
+              className="text-sky-50 dark:text-empathy-dark-navy"
             ></path>
           </svg>
         </div>
