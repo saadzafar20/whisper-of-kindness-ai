@@ -17,19 +17,19 @@ const HomePage = () => {
 
   const features = [
     {
-      icon: <ShieldCheck className="h-8 w-8 text-empathy-purple" />,
-      title: "100% Private & Confidential",
-      description: "Your conversations remain completely secure with end-to-end encryption."
-    },
-    {
       icon: <HeartPulse className="h-8 w-8 text-empathy-purple" />,
-      title: "Non-judgmental Active Listening",
-      description: "Express yourself freely without fear of judgment."
+      title: "Evidence-based Coping Strategies",
+      description: "Research-backed support when you need it most."
     },
     {
-      icon: <Clock className="h-8 w-8 text-empathy-purple" />,
-      title: "Available 24/7",
-      description: "Get support anytime, anywhere you need it."
+      icon: <Heart className="h-8 w-8 text-empathy-purple" />,
+      title: "Personalized Support Journey",
+      description: "Support that adapts to your unique needs."
+    },
+    {
+      icon: <Lock className="h-8 w-8 text-empathy-purple" />,
+      title: "Secure End-to-end Encryption",
+      description: "Your conversations remain completely private."
     }
   ];
 
@@ -60,7 +60,7 @@ const HomePage = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden bg-sky-50">
+      <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden bg-sky-50/80">
         <FloatingElements count={25} />
         {backgroundImages.map((image, index) => (
           <motion.img
@@ -89,7 +89,7 @@ const HomePage = () => {
         <div className="container mx-auto px-4 pt-16 z-10">
           <div className="max-w-3xl mx-auto text-center">
             <motion.h1 
-              className="text-4xl md:text-6xl font-bold mb-6 text-gray-800"
+              className="text-3xl md:text-5xl font-bold mb-6 text-gray-800"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
@@ -98,29 +98,29 @@ const HomePage = () => {
             </motion.h1>
             
             <motion.p
-              className="text-xl text-gray-600 mb-8"
+              className="text-lg text-gray-600 mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              Backed by cutting-edge research and designed with empathy at its core, our AI provides consistent, judgment-free support whenever you need it.
+              Your AI companion for judgment-free emotional support, available 24/7.
             </motion.p>
 
-            <div className="space-y-6 mb-8">
+            <div className="space-y-4 mb-8">
               {[
                 {
-                  text: "Evidence-based Coping Strategies",
-                  icon: <HeartPulse className="h-5 w-5 text-empathy-purple" />,
+                  text: "No fear of judgment.",
+                  icon: <Heart className="h-5 w-5 text-empathy-purple" />,
                   delay: 0.2
                 },
                 {
-                  text: "Personalized Support Journey",
-                  icon: <Heart className="h-5 w-5 text-empathy-purple" />,
+                  text: "No awkward silence. EVER!",
+                  icon: <MessageCircle className="h-5 w-5 text-empathy-purple" />,
                   delay: 0.4
                 },
                 {
-                  text: "Secure End-to-end Encryption",
-                  icon: <Lock className="h-5 w-5 text-empathy-purple" />,
+                  text: "Just a safe space - 100%",
+                  icon: <ShieldCheck className="h-5 w-5 text-empathy-purple" />,
                   delay: 0.6
                 }
               ].map((item, index) => (
@@ -132,7 +132,7 @@ const HomePage = () => {
                   className="flex items-center justify-center gap-3"
                 >
                   <motion.div 
-                    className="h-10 w-10 rounded-full bg-sky-100/50 backdrop-blur-sm flex items-center justify-center border border-empathy-purple/30"
+                    className="h-10 w-10 rounded-full bg-white/50 backdrop-blur-sm flex items-center justify-center border border-empathy-purple/30"
                     whileHover={{ scale: 1.1 }}
                     animate={{
                       boxShadow: [
@@ -145,14 +145,14 @@ const HomePage = () => {
                   >
                     {item.icon}
                   </motion.div>
-                  <p className="text-2xl font-medium text-empathy-deep-purple dark:text-white">
+                  <p className="text-xl font-medium text-gray-800">
                     {item.text}
                   </p>
                 </motion.div>
               ))}
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10 animate-fade-in">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
               <Button 
                 size="lg" 
                 onClick={toggleVoiceDemo}
@@ -184,22 +184,15 @@ const HomePage = () => {
             </div>
 
             <Link to="/pricing" className="block max-w-md mx-auto">
-              <div className="p-6 rounded-xl bg-sky-100/30 border border-sky-200/50 transition-all hover:shadow-lg hover:scale-105 animate-fade-in" style={{ animationDelay: "800ms" }}>
-                <h3 className="text-xl font-semibold mb-3 text-empathy-deep-purple dark:text-white">
-                  Ready to Begin Your Emotional Wellness Journey?
+              <div className="p-6 rounded-xl bg-white/30 border border-sky-200/50 transition-all hover:shadow-lg hover:scale-105">
+                <h3 className="text-xl font-semibold mb-3 text-gray-800">
+                  Ready to Begin?
                 </h3>
-                <p className="text-sm text-empathy-deep-purple/70 mb-4">
-                  Explore our personalized support plans and take the first step
-                </p>
                 <Button className="bg-empathy-purple hover:bg-empathy-dark-purple text-white">
                   View Pricing Plans
                 </Button>
               </div>
             </Link>
-
-            <p className="text-xs text-empathy-deep-purple/50 animate-fade-in" style={{ animationDelay: "800ms" }}>
-              No sign-up required. Your emotional well-being is our priority.
-            </p>
           </div>
         </div>
         
@@ -216,29 +209,26 @@ const HomePage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-white dark:bg-empathy-dark-navy">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto mb-16 text-center">
-            <h2 className="text-3xl font-bold mb-6 text-gray-800 dark:text-white">Your AI Companion for Emotional Wellness</h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300">
-              Experience support that adapts to your needs, available whenever and wherever you need it.
-            </p>
+            <h2 className="text-3xl font-bold mb-6 text-gray-800">Your AI Companion for Emotional Wellness</h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="p-6 rounded-xl bg-sky-50 dark:bg-empathy-dark-navy border border-gray-200 dark:border-gray-700"
+                className="p-6 rounded-xl bg-sky-50 border border-gray-200"
               >
-                <div className="h-12 w-12 rounded-lg bg-white dark:bg-gray-800 flex items-center justify-center mb-4">
+                <div className="h-12 w-12 rounded-lg bg-white flex items-center justify-center mb-4">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-gray-800 dark:text-white">{feature.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
+                <h3 className="text-xl font-semibold mb-3 text-gray-800">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
               </motion.div>
             ))}
           </div>
