@@ -1,7 +1,8 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Brain, Heart, Smile, Moon, Yoga, Meditation, Mic, ShieldCheck } from "lucide-react";
+import { Brain, Heart, Smile, Moon, Sparkles, Leaf, Mic, ShieldCheck } from "lucide-react";
 import FloatingElements from "@/components/FloatingElements";
 import VoiceWaveform from "@/components/VoiceWaveform";
 import { motion } from "framer-motion";
@@ -11,8 +12,8 @@ const wellnessIcons = [
   { icon: Heart, color: "#A78BFA", title: "Emotional Health" },
   { icon: Smile, color: "#8B5CF6", title: "Positive Mindset" },
   { icon: Moon, color: "#6E59A5", title: "Peace" },
-  { icon: Yoga, color: "#4A3064", title: "Balance" },
-  { icon: Meditation, color: "#722F37", title: "Inner Growth" }
+  { icon: Sparkles, color: "#4A3064", title: "Balance" },
+  { icon: Leaf, color: "#722F37", title: "Inner Growth" }
 ];
 
 export const HeroSection = () => {
@@ -143,10 +144,10 @@ const HeroActionsSection = ({ toggleVoiceDemo }: { toggleVoiceDemo: () => void }
       <Button
         size="lg"
         className="bg-empathy-purple hover:bg-empathy-dark-purple text-white"
-        as={Link}
-        to="/signup"
       >
-        Start Your Journey
+        <Link to="/signup" className="w-full h-full flex items-center justify-center">
+          Start Your Journey
+        </Link>
       </Button>
       <Button 
         variant="outline" 
@@ -198,3 +199,4 @@ const WaveBackgroundSection = () => {
     </div>
   );
 };
+
