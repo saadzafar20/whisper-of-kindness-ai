@@ -95,13 +95,11 @@ const HomePage = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10 animate-fade-in" style={{ animationDelay: "400ms" }}>
               <Button 
                 size="lg" 
-                asChild
+                onClick={toggleVoiceDemo}
                 className="bg-empathy-purple hover:bg-empathy-dark-purple text-white"
               >
-                <Link to="/pricing" className="flex items-center gap-2">
-                  <Mic className="h-4 w-4" />
-                  Try Talking Now
-                </Link>
+                {isVoiceActive ? "Stop Demo" : "Try Talking Now"}
+                <Mic className="ml-2 h-4 w-4" />
               </Button>
               <Button variant="outline" size="lg" asChild>
                 <Link to="/privacy" className="flex items-center gap-2">
@@ -111,12 +109,24 @@ const HomePage = () => {
               </Button>
             </div>
             
-            <Link to="/pricing" className="block">
-              <div className={`max-w-md mx-auto p-6 rounded-xl glass-card dark:glass-card-dark transition-all animate-fade-in mb-6 hover:shadow-lg hover:scale-105`} style={{ animationDelay: "600ms" }}>
-                <p className="text-base mb-4">
-                  Click 'Try Talking Now' to experience EmpathyVoice AI
+            <div className={`max-w-md mx-auto p-6 rounded-xl glass-card dark:glass-card-dark transition-all animate-fade-in mb-6 ${isVoiceActive ? 'shadow-lg scale-105' : ''}`} style={{ animationDelay: "600ms" }}>
+              <p className="text-base mb-4">
+                {isVoiceActive 
+                  ? "I'm listening... Tell me how you're feeling." 
+                  : "Click 'Try Talking Now' to experience EmpathyVoice AI"}
+              </p>
+              <VoiceWaveform isActive={isVoiceActive} />
+            </div>
+
+            <Link to="/pricing" className="block max-w-md mx-auto">
+              <div className="p-6 rounded-xl bg-empathy-soft-purple/30 border border-empathy-purple/20 transition-all hover:shadow-lg hover:scale-105 animate-fade-in" style={{ animationDelay: "800ms" }}>
+                <h3 className="text-lg font-semibold mb-3">Ready to Start Your Journey?</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  View our pricing plans and begin your path to emotional wellness
                 </p>
-                <VoiceWaveform isActive={true} />
+                <Button className="bg-empathy-purple hover:bg-empathy-dark-purple text-white">
+                  View Pricing Plans
+                </Button>
               </div>
             </Link>
 

@@ -15,7 +15,7 @@ const PricingPage = () => {
       monthlyPrice: "Free",
       yearlyPrice: "Free",
       features: [
-        { name: "1 AI session per month", included: true },
+        { name: "1 AI session (30 min) per month", included: true },
         { name: "Basic emotional support", included: true },
         { name: "Session history (24h)", included: true },
         { name: "Voice customization", included: false },
@@ -33,7 +33,7 @@ const PricingPage = () => {
       yearlyPrice: "$179",
       popular: true,
       features: [
-        { name: "4 AI sessions per week", included: true },
+        { name: "4 AI sessions (30 min each) per week", included: true },
         { name: "Enhanced emotional support", included: true },
         { name: "Session history (unlimited)", included: true },
         { name: "Voice customization", included: true },
@@ -50,7 +50,7 @@ const PricingPage = () => {
       monthlyPrice: "$499",
       yearlyPrice: "$449",
       features: [
-        { name: "Unlimited AI sessions", included: true },
+        { name: "Unlimited AI sessions (30 min each)", included: true },
         { name: "2 Expert consultations/month", included: true },
         { name: "Session history (unlimited)", included: true },
         { name: "Voice customization", included: true },
@@ -75,8 +75,23 @@ const PricingPage = () => {
             </h1>
             <p className="text-xl text-muted-foreground mb-10 animate-fade-in" style={{ animationDelay: "200ms" }}>
               Choose the plan that fits your emotional support needs.
-              All plans include our core voice-based AI technology.
+              Each session is 30 minutes of focused AI emotional support.
             </p>
+
+            {/* Motion Points */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10 animate-fade-in" style={{ animationDelay: "400ms" }}>
+              {["No fear of judgment", "No awkward silence", "Just a safe space"].map((point, index) => (
+                <div 
+                  key={index}
+                  className="p-4 rounded-lg bg-empathy-soft-purple/30 border border-empathy-purple/20"
+                >
+                  <div className="h-10 w-10 rounded-full bg-empathy-purple/10 flex items-center justify-center mx-auto mb-2">
+                    <Check className="h-5 w-5 text-empathy-purple" />
+                  </div>
+                  <p className="text-sm font-medium text-empathy-purple">{point}</p>
+                </div>
+              ))}
+            </div>
             
             {/* Billing Toggle */}
             <div className="flex justify-center items-center gap-4 mb-12 animate-fade-in" style={{ animationDelay: "300ms" }}>
