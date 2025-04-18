@@ -18,8 +18,8 @@ const HomePage = () => {
   const features = [
     {
       icon: <HeartPulse className="h-8 w-8 text-empathy-purple" />,
-      title: "Evidence-based Coping Strategies",
-      description: "Research-backed support when you need it most."
+      title: "Personalized Wellness Plan",
+      description: "Tailored strategies for your unique journey."
     },
     {
       icon: <Heart className="h-8 w-8 text-empathy-purple" />,
@@ -28,8 +28,13 @@ const HomePage = () => {
     },
     {
       icon: <Lock className="h-8 w-8 text-empathy-purple" />,
-      title: "Secure End-to-end Encryption",
-      description: "Your conversations remain completely private."
+      title: "Enhanced Emotional Support",
+      description: "Expert guidance available 24/7."
+    },
+    {
+      icon: <MessageCircle className="h-8 w-8 text-empathy-purple" />,
+      title: "Stress Relief",
+      description: "Effective techniques for managing daily stress."
     }
   ];
 
