@@ -54,9 +54,9 @@ export default {
         },
         empathy: {
           purple: "#9b87f5", // Rich purple
-          "dark-purple": "#7E69AB", // Deep royal purple
-          "soft-purple": "#D6BCFA", // Soft lavender
-          "dark-navy": "#1A1F2C", // Rich dark background
+          "dark-purple": "#4A3064", // Deeper, more readable dark purple
+          "soft-purple": "#A78BFA", // Brighter soft purple for better contrast
+          "dark-navy": "#1E2433", // Slightly lighter dark navy
           "deep-purple": "#6E59A5", // Deep accent purple
           "royal-gold": "#D4AF37", // Luxury gold
           "rich-plum": "#8B5CF6", // Vibrant plum
