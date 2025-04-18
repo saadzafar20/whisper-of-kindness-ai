@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Headphones, Mic, Play, ShieldCheck } from "lucide-react";
+import { Headphones, Mic, Play, ShieldCheck, Heart } from "lucide-react";
 import FloatingElements from "@/components/FloatingElements";
 import VoiceWaveform from "@/components/VoiceWaveform";
 import TestimonialCard from "@/components/TestimonialCard";
@@ -89,9 +89,50 @@ const HomePage = () => {
             <h1 className="text-3xl md:text-5xl font-bold mb-4 animate-fade-in bg-clip-text text-transparent bg-gradient-to-r from-empathy-purple to-empathy-dark-purple">
               An Emotionally Intelligent Voice That Truly Cares
             </h1>
-            <p className="text-lg md:text-xl mb-8 animate-fade-in bg-clip-text text-transparent bg-gradient-to-r from-empathy-deep-purple to-empathy-purple" style={{ animationDelay: "200ms" }}>
-              No fear of judgment. No awkward silence. Just a safe space to speak your mind and ease your heart.
-            </p>
+            <div className="space-y-4 mb-8">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="flex items-center justify-center gap-3"
+              >
+                <div className="h-8 w-8 rounded-full bg-empathy-soft-purple flex items-center justify-center">
+                  <ShieldCheck className="h-5 w-5 text-empathy-purple" />
+                </div>
+                <p className="text-xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-empathy-deep-purple to-empathy-purple">
+                  No fear of judgment.
+                </p>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="flex items-center justify-center gap-3"
+              >
+                <div className="h-8 w-8 rounded-full bg-empathy-soft-purple flex items-center justify-center">
+                  <Mic className="h-5 w-5 text-empathy-purple" />
+                </div>
+                <p className="text-xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-empathy-purple to-empathy-dark-purple">
+                  No awkward silence. EVER!
+                </p>
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="flex items-center justify-center gap-3"
+              >
+                <div className="h-8 w-8 rounded-full bg-empathy-soft-purple flex items-center justify-center">
+                  <Heart className="h-5 w-5 text-empathy-purple" />
+                </div>
+                <p className="text-xl font-medium bg-clip-text text-transparent bg-gradient-to-r from-empathy-dark-purple to-empathy-purple">
+                  Just a safe space - 100%
+                </p>
+              </motion.div>
+            </div>
+            
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10 animate-fade-in" style={{ animationDelay: "400ms" }}>
               <Button 
                 size="lg" 
@@ -101,10 +142,22 @@ const HomePage = () => {
                 {isVoiceActive ? "Stop Demo" : "Try Talking Now"}
                 <Mic className="ml-2 h-4 w-4" />
               </Button>
-              <Button variant="outline" size="lg" asChild>
+              <Button 
+                variant="outline" 
+                size="lg" 
+                asChild
+                className="border-empathy-purple hover:bg-empathy-soft-purple/50 group transition-all duration-300"
+              >
                 <Link to="/privacy" className="flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4" />
-                  Your Privacy Protected
+                  <motion.div
+                    animate={{ rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <ShieldCheck className="h-4 w-4 text-empathy-purple group-hover:text-empathy-dark-purple transition-colors" />
+                  </motion.div>
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-empathy-purple to-empathy-dark-purple font-medium">
+                    Your Privacy Protected
+                  </span>
                 </Link>
               </Button>
             </div>
