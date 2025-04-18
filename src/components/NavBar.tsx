@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -24,8 +23,7 @@ const NavBar = () => {
   }, []);
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Expert Consultants", path: "/talk-to-consultants" },
+    { name: "Why Choose AI?", path: "/talk-to-consultants" },
     { name: "Pricing", path: "/pricing" },
     { name: "Blog", path: "/blog" },
     { name: "Join Network", path: "/join-network" },
