@@ -5,8 +5,8 @@ import { Brain, Heart, Smile, Moon, Sparkles, Leaf, Mic, ShieldCheck } from "luc
 import FloatingElements from "@/components/FloatingElements";
 import VoiceWaveform from "@/components/VoiceWaveform";
 import { motion } from "framer-motion";
-import { speakWithVapi } from "@/services/vapiService";
 import { useToast } from "@/hooks/use-toast";
+import { vapiService } from "@/services/vapiService";
 
 const wellnessIcons = [
   { icon: Brain, color: "#9b87f5", title: "Mental Wellness" },
@@ -171,35 +171,39 @@ const HeroActionsSection = ({ toggleVoiceDemo, isVoiceActive }: { toggleVoiceDem
 
 const VoiceDemoSection = ({ isActive }: { isActive: boolean }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [responseMessage, setResponseMessage] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const playDemoMessage = async () => {
+  const startVoiceDemo = async () => {
     try {
       setIsPlaying(true);
-      setResponseMessage(null);
-      
-      const result = await speakWithVapi("Hello! I'm your AI wellness companion. How can I help you today?");
-      
-      setResponseMessage(result);
+      await vapiService.startCall("Hello! I'm your AI wellness companion. How can I help you today?");
       
       toast({
-        title: "Call Initiated",
-        description: "A call has been initiated with the VAPI service. You should receive a phone call shortly.",
+        title: "Voice Demo Started",
+        description: "The AI companion is now ready to talk with you.",
       });
-      
-      setTimeout(() => {
-        setIsPlaying(false);
-      }, 5000);
-      
     } catch (error) {
-      console.error('Error playing demo message:', error);
-      setIsPlaying(false);
+      console.error('Error starting voice demo:', error);
       toast({
         title: "Connection Issue",
-        description: "Unable to connect to voice service. Please check the console for details.",
+        description: "Unable to start voice demo. Please check your microphone permissions.",
         variant: "destructive",
       });
+      setIsPlaying(false);
+    }
+  };
+
+  const stopVoiceDemo = async () => {
+    try {
+      await vapiService.stopCall();
+      setIsPlaying(false);
+      
+      toast({
+        title: "Voice Demo Ended",
+        description: "The voice demo has been stopped.",
+      });
+    } catch (error) {
+      console.error('Error stopping voice demo:', error);
     }
   };
 
@@ -209,28 +213,20 @@ const VoiceDemoSection = ({ isActive }: { isActive: boolean }) => {
     <div className="p-6 bg-white rounded-xl shadow-md mb-8 max-w-md mx-auto">
       <h3 className="text-lg font-medium mb-2">Voice Demo</h3>
       <p className="mb-4 text-gray-600">
-        Click the button below to initiate a voice call where our AI will speak to you.
+        Click the button below to start a live conversation with your AI companion.
       </p>
       
       <Button 
-        onClick={playDemoMessage} 
-        disabled={isPlaying}
+        onClick={isPlaying ? stopVoiceDemo : startVoiceDemo} 
         className="w-full mb-4"
       >
-        {isPlaying ? "Initiating Call..." : "Start Voice Demo Call"}
+        {isPlaying ? "Stop Voice Demo" : "Start Voice Demo"}
       </Button>
-      
-      {responseMessage && (
-        <div className="mt-3 p-3 bg-gray-50 rounded-lg text-sm">
-          <p className="font-medium">System Response:</p>
-          <p className="text-gray-700">{responseMessage}</p>
-        </div>
-      )}
       
       <div className="mt-4">
         <p className="text-xs text-gray-500 mb-2">
-          This will initiate a phone call using VAPI's voice service.
-          <br />Note: As this is a demo, the call may not actually connect.
+          This demo uses your microphone to enable real-time conversation with the AI.
+          <br />Make sure to allow microphone permissions when prompted.
         </p>
         <VoiceWaveform isActive={isPlaying} />
       </div>
