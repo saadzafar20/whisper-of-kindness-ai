@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -6,6 +5,7 @@ import { Brain, Heart, Smile, Moon, Sparkles, Leaf, Mic, ShieldCheck } from "luc
 import FloatingElements from "@/components/FloatingElements";
 import VoiceWaveform from "@/components/VoiceWaveform";
 import { motion } from "framer-motion";
+import { speakWithVapi } from "@/services/vapiService";
 
 const wellnessIcons = [
   { icon: Brain, color: "#9b87f5", title: "Mental Wellness" },
@@ -165,12 +165,47 @@ const HeroActionsSection = ({ toggleVoiceDemo }: { toggleVoiceDemo: () => void }
 };
 
 const VoiceDemoSection = ({ isActive }: { isActive: boolean }) => {
-  return isActive ? (
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
+
+  const playDemoMessage = async () => {
+    try {
+      setIsPlaying(true);
+      const audioUrl = await speakWithVapi("Hello! I'm your AI wellness companion. How can I help you today?");
+      
+      if (audioElement) {
+        audioElement.pause();
+      }
+      
+      const audio = new Audio(audioUrl);
+      setAudioElement(audio);
+      
+      audio.onended = () => {
+        setIsPlaying(false);
+      };
+      
+      await audio.play();
+    } catch (error) {
+      console.error('Error playing demo message:', error);
+      setIsPlaying(false);
+    }
+  };
+
+  if (!isActive) return null;
+
+  return (
     <div className="p-6 bg-white rounded-xl shadow-md mb-8 max-w-md mx-auto">
-      <p className="mb-4 text-gray-600">Voice demo is active. Try speaking...</p>
-      <VoiceWaveform isActive={true} />
+      <p className="mb-4 text-gray-600">Click to hear your AI companion speak</p>
+      <Button 
+        onClick={playDemoMessage} 
+        disabled={isPlaying}
+        className="w-full mb-4"
+      >
+        {isPlaying ? "Playing..." : "Play Demo Message"}
+      </Button>
+      <VoiceWaveform isActive={isPlaying} />
     </div>
-  ) : null;
+  );
 };
 
 const StartNowCardSection = () => {
