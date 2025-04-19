@@ -171,32 +171,33 @@ const HeroActionsSection = ({ toggleVoiceDemo, isVoiceActive }: { toggleVoiceDem
 
 const VoiceDemoSection = ({ isActive }: { isActive: boolean }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
+  const [responseMessage, setResponseMessage] = useState<string | null>(null);
   const { toast } = useToast();
 
   const playDemoMessage = async () => {
     try {
       setIsPlaying(true);
-      const audioUrl = await speakWithVapi("Hello! I'm your AI wellness companion. How can I help you today?");
+      setResponseMessage(null);
       
-      if (audioElement) {
-        audioElement.pause();
-      }
+      const result = await speakWithVapi("Hello! I'm your AI wellness companion. How can I help you today?");
       
-      const audio = new Audio(audioUrl);
-      setAudioElement(audio);
+      setResponseMessage(result);
       
-      audio.onended = () => {
+      toast({
+        title: "Call Initiated",
+        description: "A call has been initiated with the VAPI service. You should receive a phone call shortly.",
+      });
+      
+      setTimeout(() => {
         setIsPlaying(false);
-      };
+      }, 5000);
       
-      await audio.play();
     } catch (error) {
       console.error('Error playing demo message:', error);
       setIsPlaying(false);
       toast({
         title: "Connection Issue",
-        description: "Unable to connect to voice service. Please try again later.",
+        description: "Unable to connect to voice service. Please check the console for details.",
         variant: "destructive",
       });
     }
@@ -206,16 +207,33 @@ const VoiceDemoSection = ({ isActive }: { isActive: boolean }) => {
 
   return (
     <div className="p-6 bg-white rounded-xl shadow-md mb-8 max-w-md mx-auto">
-      <p className="mb-4 text-gray-600">Click the button below to hear your AI companion speak</p>
+      <h3 className="text-lg font-medium mb-2">Voice Demo</h3>
+      <p className="mb-4 text-gray-600">
+        Click the button below to initiate a voice call where our AI will speak to you.
+      </p>
+      
       <Button 
         onClick={playDemoMessage} 
         disabled={isPlaying}
         className="w-full mb-4"
       >
-        {isPlaying ? "Playing..." : "Play Demo Message"}
+        {isPlaying ? "Initiating Call..." : "Start Voice Demo Call"}
       </Button>
-      <p className="text-xs text-gray-500 mb-2">This button plays an audio message from your AI companion</p>
-      <VoiceWaveform isActive={isPlaying} />
+      
+      {responseMessage && (
+        <div className="mt-3 p-3 bg-gray-50 rounded-lg text-sm">
+          <p className="font-medium">System Response:</p>
+          <p className="text-gray-700">{responseMessage}</p>
+        </div>
+      )}
+      
+      <div className="mt-4">
+        <p className="text-xs text-gray-500 mb-2">
+          This will initiate a phone call using VAPI's voice service.
+          <br />Note: As this is a demo, the call may not actually connect.
+        </p>
+        <VoiceWaveform isActive={isPlaying} />
+      </div>
     </div>
   );
 };
