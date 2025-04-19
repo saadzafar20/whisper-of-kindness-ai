@@ -6,6 +6,7 @@ import FloatingElements from "@/components/FloatingElements";
 import VoiceWaveform from "@/components/VoiceWaveform";
 import { motion } from "framer-motion";
 import { speakWithVapi } from "@/services/vapiService";
+import { useToast } from "@/hooks/use-toast";
 
 const wellnessIcons = [
   { icon: Brain, color: "#9b87f5", title: "Mental Wellness" },
@@ -76,7 +77,7 @@ export const HeroSection = () => {
         </motion.p>
         
         <HeroFeaturesSection />
-        <HeroActionsSection toggleVoiceDemo={toggleVoiceDemo} />
+        <HeroActionsSection toggleVoiceDemo={toggleVoiceDemo} isVoiceActive={isVoiceActive} />
         <VoiceDemoSection isActive={isVoiceActive} />
         <StartNowCardSection />
       </div>
@@ -142,9 +143,9 @@ const HeroFeaturesSection = () => {
   );
 };
 
-const HeroActionsSection = ({ toggleVoiceDemo }: { toggleVoiceDemo: () => void }) => {
+const HeroActionsSection = ({ toggleVoiceDemo, isVoiceActive }: { toggleVoiceDemo: () => void; isVoiceActive: boolean }) => {
   return (
-    <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+    <div className="flex flex-col gap-2 sm:flex-row sm:gap-4 justify-center mb-8">
       <Button
         size="lg"
         className="bg-empathy-purple hover:bg-empathy-dark-purple text-white"
@@ -153,13 +154,17 @@ const HeroActionsSection = ({ toggleVoiceDemo }: { toggleVoiceDemo: () => void }
           Start Your Journey
         </Link>
       </Button>
-      <Button 
-        variant="outline" 
-        size="lg"
-        onClick={toggleVoiceDemo}
-      >
-        Try Voice Demo <Mic className="ml-2 h-4 w-4" />
-      </Button>
+      <div className="flex flex-col items-center">
+        <Button 
+          variant="outline" 
+          size="lg"
+          onClick={toggleVoiceDemo}
+          className={isVoiceActive ? "bg-gray-100" : ""}
+        >
+          {isVoiceActive ? "Hide Voice Demo" : "Try Voice Demo"} <Mic className="ml-2 h-4 w-4" />
+        </Button>
+        <p className="text-xs text-gray-500 mt-1">Click to show/hide the voice demo panel</p>
+      </div>
     </div>
   );
 };
@@ -167,6 +172,7 @@ const HeroActionsSection = ({ toggleVoiceDemo }: { toggleVoiceDemo: () => void }
 const VoiceDemoSection = ({ isActive }: { isActive: boolean }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
+  const { toast } = useToast();
 
   const playDemoMessage = async () => {
     try {
@@ -188,6 +194,11 @@ const VoiceDemoSection = ({ isActive }: { isActive: boolean }) => {
     } catch (error) {
       console.error('Error playing demo message:', error);
       setIsPlaying(false);
+      toast({
+        title: "Connection Issue",
+        description: "Unable to connect to voice service. Please try again later.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -195,7 +206,7 @@ const VoiceDemoSection = ({ isActive }: { isActive: boolean }) => {
 
   return (
     <div className="p-6 bg-white rounded-xl shadow-md mb-8 max-w-md mx-auto">
-      <p className="mb-4 text-gray-600">Click to hear your AI companion speak</p>
+      <p className="mb-4 text-gray-600">Click the button below to hear your AI companion speak</p>
       <Button 
         onClick={playDemoMessage} 
         disabled={isPlaying}
@@ -203,6 +214,7 @@ const VoiceDemoSection = ({ isActive }: { isActive: boolean }) => {
       >
         {isPlaying ? "Playing..." : "Play Demo Message"}
       </Button>
+      <p className="text-xs text-gray-500 mb-2">This button plays an audio message from your AI companion</p>
       <VoiceWaveform isActive={isPlaying} />
     </div>
   );

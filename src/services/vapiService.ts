@@ -1,6 +1,6 @@
 
 const VAPI_KEY = '81993317-fa0e-49df-8695-d36e0ed5246c';
-const VAPI_BASE_URL = 'https://api.vapi.ai/speak';
+const VAPI_BASE_URL = 'https://api.vapi.ai/v1/speak';
 
 interface VapiResponse {
   audio_url?: string;
