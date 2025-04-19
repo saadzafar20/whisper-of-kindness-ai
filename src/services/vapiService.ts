@@ -1,5 +1,5 @@
 
-const VAPI_KEY = 'YOUR_VAPI_KEY_HERE'; // Replace this with your actual VAPI key
+const VAPI_KEY = '81993317-fa0e-49df-8695-d36e0ed5246c';
 const VAPI_BASE_URL = 'https://api.vapi.ai/speak';
 
 interface VapiResponse {
@@ -17,7 +17,7 @@ export const speakWithVapi = async (text: string): Promise<string> => {
       },
       body: JSON.stringify({
         text,
-        voice_id: 'YOUR_ASSISTANT_VOICE_ID', // Replace with your VAPI assistant voice ID
+        voice_id: 'fd5be6f1-0b74-4c73-8ec0-301a0e1656d4',
       }),
     });
 
