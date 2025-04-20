@@ -1,22 +1,20 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { 
-  Link as LinkIcon, 
-  Lock, 
-  MessageSquare, 
+  Shield, 
   Clock, 
   HeartPulse, 
-  Users, 
-  Sparkles, 
   TrendingUp,
-  Globe,
-  Shield,
-  CheckCircle
+  UserMinus,
+  DollarSign,
+  ShieldOff,
+  HandShake
 } from "lucide-react";
 import FloatingElements from "@/components/FloatingElements";
 import VoiceWaveform from "@/components/VoiceWaveform";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 
 const WhyAiSupportPage = () => {
   const statistics = [
@@ -47,9 +45,49 @@ const WhyAiSupportPage = () => {
     }
   ];
 
+  const barriers = [
+    {
+      category: "Stigma and Perception",
+      stats: [
+        {
+          title: "Perceived Weakness",
+          value: 64,
+          description: "of people view seeking therapy as a sign of weakness",
+          source: "Forbes, Study Finds",
+          icon: UserMinus
+        },
+        {
+          title: "Cultural Barriers",
+          value: 71,
+          description: "of South Asian communities report stigma as main barrier",
+          source: "Cultural Psychology Research",
+          icon: ShieldOff
+        }
+      ]
+    },
+    {
+      category: "Financial & Access Barriers",
+      stats: [
+        {
+          title: "Cost Concerns",
+          value: 37,
+          description: "of adults can't afford traditional therapy",
+          source: "Better Mental Health, Psychology Today",
+          icon: DollarSign
+        },
+        {
+          title: "Insurance Coverage",
+          value: 45,
+          description: "face limited insurance coverage for mental health",
+          source: "Healthcare Statistics",
+          icon: Shield
+        }
+      ]
+    }
+  ];
+
   return (
     <>
-      {/* Keep existing Hero Section */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <FloatingElements count={10} />
         <div className="container mx-auto px-4 relative z-10">
@@ -64,7 +102,6 @@ const WhyAiSupportPage = () => {
         </div>
       </section>
 
-      {/* Statistics Section */}
       <section className="py-20 bg-white dark:bg-empathy-dark-navy">
         <div className="container mx-auto px-4">
           <motion.div 
@@ -95,7 +132,6 @@ const WhyAiSupportPage = () => {
         </div>
       </section>
 
-      {/* User Preference Data */}
       <section className="py-20 bg-empathy-soft-purple/20">
         <div className="container mx-auto px-4">
           <motion.h2 
@@ -143,7 +179,98 @@ const WhyAiSupportPage = () => {
         </div>
       </section>
 
-      {/* Benefits Section with enhanced animations */}
+      <section className="py-20 bg-white dark:bg-empathy-dark-navy">
+        <div className="container mx-auto px-4">
+          <motion.h2 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-3xl font-bold text-center mb-16"
+          >
+            Breaking Down Barriers to Mental Health Support
+          </motion.h2>
+
+          <div className="space-y-16">
+            {barriers.map((category, idx) => (
+              <div key={idx} className="max-w-5xl mx-auto">
+                <motion.h3
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="text-2xl font-semibold mb-8 text-empathy-purple"
+                >
+                  {category.category}
+                </motion.h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {category.stats.map((stat, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.2 }}
+                    >
+                      <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg">
+                        <CardContent className="p-6">
+                          <div className="flex items-center gap-4 mb-6">
+                            <div className="h-12 w-12 rounded-lg bg-empathy-soft-purple flex items-center justify-center">
+                              <stat.icon className="h-6 w-6 text-empathy-purple" />
+                            </div>
+                            <div>
+                              <h4 className="text-xl font-semibold">{stat.title}</h4>
+                              <p className="text-sm text-muted-foreground">{stat.source}</p>
+                            </div>
+                          </div>
+
+                          <div className="space-y-4">
+                            <div className="flex justify-between items-center">
+                              <span className="text-3xl font-bold text-empathy-purple">{stat.value}%</span>
+                              <motion.div
+                                initial={{ scale: 0 }}
+                                whileInView={{ scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ 
+                                  type: "spring",
+                                  stiffness: 260,
+                                  damping: 20,
+                                  delay: 0.3 + index * 0.1 
+                                }}
+                                className="w-16 h-16 rounded-full bg-empathy-soft-purple/20 flex items-center justify-center"
+                              >
+                                <stat.icon className="h-8 w-8 text-empathy-purple" />
+                              </motion.div>
+                            </div>
+
+                            <motion.div
+                              initial={{ width: 0 }}
+                              whileInView={{ width: "100%" }}
+                              viewport={{ once: true }}
+                              transition={{ duration: 1, delay: 0.5 }}
+                              className="w-full bg-empathy-soft-purple/20 h-2 rounded-full overflow-hidden"
+                            >
+                              <motion.div
+                                initial={{ width: 0 }}
+                                whileInView={{ width: `${stat.value}%` }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 1, delay: 0.8 }}
+                                className="h-full bg-empathy-purple rounded-full"
+                              />
+                            </motion.div>
+
+                            <p className="text-muted-foreground">{stat.description}</p>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="py-20 bg-white dark:bg-empathy-dark-navy">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto mb-16 text-center">
@@ -244,7 +371,6 @@ const WhyAiSupportPage = () => {
         </div>
       </section>
 
-      {/* Comparison Section with enhanced animations */}
       <section className="py-20 bg-muted/50">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto mb-16 text-center">
@@ -309,7 +435,6 @@ const WhyAiSupportPage = () => {
         </div>
       </section>
 
-      {/* Use Cases Section with enhanced animations */}
       <section className="py-20 bg-white dark:bg-empathy-dark-navy">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto mb-16 text-center">
@@ -348,7 +473,6 @@ const WhyAiSupportPage = () => {
         </div>
       </section>
 
-      {/* CTA Section with enhanced animations */}
       <section className="py-20 bg-empathy-soft-purple dark:bg-empathy-dark-purple/20">
         <div className="container mx-auto px-4">
           <motion.div
