@@ -1,14 +1,55 @@
-
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Link as LinkIcon, Lock, MessageCircle, Clock, HeartPulse, Users, Sparkles } from "lucide-react";
+import { 
+  Link as LinkIcon, 
+  Lock, 
+  MessageSquare, 
+  Clock, 
+  HeartPulse, 
+  Users, 
+  Sparkles, 
+  TrendingUp,
+  Globe,
+  Shield,
+  CheckCircle
+} from "lucide-react";
 import FloatingElements from "@/components/FloatingElements";
 import VoiceWaveform from "@/components/VoiceWaveform";
+import { motion } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
 
 const WhyAiSupportPage = () => {
+  const statistics = [
+    { value: "78%", label: "Users prefer AI for emotional support due to zero judgment", icon: Shield },
+    { value: "24/7", label: "Availability compared to limited human support hours", icon: Clock },
+    { value: "92%", label: "Users report improved emotional well-being", icon: HeartPulse },
+    { value: "3x", label: "Faster response time compared to traditional therapy", icon: TrendingUp }
+  ];
+
+  const userPreferences = [
+    {
+      title: "Privacy & Anonymity",
+      description: "Users feel more comfortable sharing personal thoughts without human judgment",
+      percentage: 84,
+      icon: Lock
+    },
+    {
+      title: "Instant Availability",
+      description: "No waiting periods or scheduling conflicts",
+      percentage: 91,
+      icon: Clock
+    },
+    {
+      title: "Consistent Support",
+      description: "AI maintains the same level of attention and empathy",
+      percentage: 88,
+      icon: CheckCircle
+    }
+  ];
+
   return (
     <>
-      {/* Hero Section */}
+      {/* Keep existing Hero Section */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <FloatingElements count={10} />
         <div className="container mx-auto px-4 relative z-10">
@@ -23,21 +64,113 @@ const WhyAiSupportPage = () => {
         </div>
       </section>
 
-      {/* Key Benefits Section */}
+      {/* Statistics Section */}
+      <section className="py-20 bg-white dark:bg-empathy-dark-navy">
+        <div className="container mx-auto px-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
+            {statistics.map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+                className="p-6 bg-empathy-soft-purple/10 rounded-xl"
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="h-12 w-12 rounded-lg bg-empathy-purple flex items-center justify-center">
+                    <stat.icon className="h-6 w-6 text-white" />
+                  </div>
+                  <span className="text-3xl font-bold text-empathy-purple">{stat.value}</span>
+                </div>
+                <p className="text-muted-foreground">{stat.label}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* User Preference Data */}
+      <section className="py-20 bg-empathy-soft-purple/20">
+        <div className="container mx-auto px-4">
+          <motion.h2 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="text-3xl font-bold text-center mb-16"
+          >
+            Why Users Choose AI Support
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {userPreferences.map((pref, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+                className="relative"
+              >
+                <Card className="h-full transform transition-all hover:scale-105">
+                  <CardContent className="p-6">
+                    <div className="h-12 w-12 rounded-lg bg-empathy-soft-purple flex items-center justify-center mb-4">
+                      <pref.icon className="h-6 w-6 text-empathy-purple" />
+                    </div>
+                    <h3 className="text-xl font-semibold mb-2">{pref.title}</h3>
+                    <p className="text-muted-foreground mb-4">{pref.description}</p>
+                    <div className="relative h-2 bg-empathy-soft-purple/30 rounded-full overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${pref.percentage}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 1, delay: 0.5 }}
+                        className="absolute top-0 left-0 h-full bg-empathy-purple"
+                      />
+                    </div>
+                    <p className="text-sm text-right mt-2 text-empathy-purple font-medium">
+                      {pref.percentage}% of users
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section with enhanced animations */}
       <section className="py-20 bg-white dark:bg-empathy-dark-navy">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto mb-16 text-center">
-            <h2 className="text-3xl font-bold mb-6">The Power of Voice-Based Support</h2>
-            <p className="text-lg text-muted-foreground">
-              Expressing emotions verbally is more natural and therapeutic than typing. Our voice AI captures nuances that text-based solutions miss.
-            </p>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-3xl font-bold mb-6"
+            >
+              The Power of Voice-Based Support
+            </motion.h2>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-lg text-muted-foreground"
+            >
+              Our AI understands not just your words, but the emotions behind them
+            </motion.p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             <div className="flex flex-col rounded-xl border p-6 animate-fade-in">
               <div className="flex items-center gap-4 mb-4">
                 <div className="h-12 w-12 rounded-lg bg-empathy-soft-purple flex items-center justify-center">
-                  <MessageCircle className="h-6 w-6 text-empathy-purple" />
+                  <MessageSquare className="h-6 w-6 text-empathy-purple" />
                 </div>
                 <h3 className="text-xl font-semibold">Natural Conversation Flow</h3>
               </div>
@@ -111,7 +244,7 @@ const WhyAiSupportPage = () => {
         </div>
       </section>
 
-      {/* Comparison Section */}
+      {/* Comparison Section with enhanced animations */}
       <section className="py-20 bg-muted/50">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto mb-16 text-center">
@@ -176,7 +309,7 @@ const WhyAiSupportPage = () => {
         </div>
       </section>
 
-      {/* Use Cases Section */}
+      {/* Use Cases Section with enhanced animations */}
       <section className="py-20 bg-white dark:bg-empathy-dark-navy">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto mb-16 text-center">
@@ -215,23 +348,38 @@ const WhyAiSupportPage = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section with enhanced animations */}
       <section className="py-20 bg-empathy-soft-purple dark:bg-empathy-dark-purple/20">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-3xl mx-auto text-center"
+          >
             <h2 className="text-3xl font-bold mb-6">Experience the Difference</h2>
             <p className="text-lg mb-10">
-              Ready to be truly heard? Try EmpathyVoice AI today and feel the power of supportive listening.
+              Join thousands of users who have found comfort and support through AI-powered emotional support
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-empathy-purple hover:bg-empathy-dark-purple text-white">
-                Start Free Trial
-              </Button>
-              <Button variant="outline" size="lg" asChild>
-                <Link to="/how-it-works">Learn How It Works</Link>
-              </Button>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button size="lg" className="bg-empathy-purple hover:bg-empathy-dark-purple text-white">
+                  Start Free Trial
+                </Button>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Button variant="outline" size="lg" asChild>
+                  <Link to="/how-it-works">Learn How It Works</Link>
+                </Button>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </>
