@@ -1,4 +1,3 @@
-
 import { Check } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import { Button } from "@/components/ui/button";
 interface PricingFeature {
   included: boolean;
   name: string;
+  isHeader?: boolean;
 }
 
 interface PricingCardProps {
@@ -54,11 +54,15 @@ const PricingCard = ({
       <CardContent className="pt-4">
         <ul className="space-y-3">
           {features.map((feature, i) => (
-            <li key={i} className="flex items-start gap-2">
-              <div className={`mt-1 h-4 w-4 rounded-full ${feature.included ? 'bg-empathy-purple' : 'bg-gray-200'} flex items-center justify-center flex-shrink-0`}>
-                {feature.included && <Check className="h-3 w-3 text-white" />}
-              </div>
-              <span className={`text-sm ${!feature.included && 'text-muted-foreground'}`}>{feature.name}</span>
+            <li key={i} className={`flex items-start gap-2 ${feature.isHeader ? 'pt-2 pb-1 border-t border-gray-100 dark:border-gray-800' : ''}`}>
+              {!feature.isHeader && (
+                <div className={`mt-1 h-4 w-4 rounded-full ${feature.included ? 'bg-empathy-purple' : 'bg-gray-200'} flex items-center justify-center flex-shrink-0`}>
+                  {feature.included && <Check className="h-3 w-3 text-white" />}
+                </div>
+              )}
+              <span className={`text-sm ${!feature.included && !feature.isHeader ? 'text-muted-foreground' : ''} ${feature.isHeader ? 'font-medium text-empathy-purple' : ''}`}>
+                {feature.name}
+              </span>
             </li>
           ))}
         </ul>
