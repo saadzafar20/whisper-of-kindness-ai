@@ -8,7 +8,13 @@ import {
   UserMinus,
   DollarSign,
   ShieldOff,
-  HandShake
+  Handshake,
+  CheckCircle,
+  MessageSquare,
+  Lock,
+  Users,
+  Sparkles,
+  Link as LinkIcon
 } from "lucide-react";
 import FloatingElements from "@/components/FloatingElements";
 import VoiceWaveform from "@/components/VoiceWaveform";
