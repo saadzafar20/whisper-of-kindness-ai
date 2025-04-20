@@ -6,11 +6,68 @@ import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from "@/comp
 import FloatingElements from "@/components/FloatingElements";
 import PricingCard from "@/components/PricingCard";
 import { useNavigate } from "react-router-dom";
+import { Toggle } from "@/components/ui/toggle";
 
 const PricingPage = () => {
   const navigate = useNavigate();
+  const [billingCycle, setBillingCycle] = useState<"monthly" | "lifetime">("monthly");
   
-  const pricingPlans = [
+  const monthlyPlans = [
+    {
+      name: "Basic",
+      description: "Get started with AI emotional support",
+      price: "$19.99",
+      features: [
+        { name: "1 AI session (15 min) per month", included: true },
+        { name: "Basic voice customization", included: true },
+        { name: "Text session history (7 days)", included: true },
+        { name: "Community support", included: true },
+        { name: "Limited emotion analysis", included: true },
+        { name: "Basic wellness recommendations", included: false },
+        { name: "Voice session history", included: false },
+        { name: "Priority support", included: false },
+      ],
+      buttonText: "Start Free Trial",
+      buttonVariant: "outline" as const,
+    },
+    {
+      name: "Premium",
+      description: "Enhanced emotional support experience",
+      price: "$49.99",
+      popular: true,
+      features: [
+        { name: "Everything in Basic, plus:", included: true, isHeader: true },
+        { name: "1 AI session per week (30 min each)", included: true },
+        { name: "Advanced voice customization", included: true },
+        { name: "Unlimited text session history", included: true },
+        { name: "Voice session history (30 days)", included: true },
+        { name: "Detailed emotion analysis", included: true },
+        { name: "Personalized wellness plan", included: true },
+        { name: "Priority email support", included: true },
+      ],
+      buttonText: "Start Free Trial",
+      buttonVariant: "default" as const,
+    },
+    {
+      name: "Ultimate",
+      description: "Complete AI emotional support solution",
+      price: "$99.99",
+      features: [
+        { name: "Everything in Premium, plus:", included: true, isHeader: true },
+        { name: "Daily AI sessions (30 min each)", included: true },
+        { name: "Full voice & personality customization", included: true },
+        { name: "Unlimited session history (voice & text)", included: true },
+        { name: "Advanced progress tracking & insights", included: true },
+        { name: "Personalized wellness plan with updates", included: true },
+        { name: "Daily journal & progress tracking", included: true },
+        { name: "24/7 Priority support", included: true },
+      ],
+      buttonText: "Start Free Trial",
+      buttonVariant: "default" as const,
+    }
+  ];
+
+  const lifetimePlans = [
     {
       name: "Lifetime Premium",
       description: "Complete AI emotional support solution",
@@ -47,6 +104,8 @@ const PricingPage = () => {
     }
   ];
 
+  const currentPlans = billingCycle === "monthly" ? monthlyPlans : lifetimePlans;
+
   return (
     <>
       {/* Header Section */}
@@ -58,17 +117,48 @@ const PricingPage = () => {
               Simple, Transparent <span className="text-empathy-purple">Pricing</span>
             </h1>
             <p className="text-xl text-muted-foreground mb-10 animate-fade-in" style={{ animationDelay: "200ms" }}>
-              Choose between our lifetime access or white-label partnership solutions.
+              Choose the plan that works best for you.
             </p>
           </div>
         </div>
       </section>
 
+      {/* Pricing Toggle */}
+      <div className="py-8 bg-white dark:bg-empathy-dark-navy">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center items-center space-x-4">
+            <span className={`text-lg ${billingCycle === "monthly" ? "font-medium text-empathy-purple" : "text-gray-500"}`}>
+              Monthly
+            </span>
+            <button
+              onClick={() => setBillingCycle(billingCycle === "monthly" ? "lifetime" : "monthly")}
+              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                billingCycle === "lifetime" ? "bg-empathy-purple" : "bg-gray-200"
+              }`}
+            >
+              <span
+                className={`pointer-events-none block h-5 w-5 rounded-full bg-white shadow-lg ring-0 transition-transform ${
+                  billingCycle === "lifetime" ? "translate-x-6" : "translate-x-1"
+                }`}
+              />
+            </button>
+            <span className={`text-lg ${billingCycle === "lifetime" ? "font-medium text-empathy-purple" : "text-gray-500"}`}>
+              Lifetime
+            </span>
+          </div>
+          {billingCycle === "lifetime" && (
+            <p className="text-center mt-3 text-sm text-empathy-purple">
+              Pay once, use forever
+            </p>
+          )}
+        </div>
+      </div>
+
       {/* Pricing Cards Section */}
       <section className="py-16 bg-white dark:bg-empathy-dark-navy">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {pricingPlans.map((plan, index) => (
+          <div className={`grid grid-cols-1 ${billingCycle === "monthly" ? "md:grid-cols-3" : "md:grid-cols-2"} gap-8 max-w-5xl mx-auto`}>
+            {currentPlans.map((plan, index) => (
               <PricingCard
                 key={plan.name}
                 name={plan.name}
@@ -82,6 +172,17 @@ const PricingPage = () => {
               />
             ))}
           </div>
+          {billingCycle === "lifetime" && (
+            <div className="text-center mt-10">
+              <Button 
+                size="lg" 
+                className="bg-empathy-purple hover:bg-empathy-dark-purple text-white"
+                onClick={() => navigate('/partnership-network')}
+              >
+                Learn More About White-Label Partnership
+              </Button>
+            </div>
+          )}
         </div>
       </section>
 
