@@ -73,6 +73,7 @@ const PricingPage = () => {
       description: "Complete AI emotional support solution",
       price: "$4,000",
       features: [
+        { name: "50% Limited Time Discount!", included: true, isHeader: true },
         { name: "Unlimited AI sessions (30 min each)", included: true },
         { name: "Voice customization", included: true },
         { name: "Progress tracking & insights", included: true },
@@ -91,7 +92,8 @@ const PricingPage = () => {
       price: "$8,000",
       popular: true,
       features: [
-        { name: "Everything in Lifetime Premium, plus:", included: true, isHeader: true },
+        { name: "50% Limited Time Discount!", included: true, isHeader: true },
+        { name: "Everything in Lifetime Premium, plus:", included: true },
         { name: "Custom branding and UI elements", included: true },
         { name: "Dedicated account manager", included: true },
         { name: "API access and custom integrations", included: true },
@@ -143,13 +145,18 @@ const PricingPage = () => {
               />
             </button>
             <span className={`text-lg ${billingCycle === "lifetime" ? "font-medium text-empathy-purple" : "text-gray-500"}`}>
-              Lifetime
+              Lifetime & Whitelabel
             </span>
           </div>
           {billingCycle === "lifetime" && (
-            <p className="text-center mt-3 text-sm text-empathy-purple">
-              Pay once, use forever
-            </p>
+            <div className="text-center mt-3">
+              <p className="text-empathy-purple font-bold animate-bounce">
+                🎉 Limited Time: 50% OFF on Lifetime Plans! 🎉
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Pay once, use forever
+              </p>
+            </div>
           )}
         </div>
       </div>

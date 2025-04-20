@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
@@ -13,6 +12,7 @@ import BlogPage from "./pages/BlogPage";
 import JoinNetworkPage from "./pages/JoinNetworkPage";
 import PrivacyPage from "./pages/PrivacyPage";
 import NotFound from "./pages/NotFound";
+import WhiteLabelPage from "./pages/WhiteLabelPage";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +32,7 @@ const App = () => (
               <Route path="/blog" element={<BlogPage />} />
               <Route path="/partnership-network" element={<JoinNetworkPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="/white-label" element={<WhiteLabelPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

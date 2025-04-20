@@ -26,7 +26,8 @@ const NavBar = () => {
     { name: "Why Choose AI?", path: "/talk-to-consultants" },
     { name: "Pricing", path: "/pricing" },
     { name: "Blog", path: "/blog" },
-    { name: "White-Label Partnership", path: "/partnership-network" }
+    { name: "Join Network", path: "/partnership-network" },
+    { name: "White-Label", path: "/white-label" }
   ];
 
   return (
