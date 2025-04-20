@@ -19,8 +19,8 @@ const PricingPage = () => {
         { name: "Basic emotional support", included: true },
         { name: "Session history (24h)", included: true },
         { name: "Voice customization", included: false },
-        { name: "Advanced coping strategies", included: false },
         { name: "Progress tracking", included: false },
+        { name: "Stress relief techniques", included: false },
         { name: "Priority support", included: false },
       ],
       buttonText: "Start Free Trial",
@@ -28,17 +28,17 @@ const PricingPage = () => {
     },
     {
       name: "Premium AI",
-      description: "Unlimited AI emotional support",
+      description: "Enhanced AI emotional support",
       monthlyPrice: "$199",
-      yearlyPrice: "$179",
+      yearlyPrice: "$149",
       popular: true,
       features: [
         { name: "4 AI sessions (30 min each) per week", included: true },
         { name: "Enhanced emotional support", included: true },
         { name: "Session history (unlimited)", included: true },
         { name: "Voice customization", included: true },
-        { name: "Advanced coping strategies", included: true },
-        { name: "Progress tracking", included: true },
+        { name: "Progress tracking & insights", included: true },
+        { name: "Guided meditation library", included: true },
         { name: "Priority support", included: false },
       ],
       buttonText: "Get Premium",
@@ -48,20 +48,32 @@ const PricingPage = () => {
       name: "Ultimate",
       description: "AI + Human Expert Support",
       monthlyPrice: "$499",
-      yearlyPrice: "$449",
+      yearlyPrice: "$374",
       features: [
-        { name: "Unlimited AI sessions (30 min each)", included: true },
+        { name: "30 AI sessions (30 min each) per month", included: true },
         { name: "2 Expert consultations/month", included: true },
         { name: "Session history (unlimited)", included: true },
         { name: "Voice customization", included: true },
         { name: "Personalized wellness plan", included: true },
-        { name: "Progress tracking", included: true },
+        { name: "Daily journal & progress tracking", included: true },
         { name: "24/7 Priority support", included: true },
       ],
       buttonText: "Get Ultimate",
       buttonVariant: "default" as const,
     }
   ];
+
+  const enterpriseSolution = {
+    title: "White-Label Partnership",
+    features: [
+      "Custom branding and UI elements",
+      "Dedicated account manager",
+      "API access and custom integrations",
+      "Volume-based pricing",
+      "Enhanced security features",
+      "Custom AI training for your industry"
+    ]
+  };
 
   return (
     <>
@@ -221,18 +233,12 @@ const PricingPage = () => {
             <div className="p-8 border rounded-xl bg-card">
               <div className="flex flex-col md:flex-row justify-between items-start gap-8">
                 <div>
-                  <h3 className="text-2xl font-semibold mb-4">Enterprise Solutions</h3>
+                  <h3 className="text-2xl font-semibold mb-4">White-Label Partnership</h3>
                   <p className="text-muted-foreground mb-6">
-                    Looking to provide EmpathyVoice to your entire organization? Our enterprise solutions offer custom features, dedicated support, and volume pricing.
+                    Looking to integrate EmpathyVoice into your platform? Our white-label solutions offer complete customization and branding options.
                   </p>
                   <ul className="space-y-2 mb-6">
-                    {[
-                      "Customized AI training for your industry",
-                      "Advanced analytics and reporting",
-                      "Dedicated account manager",
-                      "Custom integration options",
-                      "Volume discounts"
-                    ].map((feature, index) => (
+                    {enterpriseSolution.features.map((feature, index) => (
                       <li key={index} className="flex items-start gap-2">
                         <div className="mt-1 h-4 w-4 rounded-full bg-empathy-purple flex items-center justify-center flex-shrink-0">
                           <Check className="h-3 w-3 text-white" />
