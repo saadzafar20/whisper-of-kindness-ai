@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { HandShake, Users, Star, CircleCheck } from "lucide-react";
+import { Handshake, Users, Star, CircleCheck } from "lucide-react";
 import FloatingElements from "@/components/FloatingElements";
 import { useNavigate } from "react-router-dom";
 
@@ -22,7 +22,7 @@ const WhiteLabelPage = () => {
     {
       title: "API Integration",
       description: "Full access to our robust API for seamless integration with your existing systems and workflows.",
-      icon: HandShake
+      icon: Handshake
     },
     {
       title: "Enhanced Security",
