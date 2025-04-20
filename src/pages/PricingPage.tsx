@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Check, HelpCircle } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import FloatingElements from "@/components/FloatingElements";
 import PricingCard from "@/components/PricingCard";
+import { useNavigate } from "react-router-dom";
 
 const PricingPage = () => {
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
+  const [billingCycle, setBillingCycle] = useState<'regular' | 'lifetime'>('regular');
+  const navigate = useNavigate();
   
   const pricingPlans = [
     {
@@ -15,7 +17,7 @@ const PricingPage = () => {
       monthlyPrice: "Free",
       yearlyPrice: "Free",
       features: [
-        { name: "1 AI session (30 min) per month", included: true },
+        { name: "1 AI session (15 min) per month", included: true },
         { name: "Basic emotional support", included: true },
         { name: "Session history (24h)", included: true },
         { name: "Voice customization", included: false },
@@ -30,11 +32,11 @@ const PricingPage = () => {
       name: "Premium AI",
       description: "Enhanced AI emotional support",
       monthlyPrice: "$199",
-      yearlyPrice: "$149",
+      lifetimePrice: "$4,000",
       popular: true,
       features: [
         { name: "Everything in Basic, plus:", included: true, isHeader: true },
-        { name: "4 AI sessions (30 min each) per week", included: true },
+        { name: "1 AI session (30 min) per week", included: true },
         { name: "Voice customization", included: true },
         { name: "Progress tracking & insights", included: true },
         { name: "Session history (unlimited)", included: true },
@@ -46,12 +48,12 @@ const PricingPage = () => {
     },
     {
       name: "Ultimate",
-      description: "AI + Human Expert Support",
+      description: "AI + Expert Support",
       monthlyPrice: "$499",
-      yearlyPrice: "$374",
+      lifetimePrice: "$16,000",
       features: [
         { name: "Everything in Premium AI, plus:", included: true, isHeader: true },
-        { name: "30 AI sessions (30 min each) per month", included: true },
+        { name: "Daily AI sessions (30 min each)", included: true },
         { name: "Personalized wellness plan", included: true },
         { name: "Daily journal & progress tracking", included: true },
         { name: "24/7 Priority support", included: true },
@@ -85,44 +87,28 @@ const PricingPage = () => {
             </h1>
             <p className="text-xl text-muted-foreground mb-10 animate-fade-in" style={{ animationDelay: "200ms" }}>
               Choose the plan that fits your emotional support needs.
-              Each session is 30 minutes of focused AI emotional support.
             </p>
 
-            {/* Motion Points */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10 animate-fade-in" style={{ animationDelay: "400ms" }}>
-              {["No fear of judgment", "No awkward silence", "Just a safe space"].map((point, index) => (
-                <div 
-                  key={index}
-                  className="p-4 rounded-lg bg-empathy-soft-purple/30 border border-empathy-purple/20"
-                >
-                  <div className="h-10 w-10 rounded-full bg-empathy-purple/10 flex items-center justify-center mx-auto mb-2">
-                    <Check className="h-5 w-5 text-empathy-purple" />
-                  </div>
-                  <p className="text-sm font-medium text-empathy-purple">{point}</p>
-                </div>
-              ))}
-            </div>
-            
             {/* Billing Toggle */}
             <div className="flex justify-center items-center gap-4 mb-12 animate-fade-in" style={{ animationDelay: "300ms" }}>
               <button 
-                className={`py-2 px-4 rounded-lg transition-colors ${billingCycle === 'monthly' ? 'bg-empathy-purple text-white' : 'bg-transparent text-muted-foreground'}`}
-                onClick={() => setBillingCycle('monthly')}
+                className={`py-2 px-4 rounded-lg transition-colors ${billingCycle === 'regular' ? 'bg-empathy-purple text-white' : 'bg-transparent text-muted-foreground'}`}
+                onClick={() => setBillingCycle('regular')}
               >
                 Monthly
               </button>
               <div className="relative">
                 <div className="h-6 w-12 bg-empathy-soft-purple rounded-full"></div>
                 <div 
-                  className={`absolute top-0.5 h-5 w-5 rounded-full bg-empathy-purple transition-all ${billingCycle === 'yearly' ? 'left-[calc(100%-1.25rem)]' : 'left-0.5'}`}
+                  className={`absolute top-0.5 h-5 w-5 rounded-full bg-empathy-purple transition-all ${billingCycle === 'lifetime' ? 'left-[calc(100%-1.25rem)]' : 'left-0.5'}`}
                 ></div>
               </div>
               <button 
-                className={`py-2 px-4 rounded-lg transition-colors flex items-center gap-2 ${billingCycle === 'yearly' ? 'bg-empathy-purple text-white' : 'bg-transparent text-muted-foreground'}`}
-                onClick={() => setBillingCycle('yearly')}
+                className={`py-2 px-4 rounded-lg transition-colors flex items-center gap-2 ${billingCycle === 'lifetime' ? 'bg-empathy-purple text-white' : 'bg-transparent text-muted-foreground'}`}
+                onClick={() => setBillingCycle('lifetime')}
               >
-                Yearly
-                <span className="text-xs py-0.5 px-1.5 bg-green-500 text-white rounded-full">Save 20%</span>
+                Lifetime
+                <span className="text-xs py-0.5 px-1.5 bg-green-500 text-white rounded-full">Best Value</span>
               </button>
             </div>
           </div>
@@ -137,7 +123,7 @@ const PricingPage = () => {
               <PricingCard
                 key={plan.name}
                 name={plan.name}
-                price={billingCycle === 'monthly' ? plan.monthlyPrice : plan.yearlyPrice}
+                price={billingCycle === 'regular' ? plan.monthlyPrice : plan.lifetimePrice || plan.monthlyPrice}
                 description={plan.description}
                 features={plan.features}
                 popular={plan.popular}
@@ -148,24 +134,24 @@ const PricingPage = () => {
             ))}
           </div>
 
-          <div className="max-w-3xl mx-auto mt-16 p-6 border border-empathy-purple/30 rounded-xl bg-empathy-soft-purple/20 animate-fade-in" style={{ animationDelay: "600ms" }}>
-            <h3 className="text-xl font-semibold mb-4 text-center">All Plans Include</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              {[
-                "Voice-based AI technology",
-                "Private conversations",
-                "256-bit encryption",
-                "No ads or data selling",
-                "Cancel anytime",
-                "Web & mobile access"
-              ].map((feature, index) => (
-                <div key={index} className="flex items-center gap-2">
-                  <div className="h-5 w-5 rounded-full bg-empathy-purple flex items-center justify-center">
-                    <Check className="h-3 w-3 text-white" />
-                  </div>
-                  <span className="text-sm">{feature}</span>
+          {/* Enterprise Section */}
+          <div className="max-w-3xl mx-auto mt-16">
+            <div className="p-8 border rounded-xl bg-card">
+              <div className="flex flex-col md:flex-row justify-between items-start gap-8">
+                <div>
+                  <h3 className="text-2xl font-semibold mb-4">White-Label Partnership</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Looking to integrate EmpathyVoice into your platform? Our white-label solutions offer complete customization and branding options.
+                  </p>
+                  <Button 
+                    size="lg" 
+                    className="w-full md:w-auto bg-empathy-purple hover:bg-empathy-dark-purple text-white"
+                    onClick={() => navigate('/join-network')}
+                  >
+                    Learn More About Partnership
+                  </Button>
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         </div>
@@ -219,39 +205,6 @@ const PricingPage = () => {
                   <p className="text-muted-foreground">{faq.a}</p>
                 </div>
               ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Enterprise Section */}
-      <section className="py-16 bg-white dark:bg-empathy-dark-navy">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <div className="p-8 border rounded-xl bg-card">
-              <div className="flex flex-col md:flex-row justify-between items-start gap-8">
-                <div>
-                  <h3 className="text-2xl font-semibold mb-4">White-Label Partnership</h3>
-                  <p className="text-muted-foreground mb-6">
-                    Looking to integrate EmpathyVoice into your platform? Our white-label solutions offer complete customization and branding options.
-                  </p>
-                  <ul className="space-y-2 mb-6">
-                    {enterpriseSolution.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <div className="mt-1 h-4 w-4 rounded-full bg-empathy-purple flex items-center justify-center flex-shrink-0">
-                          <Check className="h-3 w-3 text-white" />
-                        </div>
-                        <span className="text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="w-full md:w-auto">
-                  <Button size="lg" className="w-full md:w-auto bg-empathy-purple hover:bg-empathy-dark-purple text-white">
-                    Contact Sales
-                  </Button>
-                </div>
-              </div>
             </div>
           </div>
         </div>
