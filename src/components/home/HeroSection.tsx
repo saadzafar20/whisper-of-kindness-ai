@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Brain, Heart, Mic, Moon, Smile, Sparkles, Leaf } from "lucide-react";
@@ -149,13 +150,13 @@ const HeroActionsSection = ({ toggleVoiceDemo, isVoiceActive }: { toggleVoiceDem
           size="lg"
           onClick={toggleVoiceDemo}
           className={`relative overflow-hidden group transition-all duration-300 
-            ${isVoiceActive ? 'bg-empathy-purple/10' : 'bg-gradient-to-r from-golden/80 to-[#FFA500] hover:from-golden hover:to-[#FF8C00]'}
+            ${isVoiceActive ? 'bg-empathy-purple/10' : 'bg-gradient-to-r from-[#FEF7CD] to-[#FFDAB9] hover:from-[#FFF4CC] hover:to-[#FFE4B5]'}
             border-2 border-golden/30 hover:border-golden text-empathy-purple hover:text-white`}
         >
           <span className="relative z-10 flex items-center">
             {isVoiceActive ? "Hide Demo" : "Free Demo"} 
             <Mic 
-              className={`ml-2 h-6 w-6 transition-all duration-500 
+              className={`ml-2 h-8 w-8 transition-all duration-500 
                 ${isVoiceActive ? '' : 'group-hover:text-empathy-pearl animate-pulse'}
                 bg-gradient-to-r from-purple-500 to-pink-500 p-1 rounded-full`} 
               strokeWidth={1.5}
