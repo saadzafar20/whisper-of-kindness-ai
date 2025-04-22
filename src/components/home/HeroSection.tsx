@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { Brain, Heart, Smile, Moon, Sparkles, Leaf, Mic, ShieldCheck } from "lucide-react";
+import { Heart, Mic } from "lucide-react";
 import FloatingElements from "@/components/FloatingElements";
 import VoiceWaveform from "@/components/VoiceWaveform";
 import { motion } from "framer-motion";
@@ -105,7 +104,7 @@ export const HeroSection = () => {
             ].map((text, index) => (
               <motion.div
                 key={index}
-                className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-empathy-purple/20 group hover:shadow-xl transition-all duration-300 hover:border-empathy-purple/40 hover:bg-white"
+                className="bg-gradient-to-br from-[#FFD700] to-[#FFA500] backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-golden/20 group hover:shadow-xl transition-all duration-300 hover:border-golden/40 hover:bg-white/90"
                 whileHover={{ 
                   scale: 1.02,
                   y: -5,
@@ -114,9 +113,17 @@ export const HeroSection = () => {
               >
                 <div className="relative overflow-hidden">
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-empathy-purple/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    className="absolute inset-0 bg-gradient-to-r from-golden/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   />
-                  <p className="text-md font-medium text-gray-800 relative z-10">{text}</p>
+                  <p className="text-md font-medium text-gray-800 relative z-10">
+                    {text.includes("Built with care") ? (
+                      <>
+                        Affordable for all. Built with care. <Heart className="inline-block w-5 h-5 text-red-500" />
+                      </>
+                    ) : (
+                      text
+                    )}
+                  </p>
                 </div>
               </motion.div>
             ))}
@@ -135,31 +142,26 @@ export const HeroSection = () => {
 
 const HeroActionsSection = ({ toggleVoiceDemo, isVoiceActive }: { toggleVoiceDemo: () => void; isVoiceActive: boolean }) => {
   return (
-    <div className="flex flex-col gap-2 sm:flex-row sm:gap-4 justify-center mb-8">
-      <Button
-        size="lg"
-        className="bg-empathy-purple hover:bg-empathy-dark-purple text-white"
-      >
-        <Link to="/signup" className="w-full h-full flex items-center justify-center">
-          Start Your Journey
-        </Link>
-      </Button>
+    <div className="flex justify-center mb-8">
       <div className="flex flex-col items-center">
         <Button 
           variant="outline" 
           size="lg"
           onClick={toggleVoiceDemo}
           className={`relative overflow-hidden group transition-all duration-300 
-            ${isVoiceActive ? 'bg-empathy-purple/10' : 'bg-gradient-to-r from-empathy-soft-purple to-empathy-purple hover:from-empathy-purple hover:to-empathy-dark-purple'}
-            border-2 border-empathy-purple/30 hover:border-empathy-purple text-empathy-dark-purple hover:text-white`}
+            ${isVoiceActive ? 'bg-empathy-purple/10' : 'bg-gradient-to-r from-golden/80 to-[#FFA500] hover:from-golden hover:to-[#FF8C00]'}
+            border-2 border-golden/30 hover:border-golden text-white hover:text-white`}
         >
           <span className="relative z-10 flex items-center">
             {isVoiceActive ? "Hide Demo" : "Free Demo"} 
-            <Mic className={`ml-2 h-4 w-4 transition-all duration-500 
-              ${isVoiceActive ? '' : 'group-hover:text-empathy-pearl animate-pulse'}`} 
+            <Mic 
+              className={`ml-2 h-6 w-6 transition-all duration-500 
+                ${isVoiceActive ? '' : 'group-hover:text-empathy-pearl animate-pulse'}
+                bg-gradient-to-r from-purple-500 to-pink-500 p-1 rounded-full`} 
+              strokeWidth={1.5}
             />
           </span>
-          <div className="absolute inset-0 bg-gradient-to-r from-empathy-purple/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-gradient-to-r from-golden/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </Button>
         <p className="text-xs text-gray-500 mt-1">Click to try our AI voice demo</p>
       </div>
