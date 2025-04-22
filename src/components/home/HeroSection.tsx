@@ -1,6 +1,7 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Heart, Mic } from "lucide-react";
+import { Brain, Heart, Mic, Moon, Smile, Sparkles, Leaf } from "lucide-react";
 import FloatingElements from "@/components/FloatingElements";
 import VoiceWaveform from "@/components/VoiceWaveform";
 import { motion } from "framer-motion";
