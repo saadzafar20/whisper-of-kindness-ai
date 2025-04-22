@@ -155,13 +155,13 @@ const TalkToConsultantsPage = () => {
           {/* Why AI Support Section */}
           <h2 className="text-3xl font-bold mb-8 text-center text-empathy-deep-purple">Why AI Support?</h2>
           
-          {/* Our AI Team Section */}
+          {/* Our Support Team Section */}
           <div className="mb-16">
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl mb-4">Our AI Team</CardTitle>
+                <CardTitle className="text-2xl mb-4">Our Support Team</CardTitle>
                 <CardDescription>
-                  Meet our AI companions trained to provide empathetic support
+                  Meet our comprehensive team of AI companions and expert consultants
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -169,22 +169,22 @@ const TalkToConsultantsPage = () => {
                   <div className="flex flex-col items-center text-center">
                     <img
                       src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop"
-                      alt="Emma AI"
+                      alt="Emma Anderson AI"
                       className="w-32 h-32 rounded-full mb-4 object-cover"
                     />
-                    <h3 className="font-semibold mb-2">Emma</h3>
+                    <h3 className="font-semibold mb-2">Emma Anderson</h3>
                     <p className="text-muted-foreground mb-2">Anxiety & Depression Specialist</p>
                     <p className="text-sm text-muted-foreground">
-                      "I've helped over 10,000 users manage anxiety and depression through mindfulness and CBT techniques"
+                      "I've helped over 550 users manage anxiety and depression through mindfulness and CBT techniques"
                     </p>
                   </div>
                   <div className="flex flex-col items-center text-center">
                     <img
                       src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop"
-                      alt="David AI"
+                      alt="David Mitchell AI"
                       className="w-32 h-32 rounded-full mb-4 object-cover"
                     />
-                    <h3 className="font-semibold mb-2">David</h3>
+                    <h3 className="font-semibold mb-2">David Mitchell</h3>
                     <p className="text-muted-foreground mb-2">Work-Life Balance Coach</p>
                     <p className="text-sm text-muted-foreground">
                       "Specializing in stress management and helping professionals find balance in their daily lives"
@@ -192,11 +192,11 @@ const TalkToConsultantsPage = () => {
                   </div>
                   <div className="flex flex-col items-center text-center">
                     <img
-                      src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=300&h=300&fit=crop"
-                      alt="Sarah AI"
+                      src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=300&h=300&fit=crop"
+                      alt="Sarah Henderson AI"
                       className="w-32 h-32 rounded-full mb-4 object-cover"
                     />
-                    <h3 className="font-semibold mb-2">Sarah</h3>
+                    <h3 className="font-semibold mb-2">Sarah Henderson</h3>
                     <p className="text-muted-foreground mb-2">Relationships & Self-Esteem Guide</p>
                     <p className="text-sm text-muted-foreground">
                       "Dedicated to helping you build stronger relationships and develop lasting self-confidence"
@@ -206,41 +206,6 @@ const TalkToConsultantsPage = () => {
               </CardContent>
             </Card>
           </div>
-
-          {/* Our Experts */}
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle className="text-2xl mb-4">Our Experts</CardTitle>
-              <CardDescription>
-                Meet the team who developed this revolutionary AI support system
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-3 gap-6">
-                <div className="flex flex-col items-center text-center">
-                  <div className="rounded-full bg-empathy-soft-purple p-4 mb-4">
-                    <Brain className="h-8 w-8 text-empathy-purple" />
-                  </div>
-                  <h3 className="font-semibold mb-2">AI Research Team</h3>
-                  <p className="text-muted-foreground">Leading experts in natural language processing and emotional intelligence AI</p>
-                </div>
-                <div className="flex flex-col items-center text-center">
-                  <div className="rounded-full bg-empathy-soft-purple p-4 mb-4">
-                    <Heart className="h-8 w-8 text-empathy-purple" />
-                  </div>
-                  <h3 className="font-semibold mb-2">Mental Health Professionals</h3>
-                  <p className="text-muted-foreground">Licensed therapists and counselors guiding AI development</p>
-                </div>
-                <div className="flex flex-col items-center text-center">
-                  <div className="rounded-full bg-empathy-soft-purple p-4 mb-4">
-                    <Shield className="h-8 w-8 text-empathy-purple" />
-                  </div>
-                  <h3 className="font-semibold mb-2">Ethics & Privacy Team</h3>
-                  <p className="text-muted-foreground">Ensuring secure, ethical, and responsible AI interactions</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
 
           {/* Comparison Section */}
           <div className="grid md:grid-cols-2 gap-8 mb-8">
