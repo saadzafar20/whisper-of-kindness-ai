@@ -6,6 +6,7 @@ import VoiceWaveform from "@/components/VoiceWaveform";
 import { motion } from "framer-motion";
 import { useToast } from "@/hooks/use-toast";
 import { vapiService } from "@/services/vapiService";
+import { useNavigate } from "react-router-dom";
 
 const wellnessIcons = [
   { icon: Brain, color: "#9b87f5", title: "Mental Wellness" },
@@ -87,7 +88,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <span className="block mb-4">
-              Inspired by Humanity. Built to Heal <Heart className="inline-block w-6 h-6 text-empathy-purple animate-pulse" />. Devoted to You — 24/7.
+              Start your journey to emotional wellness today <Heart className="inline-block w-6 h-6 text-empathy-purple animate-pulse" />
             </span>
           </motion.p>
 
@@ -127,7 +128,31 @@ export const HeroSection = () => {
           </motion.div>
         </div>
 
-        <HeroActionsSection toggleVoiceDemo={toggleVoiceDemo} isVoiceActive={isVoiceActive} />
+        <div className="flex justify-center mb-8">
+          <div className="flex flex-col items-center">
+            <Button 
+              variant="outline" 
+              size="lg"
+              onClick={toggleVoiceDemo}
+              className={`relative overflow-hidden group transition-all duration-300 
+                ${isVoiceActive ? 'bg-empathy-purple/10' : 'bg-white/80'}
+                border-2 border-golden/30 hover:border-golden text-empathy-purple hover:text-white`}
+            >
+              <span className="relative z-10 flex items-center">
+                {isVoiceActive ? "Hide Demo" : "Free Demo Call"} 
+                <Mic 
+                  className={`ml-2 h-8 w-8 transition-all duration-500 
+                    ${isVoiceActive ? '' : 'group-hover:text-empathy-pearl animate-pulse'}
+                    bg-gradient-to-r from-purple-500 to-pink-500 p-1 rounded-full`} 
+                  strokeWidth={1.5}
+                />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-golden/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </Button>
+            <p className="text-xs text-gray-500 mt-1">Experience our AI voice companion and view pricing</p>
+          </div>
+        </div>
+
         <VoiceDemoSection isActive={isVoiceActive} />
         <StartNowCardSection />
       </div>
@@ -232,6 +257,8 @@ const VoiceDemoSection = ({ isActive }: { isActive: boolean }) => {
 };
 
 const StartNowCardSection = () => {
+  const navigate = useNavigate();
+  
   return (
     <motion.div
       className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-md border border-gray-200 mt-10"
@@ -239,14 +266,12 @@ const StartNowCardSection = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 1.5 }}
     >
-      <h3 className="text-lg font-medium mb-2">Inspired by Humanity. Built to Heal. Devoted to You — 24/7.</h3>
-      <p className="text-gray-600 mb-4">Affordable for all. Built with care. 
-        <Heart 
-          className="inline-block w-5 h-5 ml-1 text-red-500 animate-pulse" 
-          fill="currentColor" 
-          strokeWidth={1.5} 
-        />
-      </p>
+      <Button 
+        onClick={() => navigate('/pricing')}
+        className="w-full bg-empathy-purple hover:bg-empathy-dark-purple text-white"
+      >
+        View Pricing & Start Your Journey
+      </Button>
     </motion.div>
   );
 };
