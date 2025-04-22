@@ -16,7 +16,8 @@ const TalkToConsultantsPage = () => {
         "Evidence-based Coping Strategies",
         "Available 24/7, Anytime You Need",
         "Personalized Support Journey",
-        "Secure End-to-end Encryption"
+        "Secure End-to-end Encryption",
+        "Affordable Plans Starting at $0/month"
       ],
       icon: <Brain className="h-8 w-8 text-empathy-purple" />,
       link: "/pricing"
@@ -154,6 +155,58 @@ const TalkToConsultantsPage = () => {
           {/* Why AI Support Section */}
           <h2 className="text-3xl font-bold mb-8 text-center text-empathy-deep-purple">Why AI Support?</h2>
           
+          {/* Our AI Team Section */}
+          <div className="mb-16">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-2xl mb-4">Our AI Team</CardTitle>
+                <CardDescription>
+                  Meet our AI companions trained to provide empathetic support
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="flex flex-col items-center text-center">
+                    <img
+                      src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop"
+                      alt="Emma AI"
+                      className="w-32 h-32 rounded-full mb-4 object-cover"
+                    />
+                    <h3 className="font-semibold mb-2">Emma</h3>
+                    <p className="text-muted-foreground mb-2">Anxiety & Depression Specialist</p>
+                    <p className="text-sm text-muted-foreground">
+                      "I've helped over 10,000 users manage anxiety and depression through mindfulness and CBT techniques"
+                    </p>
+                  </div>
+                  <div className="flex flex-col items-center text-center">
+                    <img
+                      src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop"
+                      alt="David AI"
+                      className="w-32 h-32 rounded-full mb-4 object-cover"
+                    />
+                    <h3 className="font-semibold mb-2">David</h3>
+                    <p className="text-muted-foreground mb-2">Work-Life Balance Coach</p>
+                    <p className="text-sm text-muted-foreground">
+                      "Specializing in stress management and helping professionals find balance in their daily lives"
+                    </p>
+                  </div>
+                  <div className="flex flex-col items-center text-center">
+                    <img
+                      src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=300&h=300&fit=crop"
+                      alt="Sarah AI"
+                      className="w-32 h-32 rounded-full mb-4 object-cover"
+                    />
+                    <h3 className="font-semibold mb-2">Sarah</h3>
+                    <p className="text-muted-foreground mb-2">Relationships & Self-Esteem Guide</p>
+                    <p className="text-sm text-muted-foreground">
+                      "Dedicated to helping you build stronger relationships and develop lasting self-confidence"
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
           {/* Our Experts */}
           <Card className="mb-8">
             <CardHeader>
