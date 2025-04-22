@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Brain, Heart, Mic, Moon, Smile, Sparkles, Leaf } from "lucide-react";
@@ -151,7 +150,7 @@ const HeroActionsSection = ({ toggleVoiceDemo, isVoiceActive }: { toggleVoiceDem
           onClick={toggleVoiceDemo}
           className={`relative overflow-hidden group transition-all duration-300 
             ${isVoiceActive ? 'bg-empathy-purple/10' : 'bg-gradient-to-r from-golden/80 to-[#FFA500] hover:from-golden hover:to-[#FF8C00]'}
-            border-2 border-golden/30 hover:border-golden text-white hover:text-white`}
+            border-2 border-golden/30 hover:border-golden text-empathy-purple hover:text-white`}
         >
           <span className="relative z-10 flex items-center">
             {isVoiceActive ? "Hide Demo" : "Free Demo"} 
@@ -243,11 +242,14 @@ const StartNowCardSection = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 1.5 }}
     >
-      <h3 className="text-lg font-medium mb-2">Start Your Healing Journey Today</h3>
-      <p className="text-gray-600 mb-4">Your emotional wellness matters. Begin with a free session.</p>
-      <Button className="w-full bg-empathy-purple hover:bg-empathy-dark-purple text-white">
-        Get Started
-      </Button>
+      <h3 className="text-lg font-medium mb-2">Inspired by Humanity. Built to Heal. Devoted to You — 24/7.</h3>
+      <p className="text-gray-600 mb-4">Affordable for all. Built with care. 
+        <Heart 
+          className="inline-block w-5 h-5 ml-1 text-red-500 animate-pulse" 
+          fill="currentColor" 
+          strokeWidth={1.5} 
+        />
+      </p>
     </motion.div>
   );
 };
