@@ -88,7 +88,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <span className="block mb-4">
-              Inspired by Humanity. Built to Heal. Devoted to You — 24/7.
+              Inspired by Humanity. Built to Heal <Heart className="inline-block w-6 h-6 text-empathy-purple animate-pulse" />. Devoted to You — 24/7.
             </span>
           </motion.p>
 
@@ -105,17 +105,16 @@ export const HeroSection = () => {
             ].map((text, index) => (
               <motion.div
                 key={index}
-                className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-empathy-purple/10"
+                className="bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-lg border border-empathy-purple/10 hover:shadow-xl transition-all duration-300 hover:border-empathy-purple/30"
                 whileHover={{ scale: 1.02, backgroundColor: "rgba(255, 255, 255, 0.9)" }}
                 transition={{ duration: 0.2 }}
               >
-                <p className="text-lg text-gray-700">{text}</p>
+                <p className="text-lg font-medium text-gray-800">{text}</p>
               </motion.div>
             ))}
           </motion.div>
         </div>
 
-        <HeroFeaturesSection />
         <HeroActionsSection toggleVoiceDemo={toggleVoiceDemo} isVoiceActive={isVoiceActive} />
         <VoiceDemoSection isActive={isVoiceActive} />
         <StartNowCardSection />
@@ -123,62 +122,6 @@ export const HeroSection = () => {
       
       <WaveBackgroundSection />
     </section>
-  );
-};
-
-const HeroFeaturesSection = () => {
-  const features = [
-    {
-      text: "No fear of judgment.",
-      icon: <Mic className="h-5 w-5 text-empathy-purple" />,
-      delay: 0.2
-    },
-    {
-      text: "No awkward silence. EVER!",
-      icon: <ShieldCheck className="h-5 w-5 text-empathy-purple" />,
-      delay: 0.4
-    },
-    {
-      text: "Just a safe space - 100%",
-      icon: <ShieldCheck className="h-5 w-5 text-empathy-purple" />,
-      delay: 0.6
-    }
-  ];
-
-  return (
-    <div className="space-y-4 mb-8">
-      {features.map((item, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: item.delay }}
-          className="flex items-center justify-center gap-3"
-        >
-          <motion.div 
-            className="h-10 w-10 rounded-full bg-white/50 backdrop-blur-sm flex items-center justify-center border border-empathy-purple/30"
-            whileHover={{ scale: 1.1 }}
-            animate={{
-              boxShadow: [
-                "0 0 0 0 rgba(155, 135, 245, 0)",
-                "0 0 0 10px rgba(155, 135, 245, 0.1)",
-              ]
-            }}
-            transition={{ 
-              duration: 2,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "easeInOut"
-            }}
-          >
-            {item.icon}
-          </motion.div>
-          <p className="text-xl font-medium text-gray-800">
-            {item.text}
-          </p>
-        </motion.div>
-      ))}
-    </div>
   );
 };
 
