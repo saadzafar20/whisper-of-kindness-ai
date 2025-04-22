@@ -93,23 +93,31 @@ export const HeroSection = () => {
           </motion.p>
 
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
+            className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
             {[
-              "No judgment. No pressure. No shame.",
-              "No awkward silences. No bias. Ever.",
-              "Just a 100% safe, encrypted space—whenever you need it most."
+              "No judgment. No pressure. No shame. No Bias. EVER!",
+              "Affordable for all. Built with care. ♥",
+              "Just a 100% safe, encrypted space."
             ].map((text, index) => (
               <motion.div
                 key={index}
-                className="bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-lg border border-empathy-purple/10 hover:shadow-xl transition-all duration-300 hover:border-empathy-purple/30"
-                whileHover={{ scale: 1.02, backgroundColor: "rgba(255, 255, 255, 0.9)" }}
+                className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-empathy-purple/20 group hover:shadow-xl transition-all duration-300 hover:border-empathy-purple/40 hover:bg-white"
+                whileHover={{ 
+                  scale: 1.02,
+                  y: -5,
+                }}
                 transition={{ duration: 0.2 }}
               >
-                <p className="text-lg font-medium text-gray-800">{text}</p>
+                <div className="relative overflow-hidden">
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-empathy-purple/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                  <p className="text-md font-medium text-gray-800 relative z-10">{text}</p>
+                </div>
               </motion.div>
             ))}
           </motion.div>
@@ -143,9 +151,9 @@ const HeroActionsSection = ({ toggleVoiceDemo, isVoiceActive }: { toggleVoiceDem
           onClick={toggleVoiceDemo}
           className={isVoiceActive ? "bg-gray-100" : ""}
         >
-          {isVoiceActive ? "Hide Voice Demo" : "Try Voice Demo"} <Mic className="ml-2 h-4 w-4" />
+          {isVoiceActive ? "Hide Demo" : "Free Demo"} <Mic className="ml-2 h-4 w-4" />
         </Button>
-        <p className="text-xs text-gray-500 mt-1">Click to show/hide the voice demo panel</p>
+        <p className="text-xs text-gray-500 mt-1">Click to show/hide the demo panel</p>
       </div>
     </div>
   );
