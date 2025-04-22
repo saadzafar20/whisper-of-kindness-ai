@@ -25,57 +25,96 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden bg-sky-50/80">
-      <FloatingElements count={25} />
+    <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden bg-gradient-to-br from-empathy-soft-purple/20 via-white to-empathy-pearl">
+      <FloatingElements count={35} />
+      
       {wellnessIcons.map((item, index) => {
         const Icon = item.icon;
         return (
           <motion.div
             key={index}
-            className="absolute opacity-20"
+            className="absolute opacity-10"
             style={{
-              top: `${20 + index * 15}%`,
-              right: `${10 + index * 15}%`,
+              top: `${15 + index * 12}%`,
+              right: `${5 + index * 12}%`,
             }}
             animate={{
-              y: [0, 20],
-              rotate: [0, 10],
+              y: [0, 30],
+              rotate: [0, 15],
+              scale: [1, 1.1],
             }}
             transition={{
               duration: 8,
               repeat: Infinity,
               repeatType: "reverse",
-              delay: index * 1.5,
+              delay: index * 0.8,
               ease: "easeInOut",
             }}
           >
-            <Icon size={64} color={item.color} />
+            <Icon size={80} color={item.color} />
           </motion.div>
         );
       })}
       
-      <div className="container mx-auto px-4 pt-16 z-10 text-center">
-        <motion.h1 
-          className="text-3xl md:text-5xl font-bold mb-6 text-empathy-deep-purple"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          Experience a Revolutionary Approach to Emotional Wellness
-        </motion.h1>
-        
-        <motion.p className="text-lg text-gray-600 mb-8">
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.3 }}>
-            Inspired by Humanity.{' '}
-          </motion.span>
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.8 }}>
-            Made with ❤️ to Heal.{' '}
-          </motion.span>
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 1.3 }}>
-            Devoted to You 24/7
-          </motion.span>
-        </motion.p>
-        
+      <div className="container mx-auto px-4 pt-16 z-10">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div 
+            className="mb-12 relative"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.div
+              className="absolute -top-8 left-1/2 transform -translate-x-1/2 w-32 h-32 rounded-full bg-empathy-purple/10 blur-3xl"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.5, 0.8, 0.5],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-empathy-purple to-empathy-dark-purple">
+              Experience a Revolutionary AI Companion for Emotional Wellness
+            </h1>
+          </motion.div>
+
+          <motion.p 
+            className="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <span className="block mb-4">
+              Inspired by Humanity. Built to Heal. Devoted to You — 24/7.
+            </span>
+          </motion.p>
+
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            {[
+              "No judgment. No pressure. No shame.",
+              "No awkward silences. No bias. Ever.",
+              "Just a 100% safe, encrypted space—whenever you need it most."
+            ].map((text, index) => (
+              <motion.div
+                key={index}
+                className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-empathy-purple/10"
+                whileHover={{ scale: 1.02, backgroundColor: "rgba(255, 255, 255, 0.9)" }}
+                transition={{ duration: 0.2 }}
+              >
+                <p className="text-lg text-gray-700">{text}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+
         <HeroFeaturesSection />
         <HeroActionsSection toggleVoiceDemo={toggleVoiceDemo} isVoiceActive={isVoiceActive} />
         <VoiceDemoSection isActive={isVoiceActive} />
