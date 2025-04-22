@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Brain, Heart, Mic, Moon, Smile, Sparkles, Leaf } from "lucide-react";
 import FloatingElements from "@/components/FloatingElements";
@@ -88,7 +88,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <span className="block mb-4">
-              Start your journey to emotional wellness today <Heart className="inline-block w-6 h-6 text-empathy-purple animate-pulse" />
+              Inspired by Humanity. Built to Heal <Heart className="inline-block w-6 h-6 text-empathy-purple animate-pulse" /> Devoted to You — 24/7.
             </span>
           </motion.p>
 
