@@ -149,11 +149,19 @@ const HeroActionsSection = ({ toggleVoiceDemo, isVoiceActive }: { toggleVoiceDem
           variant="outline" 
           size="lg"
           onClick={toggleVoiceDemo}
-          className={isVoiceActive ? "bg-gray-100" : ""}
+          className={`relative overflow-hidden group transition-all duration-300 
+            ${isVoiceActive ? 'bg-empathy-purple/10' : 'bg-gradient-to-r from-empathy-soft-purple to-empathy-purple hover:from-empathy-purple hover:to-empathy-dark-purple'}
+            border-2 border-empathy-purple/30 hover:border-empathy-purple text-empathy-dark-purple hover:text-white`}
         >
-          {isVoiceActive ? "Hide Demo" : "Free Demo"} <Mic className="ml-2 h-4 w-4" />
+          <span className="relative z-10 flex items-center">
+            {isVoiceActive ? "Hide Demo" : "Free Demo"} 
+            <Mic className={`ml-2 h-4 w-4 transition-all duration-500 
+              ${isVoiceActive ? '' : 'group-hover:text-empathy-pearl animate-pulse'}`} 
+            />
+          </span>
+          <div className="absolute inset-0 bg-gradient-to-r from-empathy-purple/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </Button>
-        <p className="text-xs text-gray-500 mt-1">Click to show/hide the demo panel</p>
+        <p className="text-xs text-gray-500 mt-1">Click to try our AI voice demo</p>
       </div>
     </div>
   );
