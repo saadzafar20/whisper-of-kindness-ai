@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Brain, Heart, Mic, Moon, Smile, Sparkles, Leaf } from "lucide-react";
@@ -105,7 +104,7 @@ export const HeroSection = () => {
             ].map((text, index) => (
               <motion.div
                 key={index}
-                className="bg-gradient-to-br from-[#FFD700] to-[#FFA500] backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-golden/20 group hover:shadow-xl transition-all duration-300 hover:border-golden/40 hover:bg-white/90"
+                className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-gray-200 group hover:shadow-xl transition-all duration-300"
                 whileHover={{ 
                   scale: 1.02,
                   y: -5,
@@ -113,13 +112,10 @@ export const HeroSection = () => {
                 transition={{ duration: 0.2 }}
               >
                 <div className="relative overflow-hidden">
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-golden/5 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  />
                   <p className="text-md font-medium text-gray-800 relative z-10">
                     {text.includes("Built with care") ? (
                       <>
-                        Affordable for all. Built with care. <Heart className="inline-block w-5 h-5 text-red-500" />
+                        Affordable for all. Built with care. <Heart className="inline-block w-5 h-5 text-red-500 animate-pulse" />
                       </>
                     ) : (
                       text

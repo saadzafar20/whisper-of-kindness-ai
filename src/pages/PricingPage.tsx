@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Check, HelpCircle } from "lucide-react";
@@ -14,9 +13,9 @@ const PricingPage = () => {
   
   const monthlyPlans = [
     {
-      name: "Basic",
+      name: "Free",
       description: "Get started with AI emotional support",
-      price: "$19.99",
+      price: "Free",
       features: [
         { name: "1 AI session (15 min) per month", included: true },
         { name: "Basic voice customization", included: true },
@@ -73,7 +72,7 @@ const PricingPage = () => {
       description: "Complete AI emotional support solution",
       price: "$4,000",
       features: [
-        { name: "50% Limited Time Discount!", included: true, isHeader: true },
+        { name: "One-time payment - No monthly fees!", included: true, isHeader: true },
         { name: "Unlimited AI sessions (30 min each)", included: true },
         { name: "Voice customization", included: true },
         { name: "Progress tracking & insights", included: true },
@@ -92,7 +91,7 @@ const PricingPage = () => {
       price: "$8,000",
       popular: true,
       features: [
-        { name: "50% Limited Time Discount!", included: true, isHeader: true },
+        { name: "One-time payment - No monthly fees!", included: true, isHeader: true },
         { name: "Everything in Lifetime Premium, plus:", included: true },
         { name: "Custom branding and UI elements", included: true },
         { name: "Dedicated account manager", included: true },
