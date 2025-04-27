@@ -1,20 +1,18 @@
 import { Link } from "react-router-dom";
-import { Facebook, Twitter, Instagram, Linkedin, Heart } from "lucide-react";
+import { Facebook, Twitter, Instagram, Linkedin, Heart, Sparkles } from "lucide-react";
 
 const Footer = () => {
   return (
     <footer className="bg-white dark:bg-empathy-dark-navy pt-16 pb-8">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-          {/* Company Info */}
           <div className="col-span-1">
-            <div className="flex items-center gap-2 mb-6">
-              <div className="h-12 w-12 rounded-xl bg-luxury-gradient flex items-center justify-center shadow-luxury">
-                <span className="text-white font-bold text-2xl font-serif">
-                  {/* Removed FC */}
-                </span>
+            <div className="flex items-center gap-3 group mb-6">
+              <div className="relative h-12 w-12 rounded-2xl bg-gradient-to-br from-empathy-purple via-empathy-dark-purple to-empathy-deep-purple flex items-center justify-center shadow-luxury overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-tr from-empathy-purple/30 to-transparent opacity-50"></div>
+                <Sparkles className="text-white w-7 h-7" />
               </div>
-              <span className="font-serif font-bold text-xl text-empathy-deep-purple dark:text-white">
+              <span className="font-serif font-bold text-xl bg-gradient-to-r from-empathy-deep-purple to-empathy-dark-purple bg-clip-text text-transparent dark:from-white dark:to-gray-300">
                 FeelCalm
               </span>
             </div>
@@ -37,7 +35,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Links */}
           <div className="col-span-1">
             <h3 className="text-lg font-semibold mb-6 text-empathy-dark-navy dark:text-white">Product</h3>
             <ul className="space-y-4">

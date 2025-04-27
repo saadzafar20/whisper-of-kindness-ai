@@ -1,7 +1,8 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sparkles } from "lucide-react";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,13 +34,12 @@ const NavBar = () => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-sky-50/10 backdrop-blur-sm'}`}>
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="h-12 w-12 rounded-xl bg-luxury-gradient flex items-center justify-center shadow-luxury">
-            <span className="text-white font-bold text-2xl font-serif">
-              {/* Removed FC */}
-            </span>
+        <Link to="/" className="flex items-center gap-3 group">
+          <div className="relative h-12 w-12 rounded-2xl bg-gradient-to-br from-empathy-purple via-empathy-dark-purple to-empathy-deep-purple flex items-center justify-center shadow-luxury overflow-hidden transition-all duration-300 hover:shadow-xl group-hover:scale-105">
+            <div className="absolute inset-0 bg-gradient-to-tr from-empathy-purple/30 to-transparent opacity-50"></div>
+            <Sparkles className="text-white w-7 h-7 animate-pulse-slow" />
           </div>
-          <span className="font-serif font-bold text-xl text-empathy-deep-purple">
+          <span className="font-serif font-bold text-xl bg-gradient-to-r from-empathy-deep-purple to-empathy-dark-purple bg-clip-text text-transparent group-hover:from-empathy-purple group-hover:to-empathy-deep-purple transition-all duration-300">
             FeelCalm
           </span>
         </Link>
