@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -36,7 +35,9 @@ const NavBar = () => {
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <div className="h-12 w-12 rounded-xl bg-luxury-gradient flex items-center justify-center shadow-luxury">
-            <span className="text-white font-bold text-2xl font-serif">FC</span>
+            <span className="text-white font-bold text-2xl font-serif">
+              {/* Removed FC */}
+            </span>
           </div>
           <span className="font-serif font-bold text-xl text-empathy-deep-purple">
             FeelCalm

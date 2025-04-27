@@ -10,7 +10,9 @@ const Footer = () => {
           <div className="col-span-1">
             <div className="flex items-center gap-2 mb-6">
               <div className="h-12 w-12 rounded-xl bg-luxury-gradient flex items-center justify-center shadow-luxury">
-                <span className="text-white font-bold text-2xl font-serif">FC</span>
+                <span className="text-white font-bold text-2xl font-serif">
+                  {/* Removed FC */}
+                </span>
               </div>
               <span className="font-serif font-bold text-xl text-empathy-deep-purple dark:text-white">
                 FeelCalm
