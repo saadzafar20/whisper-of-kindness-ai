@@ -10,10 +10,10 @@ const Footer = () => {
           <div className="col-span-1">
             <div className="flex items-center gap-2 mb-6">
               <div className="h-12 w-12 rounded-xl bg-luxury-gradient flex items-center justify-center shadow-luxury">
-                <span className="text-white font-bold text-2xl font-serif">EV</span>
+                <span className="text-white font-bold text-2xl font-serif">FC</span>
               </div>
               <span className="font-serif font-bold text-xl text-empathy-deep-purple dark:text-white">
-                EmpathyVoice
+                FeelCalm
               </span>
             </div>
             <p className="text-empathy-neutral-gray mb-6">
@@ -70,7 +70,7 @@ const Footer = () => {
         <hr className="my-8 border-gray-200 dark:border-gray-700" />
 
         <div className="text-center text-empathy-neutral-gray text-sm">
-          <p className="mb-4">© {new Date().getFullYear()} EmpathyVoice AI. All rights reserved.</p>
+          <p className="mb-4">© {new Date().getFullYear()} FeelCalm AI. All rights reserved.</p>
           <p className="flex items-center justify-center gap-1">
             Made with <Heart size={14} className="text-empathy-purple" fill="#9b87f5" /> for better mental health
           </p>
