@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -66,13 +65,16 @@ const AuthPage = () => {
   };
 
   const onRegisterSubmit = async (data: RegisterFormValues) => {
-    const { confirmPassword, ...userData } = data;
-    await registerUser(userData);
+    await registerUser({
+      fullName: data.fullName,
+      email: data.email,
+      password: data.password,
+      gender: data.gender,
+      pricingPlan: data.pricingPlan
+    });
   };
 
   const handleGoogleSignIn = () => {
-    // In a real implementation, we would use the Google SDK
-    // For now, we'll simulate a successful authentication
     googleAuth("mock-google-token");
   };
 

@@ -17,17 +17,23 @@ export const CallToAction = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             {isAuthenticated ? (
-              <Button size="lg" className="bg-empathy-purple hover:bg-empathy-dark-purple text-white" as={Link} to="/dashboard">
-                Go to Dashboard
-              </Button>
+              <Link to="/dashboard">
+                <Button size="lg" className="bg-empathy-purple hover:bg-empathy-dark-purple text-white">
+                  Go to Dashboard
+                </Button>
+              </Link>
             ) : (
-              <Button size="lg" className="bg-empathy-purple hover:bg-empathy-dark-purple text-white" as={Link} to="/auth?tab=register">
-                Get Started for Free
-              </Button>
+              <Link to="/auth?tab=register">
+                <Button size="lg" className="bg-empathy-purple hover:bg-empathy-dark-purple text-white">
+                  Get Started for Free
+                </Button>
+              </Link>
             )}
-            <Button variant="outline" size="lg" as={Link} to="/pricing">
-              View Pricing
-            </Button>
+            <Link to="/pricing">
+              <Button variant="outline" size="lg">
+                View Pricing
+              </Button>
+            </Link>
           </div>
           
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-8">

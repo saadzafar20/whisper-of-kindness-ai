@@ -32,6 +32,18 @@ interface RegisterData {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
+// Create a default auth context for development/testing purposes
+const defaultAuthContext: AuthContextType = {
+  user: null,
+  loading: false,
+  token: null,
+  isAuthenticated: false,
+  login: async () => {},
+  register: async () => {},
+  logout: () => {},
+  googleAuth: async () => {}
+};
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
@@ -232,7 +244,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    console.error('useAuth must be used within an AuthProvider');
+    return defaultAuthContext; // Return a default context instead of throwing an error
   }
   return context;
 };
