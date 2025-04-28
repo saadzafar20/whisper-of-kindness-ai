@@ -88,7 +88,7 @@ export const HeroSection = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <span className="block mb-4">
-              Inspired by Humanity. Built to Heal <Heart className="inline-block w-6 h-6 text-empathy-purple animate-pulse" /> Devoted to You — 24/7.
+              Inspired by Humanity. Built to Heal <Heart className="inline-block w-6 h-6 text-empathy-purple animate-pulse" /> Affordable for all. Calm within reach.
             </span>
           </motion.p>
 

@@ -68,8 +68,11 @@ const WhiteLabelPage = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-6 animate-fade-in">
               White-Label <span className="text-empathy-purple">Partnership</span>
             </h1>
-            <p className="text-xl text-muted-foreground mb-10 animate-fade-in" style={{ animationDelay: "200ms" }}>
+            <p className="text-xl text-muted-foreground mb-6 animate-fade-in" style={{ animationDelay: "200ms" }}>
               Transform your business with our customizable AI emotional support solution
+            </p>
+            <p className="text-lg text-muted-foreground mb-10 animate-fade-in" style={{ animationDelay: "400ms" }}>
+              Join us in making mental wellness accessible to all communities. Together, we can create a world where emotional support knows no boundaries, and every person has access to the care they deserve. Your partnership helps build a more empathetic, supportive future for all.
             </p>
             <Button 
               size="lg"

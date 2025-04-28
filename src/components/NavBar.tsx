@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -24,11 +23,10 @@ const NavBar = () => {
   }, []);
 
   const navLinks = [
-    { name: "Why Us?", path: "/talk-to-consultants" },
-    { name: "Pricing", path: "/pricing" },
-    { name: "Blog", path: "/blog" },
     { name: "Join Network", path: "/partnership-network" },
-    { name: "White-Label", path: "/white-label" }
+    { name: "Calm Hub", path: "/blog" },
+    { name: "Pricing", path: "/pricing" },
+    { name: "WhiteLabel Partnership", path: "/white-label" }
   ];
 
   return (
