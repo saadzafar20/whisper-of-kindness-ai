@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Brain, Chart, Star, Book, MessageCircle } from "lucide-react";
+import { Brain, ChartBarBig, Star, Book, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -89,7 +89,7 @@ const TalkToConsultantsPage = () => {
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
-                      <Chart className="h-6 w-6 text-empathy-purple mt-1" />
+                      <ChartBarBig className="h-6 w-6 text-empathy-purple mt-1" />
                       <div>
                         <h3 className="font-semibold mb-2">Progress Tracking</h3>
                         <p className="text-muted-foreground">Monitor your emotional well-being with detailed insights and progress visualization.</p>
