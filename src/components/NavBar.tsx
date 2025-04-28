@@ -1,11 +1,23 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Menu, X, Sparkles, User } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { isAuthenticated, user, logout } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,12 +67,46 @@ const NavBar = () => {
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
-          <Button variant="ghost" className="text-gray-800 hover:bg-empathy-soft-purple/10 hover:text-empathy-deep-purple">
-            Sign In
-          </Button>
-          <Button className="bg-empathy-purple hover:bg-empathy-dark-purple text-white">
-            Get Started
-          </Button>
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="flex items-center gap-2 hover:bg-empathy-soft-purple/10 hover:text-empathy-deep-purple">
+                  <User size={18} />
+                  <span className="max-w-[120px] truncate">{user?.fullName || 'Account'}</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                  Dashboard
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate('/settings')}>
+                  Settings
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={logout}>
+                  Sign Out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Button 
+                variant="ghost" 
+                className="text-gray-800 hover:bg-empathy-soft-purple/10 hover:text-empathy-deep-purple"
+                onClick={() => navigate('/auth')}
+              >
+                Sign In
+              </Button>
+              <Button 
+                className="bg-empathy-purple hover:bg-empathy-dark-purple text-white"
+                onClick={() => navigate('/auth?tab=register')}
+              >
+                Get Started
+              </Button>
+            </>
+          )}
         </div>
 
         <button 
@@ -86,12 +132,50 @@ const NavBar = () => {
             ))}
             <hr className="my-2 border-gray-200" />
             <div className="flex flex-col gap-3">
-              <Button variant="ghost" className="justify-center text-gray-800 hover:bg-empathy-soft-purple/10 hover:text-empathy-deep-purple">
-                Sign In
-              </Button>
-              <Button className="justify-center bg-empathy-purple hover:bg-empathy-dark-purple text-white">
-                Get Started
-              </Button>
+              {isAuthenticated ? (
+                <>
+                  <Link 
+                    to="/dashboard" 
+                    className="flex items-center gap-2 py-2"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <User size={18} />
+                    <span>Dashboard</span>
+                  </Link>
+                  <Button 
+                    variant="ghost" 
+                    className="justify-center text-gray-800 hover:bg-empathy-soft-purple/10 hover:text-empathy-deep-purple"
+                    onClick={() => {
+                      logout();
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button 
+                    variant="ghost" 
+                    className="justify-center text-gray-800 hover:bg-empathy-soft-purple/10 hover:text-empathy-deep-purple"
+                    onClick={() => {
+                      navigate('/auth');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Sign In
+                  </Button>
+                  <Button 
+                    className="justify-center bg-empathy-purple hover:bg-empathy-dark-purple text-white"
+                    onClick={() => {
+                      navigate('/auth?tab=register');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Get Started
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
