@@ -16,6 +16,7 @@ const testConnection = async () => {
   try {
     const connection = await pool.getConnection();
     console.log('MySQL database connected successfully!');
+    console.log(`Connected to: ${process.env.DB_NAME} as ${process.env.DB_USER}`);
     connection.release();
     return true;
   } catch (error) {
