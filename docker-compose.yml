@@ -20,7 +20,8 @@ services:
       context: ./backend-dotnet
       dockerfile: Dockerfile
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - app-network
     environment:
@@ -44,6 +45,12 @@ services:
       - MYSQL_DATABASE=feelcalm
       - MYSQL_USER=dbuser
       - MYSQL_PASSWORD=dbpassword
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "dbuser", "--password=dbpassword"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
 networks:
   app-network:

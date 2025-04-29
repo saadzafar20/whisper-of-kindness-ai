@@ -44,7 +44,11 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
-        new MySqlServerVersion(new Version(8, 0, 0))
+        new MySqlServerVersion(new Version(8, 0, 0)),
+        mySqlOptions => mySqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 10,
+            maxRetryDelay: TimeSpan.FromSeconds(30),
+            errorNumbersToAdd: null)
     )
 );
 
@@ -97,7 +101,34 @@ app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    dbContext.Database.Migrate();
+    
+    // Add retry logic for migrations
+    var retryCount = 0;
+    const int maxRetryCount = 10;
+    var delay = TimeSpan.FromSeconds(5);
+    
+    while (retryCount < maxRetryCount)
+    {
+        try
+        {
+            Console.WriteLine($"Attempting to migrate database. Attempt {retryCount + 1} of {maxRetryCount}");
+            dbContext.Database.Migrate();
+            Console.WriteLine("Database migration completed successfully");
+            break;
+        }
+        catch (Exception ex)
+        {
+            retryCount++;
+            Console.WriteLine($"Error migrating database: {ex.Message}");
+            if (retryCount >= maxRetryCount)
+            {
+                Console.WriteLine("Maximum retry attempts reached. Migration failed.");
+                throw;
+            }
+            Console.WriteLine($"Waiting {delay.TotalSeconds} seconds before next attempt...");
+            Thread.Sleep(delay);
+        }
+    }
 }
 
 app.Run();
