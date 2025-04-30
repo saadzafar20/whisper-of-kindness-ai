@@ -44,8 +44,9 @@ const defaultAuthContext: AuthContextType = {
   googleAuth: async () => {}
 };
 
-// Get the API base URL - using relative URL if VITE_API_URL is not set
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+// Get the API base URL - ONLY use relative URL
+const API_BASE_URL = '/api';
+console.log('API Base URL:', API_BASE_URL); // Debug log
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -77,7 +78,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password: string) => {
     try {
       setLoading(true);
-      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      const loginUrl = `${API_BASE_URL}/auth/login`;
+      console.log('Login request URL:', loginUrl); // Debug log
+      
+      const response = await fetch(loginUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -117,7 +121,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const register = async (userData: RegisterData) => {
     try {
       setLoading(true);
-      const response = await fetch(`${API_BASE_URL}/auth/register`, {
+      const registerUrl = `${API_BASE_URL}/auth/register`;
+      console.log('Register request URL:', registerUrl); // Debug log
+      
+      const response = await fetch(registerUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

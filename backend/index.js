@@ -12,7 +12,12 @@ const sessionsRoutes = require('./routes/sessions');
 const app = express();
 
 // Middlewares
-app.use(cors());
+// Configure CORS to accept requests from any origin - important for development
+app.use(cors({
+  origin: '*', // Allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 // Test database connection
