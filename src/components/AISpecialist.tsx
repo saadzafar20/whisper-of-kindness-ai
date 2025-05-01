@@ -1,7 +1,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import VoiceWaveform from "./VoiceWaveform";
-import { Brain, Star, Mic, Speaker } from "lucide-react";
+import { Brain, Star, Mic, Speaker, HeartHandshake, Briefcase, Puzzle } from "lucide-react";
 
 interface AISpecialistProps {
   name: string;
@@ -34,7 +34,10 @@ const AISpecialist = ({ name, role, description, successMetric, methodologies, i
                 <Mic className="h-5 w-5 text-empathy-purple group-hover:animate-pulse" />
                 <Speaker className="h-5 w-5 text-empathy-purple group-hover:animate-pulse" />
               </div>
-              <Brain className="h-5 w-5 text-empathy-purple" />
+              {role.includes("Anxiety") && <Brain className="h-5 w-5 text-empathy-purple" />}
+              {role.includes("Work-Life") && <Briefcase className="h-5 w-5 text-empathy-purple" />}
+              {role.includes("Relationships") && <HeartHandshake className="h-5 w-5 text-empathy-purple" />}
+              {role.includes("Autism") && <Puzzle className="h-5 w-5 text-empathy-purple" />}
             </div>
             <p className="text-empathy-purple font-medium mb-2">{role}</p>
             <p className="text-muted-foreground mb-3">{description}</p>

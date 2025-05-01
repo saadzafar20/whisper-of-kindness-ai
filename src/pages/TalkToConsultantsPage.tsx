@@ -1,7 +1,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Brain, ChartBarBig, Star, Book, MessageCircle } from "lucide-react";
+import { Brain, ChartBarBig, Star, Book, MessageCircle, HeartHandshake, Briefcase, Puzzle } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -11,27 +11,35 @@ const TalkToConsultantsPage = () => {
   const aiSpecialists = [
     {
       name: "Emma Anderson AI",
-      role: "Anxiety & Stress Management Specialist",
-      description: "Specialized in evidence-based anxiety management and stress reduction techniques, combining CBT with real-time emotional analysis.",
-      successMetric: "Helped 550+ users manage anxiety through mindfulness and CBT",
-      methodologies: ["CBT", "Mindfulness", "Stress Management", "Real-time Analysis"],
+      role: "Anxiety & Depression Management Specialist",
+      description: "Expert in evidence-based techniques for anxiety disorders and depression, offering personalized coping strategies and emotional regulation tools to manage symptoms and build resilience.",
+      successMetric: "Helped 550+ users reduce anxiety and depression symptoms through mindfulness and CBT",
+      methodologies: ["CBT", "Mindfulness", "Stress Management", "Mood Tracking", "Behavioral Activation"],
       image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=300&h=300&fit=crop"
     },
     {
       name: "David Mitchell AI",
-      role: "Work-Life Harmony Coach",
-      description: "Expert in professional stress management and burnout prevention, providing adaptive support for work-life balance.",
-      successMetric: "90% user satisfaction in workplace stress reduction",
-      methodologies: ["Burnout Prevention", "Time Management", "Career Guidance", "Stress Relief"],
+      role: "Work-Life Balance & Stress Management Coach",
+      description: "Specialized in burnout prevention, workplace wellbeing, and creating sustainable productivity habits for professionals experiencing high-pressure environments and chronic stress.",
+      successMetric: "90% user satisfaction in workplace stress reduction and improved work-life harmony",
+      methodologies: ["Burnout Prevention", "Time Management", "Career Guidance", "Boundary Setting", "Work-Life Integration"],
       image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop"
     },
     {
       name: "Sarah Henderson AI",
-      role: "Emotional Growth & Relationships Guide",
-      description: "Focused on building self-confidence and improving relationship dynamics through personalized emotional intelligence training.",
-      successMetric: "Guided 400+ users in relationship and personal growth",
-      methodologies: ["EQ Development", "Relationship Skills", "Self-esteem Building", "Communication"],
+      role: "Relationships & Self-Esteem Guide",
+      description: "Focused on building healthy relationships, processing grief and loss, and developing self-confidence through compassionate dialogue and evidence-based emotional intelligence training.",
+      successMetric: "Guided 400+ users in relationship improvement and personal growth after loss",
+      methodologies: ["EQ Development", "Relationship Skills", "Self-esteem Building", "Grief Support", "Conflict Resolution"],
       image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop"
+    },
+    {
+      name: "Dr. Michael Chen AI",
+      role: "Autism Support & Neurodiversity Specialist",
+      description: "Dedicated to supporting individuals with autism spectrum disorders through personalized social skill development, sensory processing support, and daily routine management strategies.",
+      successMetric: "Supported 300+ neurodivergent individuals in developing effective coping strategies",
+      methodologies: ["Social Skills Training", "Sensory Regulation", "Routine Management", "Executive Function", "Special Interest Focus"],
+      image: "https://images.unsplash.com/photo-1618160702438-9b02ab6515c9?w=300&h=300&fit=crop"
     }
   ];
 

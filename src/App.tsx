@@ -15,6 +15,7 @@ import NotFound from "./pages/NotFound";
 import WhiteLabelPage from "./pages/WhiteLabelPage";
 import AuthPage from "./pages/AuthPage";
 import DashboardPage from "./pages/DashboardPage";
+import TalkToConsultantsPage from "./pages/TalkToConsultantsPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./contexts/AuthContext";
 
@@ -38,6 +39,7 @@ const App = () => (
                 <Route path="/privacy" element={<PrivacyPage />} />
                 <Route path="/white-label" element={<WhiteLabelPage />} />
                 <Route path="/auth" element={<AuthPage />} />
+                <Route path="/talk-to-consultants" element={<TalkToConsultantsPage />} />
                 <Route 
                   path="/dashboard" 
                   element={
