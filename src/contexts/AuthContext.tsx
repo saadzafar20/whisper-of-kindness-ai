@@ -89,11 +89,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         body: JSON.stringify({ email, password }),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.msg || 'Failed to login');
+        const errorData = await response.text();
+        console.error('Login error response:', errorData);
+        throw new Error('Failed to login. Please check your credentials.');
       }
+
+      const data = await response.json();
 
       // Save token to localStorage
       localStorage.setItem('token', data.token);
@@ -132,11 +134,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         body: JSON.stringify(userData),
       });
 
-      const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.msg || 'Registration failed');
+        const errorData = await response.text();
+        console.error('Register error response:', errorData);
+        throw new Error('Registration failed. Please try again.');
       }
+
+      const data = await response.json();
 
       // Save token
       localStorage.setItem('token', data.token);
