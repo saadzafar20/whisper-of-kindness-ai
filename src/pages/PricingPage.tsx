@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
-import { Check, HelpCircle, Rocket, Users, PaperAirplane } from "lucide-react";
+import { Check, HelpCircle, Rocket, Users } from "lucide-react";
 import { Tooltip, TooltipProvider, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 import FloatingElements from "@/components/FloatingElements";
 import PricingCard from "@/components/PricingCard";
@@ -27,7 +27,32 @@ const PricingPage = () => {
     return activeTab === "partnership" ? "Schedule Consultation" : "Start Free Trial";
   };
 
-  const standardMonthlyPlans = [
+  // Define plan types with proper interfaces to fix TypeScript errors
+  interface PlanBase {
+    name: string;
+    description: string;
+    price: string;
+    icon: React.ReactNode;
+    features: {
+      name: string;
+      included: boolean;
+      value?: string;
+      isHeader?: boolean;
+    }[];
+    buttonText: string;
+    buttonVariant: "default" | "outline";
+    popular?: boolean;
+  }
+
+  interface YearlyPlan extends PlanBase {
+    yearlyBilling: boolean;
+    monthlyEquivalent: string;
+    billingNote: string;
+  }
+
+  type Plan = PlanBase | YearlyPlan;
+
+  const standardMonthlyPlans: PlanBase[] = [
     {
       name: "Free",
       description: "Try our AI emotional support",
@@ -51,7 +76,7 @@ const PricingPage = () => {
       name: "Premium",
       description: "Enhanced emotional support",
       price: "$49.99",
-      icon: <PaperAirplane className="h-12 w-12 text-empathy-purple mb-2" />,
+      icon: <Users className="h-12 w-12 text-empathy-purple mb-2" />,
       popular: true,
       features: [
         { name: "Session Limit", included: true, value: "4 AI sessions (30 min each) per month" },
@@ -70,7 +95,7 @@ const PricingPage = () => {
       name: "Ultimate",
       description: "Complete AI support solution",
       price: "$99.99",
-      icon: <Users className="h-12 w-12 text-empathy-purple mb-2" />,
+      icon: <Check className="h-12 w-12 text-empathy-purple mb-2" />,
       features: [
         { name: "Session Limit", included: true, value: "15 AI sessions (30 min each) per month" },
         { name: "Specialized Companions", included: true, value: "2 specialized companions" },
@@ -86,8 +111,15 @@ const PricingPage = () => {
     }
   ];
   
-  const standardYearlyPlans = standardMonthlyPlans.map(plan => {
-    if (plan.name === "Free") return plan;
+  const standardYearlyPlans: YearlyPlan[] = standardMonthlyPlans.map(plan => {
+    if (plan.name === "Free") {
+      return {
+        ...plan,
+        yearlyBilling: false,
+        monthlyEquivalent: "",
+        billingNote: ""
+      } as YearlyPlan;
+    }
     
     const monthlyPrice = parseFloat(plan.price.replace("$", ""));
     const yearlyTotal = applyYearlyDiscount(monthlyPrice);
@@ -208,9 +240,9 @@ const PricingPage = () => {
                       buttonVariant={plan.buttonVariant}
                       delay={index * 200}
                       icon={plan.icon}
-                      yearlyBilling={plan.yearlyBilling}
-                      monthlyEquivalent={plan.monthlyEquivalent}
-                      billingNote={plan.billingNote}
+                      yearlyBilling={'yearlyBilling' in plan ? plan.yearlyBilling : undefined}
+                      monthlyEquivalent={'monthlyEquivalent' in plan ? plan.monthlyEquivalent : undefined}
+                      billingNote={'billingNote' in plan ? plan.billingNote : undefined}
                     />
                   ))}
                 </div>
