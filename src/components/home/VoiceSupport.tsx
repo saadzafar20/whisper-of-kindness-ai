@@ -1,3 +1,4 @@
+
 import { MessageCircle, Lock, Clock, HeartPulse, Activity, Shield, LineChart } from "lucide-react";
 import VoiceWaveform from "@/components/VoiceWaveform";
 import { motion } from "framer-motion";
@@ -7,9 +8,9 @@ export const VoiceSupport = () => {
     <section className="py-24 bg-white">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto mb-16 text-center">
-          <h2 className="text-3xl font-bold mb-6">The Power of Voice-Based Support</h2>
+          <h2 className="text-3xl font-bold mb-6">Speak Boldly. Heal Softly. Trust Completely.</h2>
           <p className="text-lg text-muted-foreground">
-            Expressing emotions verbally is more natural and therapeutic than typing. Our voice AI captures nuances that text-based solutions miss.
+            Expressing emotions verbally is more natural and therapeutic than typing. Our voice technology captures nuances that text-based solutions miss.
           </p>
         </div>
         
@@ -31,7 +32,7 @@ export const VoiceSupport = () => {
               <h3 className="text-xl font-semibold">Natural Conversation Flow</h3>
             </div>
             <p className="text-muted-foreground mb-6">
-              Speaking allows you to express emotions more naturally than typing. Our AI responds to tone, pace, and emotional cues.
+              Speaking allows you to express emotions more naturally than typing. Our technology responds to tone, pace, and emotional cues.
             </p>
             <div className="mt-auto pt-4">
               <motion.div
@@ -113,7 +114,7 @@ export const VoiceSupport = () => {
               <h3 className="text-xl font-semibold">24/7 Availability</h3>
             </div>
             <p className="text-muted-foreground mb-6">
-              Feel heard whenever you need it. Our AI companion is available day or night, weekends and holidays, without scheduling.
+              Feel heard whenever you need it. Our companion is available day or night, weekends and holidays, without scheduling.
             </p>
             <div className="mt-auto grid grid-cols-7 gap-1">
               {['M','T','W','T','F','S','S'].map((day, i) => (

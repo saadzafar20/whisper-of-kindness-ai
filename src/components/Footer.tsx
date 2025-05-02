@@ -1,5 +1,7 @@
+
 import { Link } from "react-router-dom";
-import { Facebook, Twitter, Instagram, Linkedin, Heart, Sparkles } from "lucide-react";
+import { Facebook, Instagram, Linkedin, TikTok, Youtube, Heart, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
@@ -20,25 +22,58 @@ const Footer = () => {
               Your trusted voice-based companion for emotional wellness - 100% secure and private.
             </p>
             <div className="flex gap-4">
-              <a href="https://twitter.com" aria-label="Twitter" className="h-10 w-10 rounded-full bg-empathy-soft-purple flex items-center justify-center text-empathy-purple hover:bg-empathy-purple hover:text-white transition-colors">
-                <Twitter size={18} />
-              </a>
-              <a href="https://facebook.com" aria-label="Facebook" className="h-10 w-10 rounded-full bg-empathy-soft-purple flex items-center justify-center text-empathy-purple hover:bg-empathy-purple hover:text-white transition-colors">
+              <motion.a 
+                href="https://facebook.com" 
+                aria-label="Facebook" 
+                className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white hover:shadow-lg transition-all"
+                whileHover={{ scale: 1.2, rotate: 10 }}
+                whileTap={{ scale: 0.9 }}
+              >
                 <Facebook size={18} />
-              </a>
-              <a href="https://instagram.com" aria-label="Instagram" className="h-10 w-10 rounded-full bg-empathy-soft-purple flex items-center justify-center text-empathy-purple hover:bg-empathy-purple hover:text-white transition-colors">
+              </motion.a>
+              <motion.a 
+                href="https://instagram.com" 
+                aria-label="Instagram" 
+                className="h-10 w-10 rounded-full bg-gradient-to-br from-pink-500 via-purple-500 to-orange-400 flex items-center justify-center text-white hover:shadow-lg transition-all"
+                whileHover={{ scale: 1.2, rotate: 10 }}
+                whileTap={{ scale: 0.9 }}
+              >
                 <Instagram size={18} />
-              </a>
-              <a href="https://linkedin.com" aria-label="LinkedIn" className="h-10 w-10 rounded-full bg-empathy-soft-purple flex items-center justify-center text-empathy-purple hover:bg-empathy-purple hover:text-white transition-colors">
+              </motion.a>
+              <motion.a 
+                href="https://linkedin.com" 
+                aria-label="LinkedIn" 
+                className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center text-white hover:shadow-lg transition-all"
+                whileHover={{ scale: 1.2, rotate: 10 }}
+                whileTap={{ scale: 0.9 }}
+              >
                 <Linkedin size={18} />
-              </a>
+              </motion.a>
+              <motion.a 
+                href="https://tiktok.com" 
+                aria-label="TikTok" 
+                className="h-10 w-10 rounded-full bg-gradient-to-br from-black to-gray-800 flex items-center justify-center text-white hover:shadow-lg transition-all"
+                whileHover={{ scale: 1.2, rotate: 10 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <TikTok size={18} />
+              </motion.a>
+              <motion.a 
+                href="https://youtube.com" 
+                aria-label="YouTube" 
+                className="h-10 w-10 rounded-full bg-gradient-to-br from-red-600 to-red-700 flex items-center justify-center text-white hover:shadow-lg transition-all"
+                whileHover={{ scale: 1.2, rotate: 10 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <Youtube size={18} />
+              </motion.a>
             </div>
           </div>
 
           <div className="col-span-1">
             <h3 className="text-lg font-semibold mb-6 text-empathy-dark-navy dark:text-white">Product</h3>
             <ul className="space-y-4">
-              <li><Link to="/why-ai-support" className="text-empathy-neutral-gray hover:text-empathy-purple transition-colors">Why AI Support</Link></li>
+              <li><Link to="/why-ai-support" className="text-empathy-neutral-gray hover:text-empathy-purple transition-colors">Why Support</Link></li>
               <li><Link to="/how-it-works" className="text-empathy-neutral-gray hover:text-empathy-purple transition-colors">How It Works</Link></li>
               <li><Link to="/pricing" className="text-empathy-neutral-gray hover:text-empathy-purple transition-colors">Pricing</Link></li>
               <li><Link to="/testimonials" className="text-empathy-neutral-gray hover:text-empathy-purple transition-colors">Testimonials</Link></li>
@@ -69,9 +104,14 @@ const Footer = () => {
         <hr className="my-8 border-gray-200 dark:border-gray-700" />
 
         <div className="text-center text-empathy-neutral-gray text-sm">
-          <p className="mb-4">© {new Date().getFullYear()} FeelCalm AI. All rights reserved.</p>
+          <p className="mb-4">© {new Date().getFullYear()} FeelCalm. All rights reserved.</p>
           <p className="flex items-center justify-center gap-1">
-            Made with <Heart size={14} className="text-empathy-purple" fill="#9b87f5" /> for better mental health
+            <motion.span
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ repeat: Infinity, duration: 2 }}
+            >
+              Made with <Heart size={14} className="text-empathy-purple" fill="#9b87f5" /> for better mental health
+            </motion.span>
           </p>
         </div>
       </div>

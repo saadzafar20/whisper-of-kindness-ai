@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Brain, Heart, Mic, Moon, Smile, Sparkles, Leaf } from "lucide-react";
@@ -77,7 +78,7 @@ export const HeroSection = () => {
               }}
             />
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-empathy-purple to-empathy-dark-purple">
-              Experience a Revolutionary AI Companion for Emotional Wellness
+              Experience a Revolutionary Companion for Emotional Wellness
             </h1>
           </motion.div>
 
@@ -88,9 +89,36 @@ export const HeroSection = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
           >
             <span className="block mb-4">
-              Inspired by Humanity. Built to Heal <Heart className="inline-block w-6 h-6 text-empathy-purple animate-pulse" /> Affordable for all. Calm within reach.
+              Where Technology Meets Tranquility: A New Innovative Era of Healing <Heart className="inline-block w-6 h-6 text-empathy-purple animate-pulse" />
             </span>
           </motion.p>
+
+          <motion.div className="flex flex-wrap justify-center gap-4 mb-8">
+            {["Brain", "Heart", "Smile", "Sparkles", "Moon"].map((iconName, i) => {
+              const Icon = wellnessIcons.find(item => item.title.includes(iconName.replace(/([A-Z])/g, ' $1').trim()))?.icon || Brain;
+              return (
+                <motion.div
+                  key={i}
+                  className="bg-white/50 backdrop-blur-sm p-2 rounded-full"
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: i * 0.1, duration: 0.3 }}
+                  whileHover={{ scale: 1.2, rotate: 15 }}
+                >
+                  <Icon size={24} className="text-empathy-purple" />
+                </motion.div>
+              );
+            })}
+          </motion.div>
+
+          <motion.div 
+            className="text-xl font-semibold mb-8 text-empathy-dark-purple"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            Track. Reflect. Thrive — Your Personalized Companion.
+          </motion.div>
 
           <motion.div 
             className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12"
@@ -136,20 +164,20 @@ export const HeroSection = () => {
               onClick={toggleVoiceDemo}
               className={`relative overflow-hidden group transition-all duration-300 
                 ${isVoiceActive ? 'bg-empathy-purple/10' : 'bg-white/80'}
-                border-2 border-golden/30 hover:border-golden text-empathy-purple hover:text-white`}
+                border-2 border-golden/30 hover:border-golden hover:bg-empathy-purple hover:text-white`}
             >
-              <span className="relative z-10 flex items-center">
+              <span className="relative z-10 flex items-center text-empathy-dark-purple font-semibold">
                 {isVoiceActive ? "Hide Demo" : "Free Demo Call"} 
                 <Mic 
                   className={`ml-2 h-8 w-8 transition-all duration-500 
-                    ${isVoiceActive ? '' : 'group-hover:text-empathy-pearl animate-pulse'}
+                    ${isVoiceActive ? 'text-white' : 'text-white'}
                     bg-gradient-to-r from-purple-500 to-pink-500 p-1 rounded-full`} 
                   strokeWidth={1.5}
                 />
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-golden/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Button>
-            <p className="text-xs text-gray-500 mt-1">Experience our AI voice companion and view pricing</p>
+            <p className="text-xs text-gray-500 mt-1">Experience our voice companion and view pricing</p>
           </div>
         </div>
 
@@ -185,7 +213,7 @@ const HeroActionsSection = ({ toggleVoiceDemo, isVoiceActive }: { toggleVoiceDem
           </span>
           <div className="absolute inset-0 bg-gradient-to-r from-golden/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </Button>
-        <p className="text-xs text-gray-500 mt-1">Click to try our AI voice demo</p>
+        <p className="text-xs text-gray-500 mt-1">Click to try our voice demo</p>
       </div>
     </div>
   );
@@ -198,11 +226,11 @@ const VoiceDemoSection = ({ isActive }: { isActive: boolean }) => {
   const startVoiceDemo = async () => {
     try {
       setIsPlaying(true);
-      await vapiService.startCall("Hello! I'm your AI wellness companion. How can I help you today?");
+      await vapiService.startCall("Hello! I'm your wellness companion. How can I help you today?");
       
       toast({
         title: "Voice Demo Started",
-        description: "The AI companion is now ready to talk with you.",
+        description: "The companion is now ready to talk with you.",
       });
     } catch (error) {
       console.error('Error starting voice demo:', error);
@@ -235,7 +263,7 @@ const VoiceDemoSection = ({ isActive }: { isActive: boolean }) => {
     <div className="p-6 bg-white rounded-xl shadow-md mb-8 max-w-md mx-auto">
       <h3 className="text-lg font-medium mb-2">Voice Demo</h3>
       <p className="mb-4 text-gray-600">
-        Click the button below to start a live conversation with your AI companion.
+        Click the button below to start a live conversation with your companion.
       </p>
       
       <Button 
@@ -247,7 +275,7 @@ const VoiceDemoSection = ({ isActive }: { isActive: boolean }) => {
       
       <div className="mt-4">
         <p className="text-xs text-gray-500 mb-2">
-          This demo uses your microphone to enable real-time conversation with the AI.
+          This demo uses your microphone to enable real-time conversation.
           <br />Make sure to allow microphone permissions when prompted.
         </p>
         <VoiceWaveform isActive={isPlaying} />

@@ -41,10 +41,10 @@ export const SpecializedAIAreas = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-empathy-deep-purple to-empathy-purple bg-clip-text text-transparent">
-            Our Specialized AI Areas
+            Explore Our Specialized Companions
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Expert AI companions designed to support your emotional well-being through voice-enabled interactions.
+            Expert companions designed to support your emotional well-being through voice-enabled interactions.
           </p>
         </div>
 
