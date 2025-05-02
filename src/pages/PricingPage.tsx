@@ -225,13 +225,12 @@ const PricingPage = () => {
                 </div>
 
                 {/* Standard Plans */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl mx-auto">
                   {currentPlans.map((plan, index) => {
                     const typedPlan = plan as YearlyPlan;
                     return (
-                      <div className="w-full min-w-[280px]">
+                      <div key={plan.name + (billingCycle === "yearly" ? "-yearly" : "")} className="w-full">
                         <PricingCard
-                          key={plan.name + (billingCycle === "yearly" ? "-yearly" : "")}
                           name={plan.name}
                           price={plan.price}
                           description={plan.description}

@@ -48,7 +48,7 @@ const PricingCard = ({
 
   return (
     <Card 
-      className={`animate-fade-in hover:shadow-xl transition-all h-full ${
+      className={`animate-fade-in hover:shadow-xl transition-all h-full relative ${
         popular 
           ? 'border-empathy-purple border-2 shadow-lg shadow-empathy-purple/10' 
           : 'border border-gray-200'
@@ -65,10 +65,12 @@ const PricingCard = ({
       <CardHeader className="pb-2 px-6 pt-8 text-center">
         {icon && <div className="flex justify-center mb-4">{icon}</div>}
         <CardTitle className="text-2xl font-semibold text-gray-800">{name}</CardTitle>
-        <div className="mt-4">
-          <span className="text-4xl font-bold text-gray-900">{price}</span>
-          {price !== "Free" && !oneTime && !yearlyBilling && <span className="text-gray-600 ml-1 text-lg">/month</span>}
-          {oneTime && <span className="text-gray-600 ml-1 text-sm">one-time payment</span>}
+        <div className="mt-4 flex flex-col items-center">
+          <div className="flex items-baseline">
+            <span className="text-4xl font-bold text-gray-900">{price}</span>
+            {price !== "Free" && !oneTime && !yearlyBilling && <span className="text-gray-600 ml-1 text-lg">/month</span>}
+          </div>
+          {oneTime && <span className="text-gray-600 mt-1 text-sm">one-time payment</span>}
         </div>
         
         {yearlyBilling && monthlyEquivalent && (
@@ -89,11 +91,11 @@ const PricingCard = ({
                 </div>
               )}
               <div className="flex-1">
-                <span className={`text-base break-words ${!feature.included && !feature.isHeader ? 'text-gray-500' : 'text-gray-700'} ${feature.isHeader ? 'font-medium text-empathy-purple' : ''}`}>
+                <span className={`text-base ${!feature.included && !feature.isHeader ? 'text-gray-500' : 'text-gray-700'} ${feature.isHeader ? 'font-medium text-empathy-purple' : ''}`}>
                   {feature.name}
                 </span>
                 {feature.value && (
-                  <div className="text-sm text-gray-500 mt-1">
+                  <div className="text-sm text-gray-500 mt-1 break-words">
                     {feature.value}
                     {feature.name === "Specialized Companions" && feature.value.includes("companion") && (
                       <Badge className="ml-2 bg-empathy-soft-purple text-empathy-dark-purple">
