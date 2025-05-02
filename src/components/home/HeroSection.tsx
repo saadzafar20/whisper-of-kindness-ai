@@ -93,19 +93,29 @@ export const HeroSection = () => {
             </span>
           </motion.p>
 
-          <motion.div className="flex flex-wrap justify-center gap-4 mb-8">
-            {["Brain", "Heart", "Smile", "Sparkles", "Moon"].map((iconName, i) => {
-              const Icon = wellnessIcons.find(item => item.title.includes(iconName.replace(/([A-Z])/g, ' $1').trim()))?.icon || Brain;
+          {/* Moving emoticons section */}
+          <motion.div className="flex flex-wrap justify-center gap-6 mb-8">
+            {wellnessIcons.map((iconData, i) => {
+              const Icon = iconData.icon;
               return (
                 <motion.div
                   key={i}
-                  className="bg-white/50 backdrop-blur-sm p-2 rounded-full"
+                  className="bg-white/50 backdrop-blur-sm p-3 rounded-full"
                   initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: i * 0.1, duration: 0.3 }}
-                  whileHover={{ scale: 1.2, rotate: 15 }}
+                  animate={{ 
+                    opacity: 1, 
+                    scale: [1, 1.2, 1],
+                    y: [0, -8, 0],
+                    rotate: [-5, 5, -5]
+                  }}
+                  transition={{ 
+                    duration: 3,
+                    repeat: Infinity,
+                    delay: i * 0.2,
+                    ease: "easeInOut"
+                  }}
                 >
-                  <Icon size={24} className="text-empathy-purple" />
+                  <Icon size={32} className="text-empathy-purple" />
                 </motion.div>
               );
             })}
