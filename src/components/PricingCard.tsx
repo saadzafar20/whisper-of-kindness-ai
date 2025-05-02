@@ -48,7 +48,7 @@ const PricingCard = ({
 
   return (
     <Card 
-      className={`animate-fade-in hover:shadow-xl transition-all border-opacity-30 ${
+      className={`animate-fade-in hover:shadow-xl transition-all border-opacity-30 h-full ${
         popular 
           ? 'border-empathy-purple shadow-lg shadow-empathy-purple/10' 
           : ''
@@ -80,7 +80,7 @@ const PricingCard = ({
         <p className="text-sm text-muted-foreground mt-2">{description}</p>
       </CardHeader>
       <CardContent className="pt-4">
-        <ul className="space-y-3">
+        <ul className="space-y-2.5">
           {features.map((feature, i) => (
             <li key={i} className={`flex items-start gap-2 ${feature.isHeader ? 'pt-2 pb-1 border-t border-gray-100 dark:border-gray-800' : ''}`}>
               {!feature.isHeader && (
@@ -88,12 +88,12 @@ const PricingCard = ({
                   {feature.included && <Check className="h-3 w-3 text-white" />}
                 </div>
               )}
-              <div>
-                <span className={`text-sm ${!feature.included && !feature.isHeader ? 'text-muted-foreground' : ''} ${feature.isHeader ? 'font-medium text-empathy-purple' : ''}`}>
+              <div className="flex-1 min-w-0">
+                <span className={`text-sm break-words ${!feature.included && !feature.isHeader ? 'text-muted-foreground' : ''} ${feature.isHeader ? 'font-medium text-empathy-purple' : ''}`}>
                   {feature.name}
                 </span>
                 {feature.value && (
-                  <div className="text-xs text-muted-foreground mt-0.5">
+                  <div className="text-xs text-muted-foreground mt-0.5 break-words">
                     {feature.value}
                     {feature.name === "Specialized Companions" && feature.value.includes("companion") && (
                       <Badge className="ml-2 bg-empathy-soft-purple text-empathy-dark-purple">

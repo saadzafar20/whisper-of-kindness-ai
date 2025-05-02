@@ -27,7 +27,7 @@ const PricingPage = () => {
     return activeTab === "partnership" ? "Schedule Consultation" : "Start Free Trial";
   };
 
-  // Define plan types with proper interfaces to fix TypeScript errors
+  // Define plan types with proper interfaces
   interface PlanBase {
     name: string;
     description: string;
@@ -111,6 +111,7 @@ const PricingPage = () => {
     }
   ];
   
+  // Fixing TypeScript issues by ensuring correct types
   const standardYearlyPlans: YearlyPlan[] = standardMonthlyPlans.map(plan => {
     if (plan.name === "Free") {
       return {
@@ -118,7 +119,7 @@ const PricingPage = () => {
         yearlyBilling: false,
         monthlyEquivalent: "",
         billingNote: ""
-      } as YearlyPlan;
+      };
     }
     
     const monthlyPrice = parseFloat(plan.price.replace("$", ""));
@@ -220,31 +221,34 @@ const PricingPage = () => {
                     <span className={`text-lg ${billingCycle === "yearly" ? "font-medium text-empathy-purple" : "text-gray-300"}`}>
                       Yearly
                     </span>
-                    {billingCycle === "yearly" && (
-                      <Badge className="bg-yellow-500 text-black hover:bg-yellow-400">Save 20%</Badge>
-                    )}
+                    {/* Always show the badge regardless of selected billing cycle */}
+                    <Badge className="bg-yellow-500 text-black hover:bg-yellow-400">Save 20%</Badge>
                   </div>
                 </div>
 
                 {/* Standard Plans */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                  {currentPlans.map((plan, index) => (
-                    <PricingCard
-                      key={plan.name + (billingCycle === "yearly" ? "-yearly" : "")}
-                      name={plan.name}
-                      price={plan.price}
-                      description={plan.description}
-                      features={plan.features}
-                      popular={plan.popular}
-                      buttonText={getButtonText(plan.name)}
-                      buttonVariant={plan.buttonVariant}
-                      delay={index * 200}
-                      icon={plan.icon}
-                      yearlyBilling={'yearlyBilling' in plan ? plan.yearlyBilling : undefined}
-                      monthlyEquivalent={'monthlyEquivalent' in plan ? plan.monthlyEquivalent : undefined}
-                      billingNote={'billingNote' in plan ? plan.billingNote : undefined}
-                    />
-                  ))}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                  {currentPlans.map((plan, index) => {
+                    // Explicitly cast the plan to access properties safely
+                    const yearlyPlan = plan as YearlyPlan;
+                    return (
+                      <PricingCard
+                        key={plan.name + (billingCycle === "yearly" ? "-yearly" : "")}
+                        name={plan.name}
+                        price={plan.price}
+                        description={plan.description}
+                        features={plan.features}
+                        popular={plan.popular}
+                        buttonText={getButtonText(plan.name)}
+                        buttonVariant={plan.buttonVariant}
+                        delay={index * 200}
+                        icon={plan.icon}
+                        yearlyBilling={plan.name !== "Free" && billingCycle === "yearly" ? true : undefined}
+                        monthlyEquivalent={yearlyPlan.monthlyEquivalent}
+                        billingNote={yearlyPlan.billingNote}
+                      />
+                    );
+                  })}
                 </div>
               </TabsContent>
 
@@ -267,16 +271,16 @@ const PricingPage = () => {
                 </div>
                 
                 <div className="mt-12 text-center">
-                  <p className="text-lg text-gray-300 mb-6">
+                  <p className="text-lg text-white mb-6">
                     Looking for a custom solution for your business?
                   </p>
-                  <p className="text-lg text-gray-300 mb-6">
+                  <p className="text-lg text-white mb-6">
                     Our partnership program offers tailored AI solutions to match your specific needs.
                   </p>
                 </div>
                 
                 {/* Partnership Benefits */}
-                <div className="mt-12 bg-empathy-deep-purple/20 rounded-xl p-8 max-w-4xl mx-auto">
+                <div className="mt-12 bg-empathy-deep-purple/30 rounded-xl p-8 max-w-4xl mx-auto">
                   <h3 className="text-2xl font-bold mb-6 text-center text-white">
                     Partnership Benefits
                   </h3>
@@ -292,7 +296,7 @@ const PricingPage = () => {
                     ].map((benefit, index) => (
                       <div 
                         key={index} 
-                        className="flex items-center gap-3 bg-empathy-dark-navy/50 p-4 rounded-lg"
+                        className="flex items-center gap-3 bg-empathy-dark-navy/70 p-4 rounded-lg"
                       >
                         <div className="h-10 w-10 rounded-full bg-empathy-purple flex items-center justify-center flex-shrink-0">
                           <Check className="h-5 w-5 text-white" />
@@ -371,7 +375,7 @@ const PricingPage = () => {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">30-Day Money-Back Guarantee</h2>
             <p className="text-lg mb-10">
-              We're confident you'll love EmpathyVoice AI. If you're not completely satisfied within the first 30 days, we'll refund your purchase.
+              We're confident you'll love FeelCalm. If you're not completely satisfied within the first 30 days, we'll refund your purchase.
             </p>
             <button 
               className="bg-empathy-purple hover:bg-empathy-dark-purple text-white px-6 py-3 rounded-lg font-medium text-lg"
