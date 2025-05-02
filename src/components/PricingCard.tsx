@@ -1,6 +1,5 @@
 
-import { Check } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -42,60 +41,77 @@ const PricingCard = ({
   billingNote,
   oneTime,
 }: PricingCardProps) => {
-  const animationStyle = {
-    animationDelay: `${delay}ms`,
-  };
-
   return (
-    <Card 
-      className={`animate-fade-in hover:shadow-xl transition-all h-full relative ${
-        popular 
-          ? 'border-empathy-purple border-2 shadow-lg shadow-empathy-purple/10' 
-          : 'border border-gray-200'
-      } bg-white ${
-        oneTime ? 'bg-gradient-to-b from-white to-empathy-soft-purple/5' : ''
-      }`}
-      style={animationStyle}
+    <div 
+      className={`w-full bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300
+        ${popular ? 'ring-2 ring-empathy-purple' : 'border border-gray-100'}
+        animate-fade-in`}
+      style={{ animationDelay: `${delay}ms` }}
     >
-      {popular && (
-        <div className="absolute top-0 right-0 bg-empathy-purple text-white text-xs font-semibold px-3 py-1 rounded-bl-lg rounded-tr-lg">
-          Most Popular
-        </div>
-      )}
-      <CardHeader className="pb-2 px-6 pt-8 text-center">
-        {icon && <div className="flex justify-center mb-4">{icon}</div>}
-        <CardTitle className="text-2xl font-semibold text-gray-800">{name}</CardTitle>
-        <div className="mt-4 flex flex-col items-center">
-          <div className="flex items-baseline">
-            <span className="text-4xl font-bold text-gray-900">{price}</span>
-            {price !== "Free" && !oneTime && !yearlyBilling && <span className="text-gray-600 ml-1 text-lg">/month</span>}
-          </div>
-          {oneTime && <span className="text-gray-600 mt-1 text-sm">one-time payment</span>}
-        </div>
-        
-        {yearlyBilling && monthlyEquivalent && (
-          <div className="text-base text-emerald-500 font-medium mt-2">
-            {monthlyEquivalent} <span className="text-gray-500 text-xs">{billingNote}</span>
+      {/* Card header with popular badge */}
+      <div className="relative">
+        {popular && (
+          <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-empathy-purple text-white text-sm font-medium px-4 py-1 rounded-full">
+            Most Popular
           </div>
         )}
         
-        <p className="text-base text-gray-600 mt-4 px-2">{description}</p>
-      </CardHeader>
-      <CardContent className="pt-4 pb-1 px-6">
-        <ul className="space-y-4">
-          {features.map((feature, i) => (
-            <li key={i} className={`flex items-start gap-3 ${feature.isHeader ? 'pt-4 pb-1 border-t border-gray-100' : ''}`}>
-              {!feature.isHeader && (
-                <div className={`mt-0.5 h-5 w-5 rounded-full ${feature.included ? 'bg-empathy-purple' : 'bg-gray-200'} flex items-center justify-center flex-shrink-0`}>
-                  {feature.included && <Check className="h-3 w-3 text-white" />}
-                </div>
+        {/* Plan name and icon */}
+        <div className={`pt-8 ${popular ? 'pt-10' : ''} px-8 text-center`}>
+          {icon && <div className="mb-4 flex justify-center">{icon}</div>}
+          <h3 className="text-2xl font-bold text-gray-800 mb-1">{name}</h3>
+          
+          {/* Pricing section */}
+          <div className="mt-4 mb-2">
+            <div className="flex items-baseline justify-center">
+              <span className="text-5xl font-bold text-gray-900">{price}</span>
+              {price !== "Free" && !oneTime && !yearlyBilling && (
+                <span className="text-gray-600 ml-2 text-lg">/month</span>
               )}
-              <div className="flex-1">
-                <span className={`text-base ${!feature.included && !feature.isHeader ? 'text-gray-500' : 'text-gray-700'} ${feature.isHeader ? 'font-medium text-empathy-purple' : ''}`}>
+            </div>
+            
+            {oneTime && (
+              <p className="text-gray-600 text-sm mt-1">one-time payment</p>
+            )}
+            
+            {yearlyBilling && monthlyEquivalent && (
+              <p className="text-emerald-500 font-medium text-base mt-2">
+                {monthlyEquivalent} <span className="text-gray-500 text-xs">{billingNote}</span>
+              </p>
+            )}
+          </div>
+          
+          <p className="text-gray-600 mt-3 mb-6 px-4 min-h-[60px]">{description}</p>
+        </div>
+      </div>
+      
+      {/* Divider */}
+      <div className="h-px bg-gray-100 mx-8"></div>
+      
+      {/* Features list */}
+      <div className="px-8 py-6">
+        <ul className="space-y-5">
+          {features.map((feature, i) => (
+            <li 
+              key={i} 
+              className={`flex items-start gap-3 ${feature.isHeader ? 'mt-6 mb-2' : ''}`}
+            >
+              {!feature.isHeader && (
+                feature.included ? (
+                  <Check className="h-5 w-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                ) : (
+                  <X className="h-5 w-5 text-gray-300 mt-0.5 flex-shrink-0" />
+                )
+              )}
+              <div>
+                <span className={`
+                  ${feature.isHeader ? 'font-semibold text-lg text-empathy-purple' : 'text-base'} 
+                  ${!feature.included && !feature.isHeader ? 'text-gray-500' : 'text-gray-800'}
+                `}>
                   {feature.name}
                 </span>
                 {feature.value && (
-                  <div className="text-sm text-gray-500 mt-1 break-words">
+                  <div className="text-sm text-gray-600 mt-1">
                     {feature.value}
                     {feature.name === "Specialized Companions" && feature.value.includes("companion") && (
                       <Badge className="ml-2 bg-empathy-soft-purple text-empathy-dark-purple">
@@ -108,16 +124,21 @@ const PricingCard = ({
             </li>
           ))}
         </ul>
-      </CardContent>
-      <CardFooter className="mt-auto pt-6 pb-8 px-6">
+      </div>
+      
+      {/* Card footer with button */}
+      <div className="px-8 pb-8 pt-4">
         <Button 
-          className={`w-full py-6 text-base ${buttonVariant === "default" ? "bg-empathy-purple hover:bg-empathy-dark-purple text-white" : ""}`} 
-          variant={buttonVariant}
+          className={`w-full py-6 text-base font-medium ${
+            buttonVariant === "default" 
+              ? "bg-empathy-purple hover:bg-empathy-dark-purple text-white" 
+              : "border-2 border-empathy-purple text-empathy-purple hover:bg-empathy-soft-purple/10"
+          }`} 
         >
           {buttonText}
         </Button>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 };
 
