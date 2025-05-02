@@ -29,10 +29,9 @@ services:
       - ConnectionStrings__DefaultConnection=Server=db;Port=3306;Database=feelcalm;User=dbuser;Password=dbpassword;
       - JWT__Secret=${JWT_SECRET}
       - JWT__ExpiryInDays=1
-    # Expose the backend port internally for the frontend to connect to
-    # We don't need to map to host port 5000 if all access is through nginx
+    # Expose the backend port 8080 internally for the frontend to connect to
     expose:
-      - "80"
+      - "8080"
 
   db:
     image: mysql:8.0
