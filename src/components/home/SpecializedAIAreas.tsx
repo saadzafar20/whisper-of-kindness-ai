@@ -53,43 +53,6 @@ export const SpecializedAIAreas = () => {
             Explore Our Specialized Companions
           </h2>
           
-          {/* New heading with animated emoticons */}
-          <div className="flex justify-center items-center gap-3 mb-4">
-            <motion.h3 
-              className="text-xl md:text-2xl font-bold text-empathy-purple"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              Track. Reflect. Thrive — Your Personalized Companion.
-            </motion.h3>
-            
-            {/* Animated emoticons */}
-            <div className="flex gap-2">
-              {wellnessEmoticons.map((item, index) => (
-                <motion.div
-                  key={index}
-                  className="inline-block"
-                  initial={{ opacity: 0, scale: 0.5 }}
-                  animate={{ 
-                    opacity: 1, 
-                    scale: [1, 1.2, 1],
-                    rotate: [-5, 5, -5]
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                    delay: index * 0.2,
-                    ease: "easeInOut"
-                  }}
-                >
-                  <item.icon className={`h-5 w-5 md:h-6 md:w-6 ${item.color}`} />
-                </motion.div>
-              ))}
-            </div>
-          </div>
-          
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Expert companions designed to support your emotional well-being through voice-enabled interactions.
           </p>

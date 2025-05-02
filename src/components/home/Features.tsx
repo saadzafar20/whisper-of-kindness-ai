@@ -7,7 +7,7 @@ export const Features = () => {
     <section className="py-24 bg-white">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto mb-16 text-center">
-          <h2 className="text-3xl font-bold mb-6 text-gray-800">Your AI Companion for Emotional Wellness</h2>
+          <h2 className="text-3xl font-bold mb-6 text-gray-800">Track. Reflect. Thrive — Your Personalized Companion.</h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -31,4 +31,3 @@ export const Features = () => {
     </section>
   );
 };
-

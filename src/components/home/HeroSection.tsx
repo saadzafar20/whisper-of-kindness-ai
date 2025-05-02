@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Brain, Heart, Mic, Moon, Smile, Sparkles, Leaf } from "lucide-react";
@@ -121,17 +120,7 @@ export const HeroSection = () => {
             })}
           </motion.div>
 
-          <motion.div 
-            className="text-xl font-semibold mb-8 text-empathy-dark-purple"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-          >
-            Track. Reflect. Thrive — Your Personalized Companion.
-          </motion.div>
-
-          <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12"
+          <motion.div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
