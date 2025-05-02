@@ -111,7 +111,7 @@ const PricingPage = () => {
     }
   ];
   
-  // Fixing TypeScript issues by ensuring correct types
+  // Create yearly plans with proper TypeScript typing
   const standardYearlyPlans: YearlyPlan[] = standardMonthlyPlans.map(plan => {
     if (plan.name === "Free") {
       return {
@@ -175,7 +175,7 @@ const PricingPage = () => {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-16 bg-empathy-dark-navy">
+      <section className="py-16 bg-gray-50 dark:bg-empathy-dark-navy">
         <div className="container mx-auto px-4">
           {/* Tab Navigation */}
           <div className="flex justify-center mb-12">
@@ -184,7 +184,7 @@ const PricingPage = () => {
               className="w-full max-w-md"
               onValueChange={(value) => setActiveTab(value as "standard" | "partnership")}
             >
-              <TabsList className="grid grid-cols-2 w-full bg-empathy-dark-purple/20">
+              <TabsList className="grid grid-cols-2 w-full bg-gray-200 dark:bg-empathy-dark-purple/20">
                 <TabsTrigger 
                   value="standard" 
                   className="data-[state=active]:bg-empathy-purple data-[state=active]:text-white"
@@ -202,13 +202,13 @@ const PricingPage = () => {
               <TabsContent value="standard" className="mt-8">
                 {/* Billing Toggle */}
                 <div className="flex justify-center items-center space-x-4 mb-12">
-                  <span className={`text-lg ${billingCycle === "monthly" ? "font-medium text-empathy-purple" : "text-gray-300"}`}>
+                  <span className={`text-lg ${billingCycle === "monthly" ? "font-medium text-empathy-purple" : "text-gray-600 dark:text-gray-300"}`}>
                     Monthly
                   </span>
                   <button
                     onClick={() => setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly")}
                     className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
-                      billingCycle === "yearly" ? "bg-empathy-purple" : "bg-gray-600"
+                      billingCycle === "yearly" ? "bg-empathy-purple" : "bg-gray-400 dark:bg-gray-600"
                     }`}
                   >
                     <span
@@ -218,19 +218,18 @@ const PricingPage = () => {
                     />
                   </button>
                   <div className="flex items-center gap-2">
-                    <span className={`text-lg ${billingCycle === "yearly" ? "font-medium text-empathy-purple" : "text-gray-300"}`}>
+                    <span className={`text-lg ${billingCycle === "yearly" ? "font-medium text-empathy-purple" : "text-gray-600 dark:text-gray-300"}`}>
                       Yearly
                     </span>
-                    {/* Always show the badge regardless of selected billing cycle */}
+                    {/* Always show the badge */}
                     <Badge className="bg-yellow-500 text-black hover:bg-yellow-400">Save 20%</Badge>
                   </div>
                 </div>
 
                 {/* Standard Plans */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
                   {currentPlans.map((plan, index) => {
-                    // Explicitly cast the plan to access properties safely
-                    const yearlyPlan = plan as YearlyPlan;
+                    const typedPlan = plan as YearlyPlan;
                     return (
                       <PricingCard
                         key={plan.name + (billingCycle === "yearly" ? "-yearly" : "")}
@@ -243,9 +242,9 @@ const PricingPage = () => {
                         buttonVariant={plan.buttonVariant}
                         delay={index * 200}
                         icon={plan.icon}
-                        yearlyBilling={plan.name !== "Free" && billingCycle === "yearly" ? true : undefined}
-                        monthlyEquivalent={yearlyPlan.monthlyEquivalent}
-                        billingNote={yearlyPlan.billingNote}
+                        yearlyBilling={billingCycle === "yearly" && plan.name !== "Free" ? true : undefined}
+                        monthlyEquivalent={typedPlan.monthlyEquivalent}
+                        billingNote={typedPlan.billingNote}
                       />
                     );
                   })}
@@ -271,17 +270,17 @@ const PricingPage = () => {
                 </div>
                 
                 <div className="mt-12 text-center">
-                  <p className="text-lg text-white mb-6">
+                  <p className="text-lg text-gray-800 dark:text-white mb-6">
                     Looking for a custom solution for your business?
                   </p>
-                  <p className="text-lg text-white mb-6">
+                  <p className="text-lg text-gray-800 dark:text-white mb-6">
                     Our partnership program offers tailored AI solutions to match your specific needs.
                   </p>
                 </div>
                 
                 {/* Partnership Benefits */}
-                <div className="mt-12 bg-empathy-deep-purple/30 rounded-xl p-8 max-w-4xl mx-auto">
-                  <h3 className="text-2xl font-bold mb-6 text-center text-white">
+                <div className="mt-12 bg-white dark:bg-empathy-deep-purple/30 rounded-xl p-8 max-w-4xl mx-auto shadow-md">
+                  <h3 className="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">
                     Partnership Benefits
                   </h3>
                   
@@ -296,12 +295,12 @@ const PricingPage = () => {
                     ].map((benefit, index) => (
                       <div 
                         key={index} 
-                        className="flex items-center gap-3 bg-empathy-dark-navy/70 p-4 rounded-lg"
+                        className="flex items-center gap-3 bg-gray-50 dark:bg-empathy-dark-navy/70 p-4 rounded-lg"
                       >
                         <div className="h-10 w-10 rounded-full bg-empathy-purple flex items-center justify-center flex-shrink-0">
                           <Check className="h-5 w-5 text-white" />
                         </div>
-                        <span className="text-white">{benefit}</span>
+                        <span className="text-gray-800 dark:text-white">{benefit}</span>
                       </div>
                     ))}
                   </div>
@@ -312,7 +311,7 @@ const PricingPage = () => {
           
           {activeTab === "standard" && (
             <div className="text-center mt-6">
-              <p className="text-gray-300">
+              <p className="text-gray-600 dark:text-gray-300">
                 All plans include 14-day free trial. No credit card required.
               </p>
             </div>
@@ -345,14 +344,14 @@ const PricingPage = () => {
                   a: "Yes, you can upgrade your plan at any time. Your billing will be prorated so you only pay for the difference."
                 }
               ].map((faq, index) => (
-                <div key={index} className="p-6 border rounded-xl bg-card">
-                  <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
+                <div key={index} className="p-6 border rounded-xl bg-gray-50 dark:bg-card">
+                  <h3 className="text-lg font-semibold mb-2 flex items-center gap-2 text-gray-900 dark:text-gray-100">
                     {faq.q}
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <span className="cursor-help">
-                            <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                            <HelpCircle className="h-4 w-4 text-gray-400 dark:text-muted-foreground" />
                           </span>
                         </TooltipTrigger>
                         <TooltipContent>
@@ -361,7 +360,7 @@ const PricingPage = () => {
                       </Tooltip>
                     </TooltipProvider>
                   </h3>
-                  <p className="text-muted-foreground">{faq.a}</p>
+                  <p className="text-gray-600 dark:text-muted-foreground">{faq.a}</p>
                 </div>
               ))}
             </div>
@@ -374,7 +373,7 @@ const PricingPage = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-6">30-Day Money-Back Guarantee</h2>
-            <p className="text-lg mb-10">
+            <p className="text-lg mb-10 text-gray-700 dark:text-gray-200">
               We're confident you'll love FeelCalm. If you're not completely satisfied within the first 30 days, we'll refund your purchase.
             </p>
             <button 
