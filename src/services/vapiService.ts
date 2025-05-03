@@ -8,6 +8,7 @@ class VapiService {
   private static instance: VapiService;
   private vapi: any;
   private activeCall: any;
+  private permissionsGranted: boolean = false;
 
   private constructor() {
     this.vapi = new Vapi(VAPI_KEY);
@@ -36,8 +37,30 @@ class VapiService {
     });
   }
 
+  public async requestMicrophonePermission(): Promise<boolean> {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      // Stop tracks immediately after getting permissions
+      stream.getTracks().forEach(track => track.stop());
+      this.permissionsGranted = true;
+      return true;
+    } catch (error) {
+      console.error('Microphone permission denied:', error);
+      this.permissionsGranted = false;
+      return false;
+    }
+  }
+
   public async startCall(initialMessage: string): Promise<void> {
     try {
+      // Request microphone permissions before starting the call
+      if (!this.permissionsGranted) {
+        const permitted = await this.requestMicrophonePermission();
+        if (!permitted) {
+          throw new Error('Microphone permission is required to start a voice session');
+        }
+      }
+
       if (this.activeCall) {
         await this.stopCall();
       }
