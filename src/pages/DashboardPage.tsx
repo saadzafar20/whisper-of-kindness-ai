@@ -2,17 +2,26 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/hooks/useAuthContext';
 import { Clock, Volume2 } from 'lucide-react';
-import { sessionService, TrialTimeData } from '@/services/sessionService';
+import { sessionService, TrialTimeData, SessionData } from '@/services/sessionService';
 import { vapiService } from '@/services/vapiService';
 import { toast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 const DashboardPage = () => {
   const { user, logout, currentSession, startSession, endSession } = useAuth();
   const [trialTimeData, setTrialTimeData] = useState<TrialTimeData | null>(null);
   const [sessionTime, setSessionTime] = useState(0);
   const [isSessionActive, setIsSessionActive] = useState(!!currentSession && !currentSession.endTime);
+  const [pastSessions, setPastSessions] = useState<SessionData[]>([]);
+  const navigate = useNavigate();
   
   useEffect(() => {
     // Fetch trial time data when component mounts
@@ -25,7 +34,18 @@ const DashboardPage = () => {
       }
     };
     
+    // Fetch user's past sessions
+    const fetchSessions = async () => {
+      try {
+        const sessions = await sessionService.getUserSessions();
+        setPastSessions(sessions);
+      } catch (error) {
+        console.error('Error fetching sessions:', error);
+      }
+    };
+    
     fetchTrialTime();
+    fetchSessions();
     
     // Session timer
     let timer: number | undefined;
@@ -38,13 +58,26 @@ const DashboardPage = () => {
         const now = Date.now();
         const elapsed = Math.floor((now - startTime) / 1000);
         setSessionTime(elapsed);
+        
+        // Auto-end session if trial time is up
+        if (trialTimeData && 
+            !trialTimeData.isPremium && 
+            trialTimeData.remainingSeconds !== null && 
+            trialTimeData.remainingSeconds <= elapsed) {
+          handleEndSession();
+          toast({
+            title: "Free Trial Ended",
+            description: "Your free trial minutes have been used up.",
+            variant: "destructive",
+          });
+        }
       }, 1000);
     }
     
     return () => {
       if (timer) clearInterval(timer);
     };
-  }, [currentSession]);
+  }, [currentSession, trialTimeData]);
   
   // Format seconds to mm:ss
   const formatTime = (seconds: number) => {
@@ -53,13 +86,32 @@ const DashboardPage = () => {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
   
+  // Format date to human-readable format
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString();
+  };
+  
   // Start a session with voice
   const startVoiceSession = async () => {
+    // Check if user has remaining trial time
+    if (trialTimeData && 
+        !trialTimeData.isPremium && 
+        trialTimeData.remainingSeconds !== null && 
+        trialTimeData.remainingSeconds <= 0) {
+      toast({
+        title: "Free Trial Used",
+        description: "Your free trial has expired. Please upgrade to continue.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     try {
       // Start backend session tracking
       const session = await startSession();
       
-      // Start voice call
+      // Start voice call with Vapi service
       await vapiService.startCall("Hello! I'm your wellness companion. How can I help you today?");
       
       // Update UI
@@ -89,6 +141,10 @@ const DashboardPage = () => {
       // Refresh trial time data
       const updatedTrialData = await sessionService.getTrialTimeRemaining();
       setTrialTimeData(updatedTrialData);
+      
+      // Refresh session history
+      const sessions = await sessionService.getUserSessions();
+      setPastSessions(sessions);
       
       toast({
         title: "Session Ended",
@@ -129,6 +185,11 @@ const DashboardPage = () => {
   
   const planInfo = getPlanInfo();
   
+  // Handler for Upgrade Plan button
+  const handleUpgradePlan = () => {
+    navigate('/pricing');
+  };
+  
   return (
     <div className="container mx-auto px-4 py-16">
       {/* Active Session Timer */}
@@ -141,13 +202,22 @@ const DashboardPage = () => {
               <p className="text-2xl font-bold">{formatTime(sessionTime)}</p>
             </div>
           </div>
-          <Button 
-            variant="outline" 
-            className="text-white border-white hover:bg-white hover:text-empathy-purple"
-            onClick={handleEndSession}
-          >
-            End Session
-          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button 
+                  variant="outline" 
+                  className="text-white border-white hover:bg-white hover:text-empathy-purple"
+                  onClick={handleEndSession}
+                >
+                  End Session
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>End your current voice session</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
       )}
       
@@ -188,17 +258,25 @@ const DashboardPage = () => {
               <div>
                 <h3 className="text-lg font-medium">Quick Actions</h3>
                 <div className="mt-2 flex flex-wrap gap-2">
-                  <Button 
-                    size="sm" 
-                    className="bg-empathy-purple hover:bg-empathy-dark-purple flex items-center gap-2"
-                    onClick={startVoiceSession}
-                    disabled={isSessionActive}
-                  >
-                    <Volume2 size={16} />
-                    {isSessionActive ? "Session in Progress" : "Start a Voice Session"}
-                  </Button>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button 
+                          size="sm" 
+                          className="bg-empathy-purple hover:bg-empathy-dark-purple flex items-center gap-2"
+                          onClick={startVoiceSession}
+                          disabled={isSessionActive || (trialTimeData && !trialTimeData.isPremium && trialTimeData.remainingSeconds !== null && trialTimeData.remainingSeconds <= 0)}
+                        >
+                          <Volume2 size={16} />
+                          {isSessionActive ? "Session in Progress" : "Start a Voice Session"}
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Begin a new voice session with your AI companion</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                   <Button size="sm" variant="outline">View Reports</Button>
-                  <Button size="sm" variant="outline">Update Profile</Button>
                 </div>
               </div>
             </div>
@@ -242,7 +320,10 @@ const DashboardPage = () => {
             </ul>
             
             {user?.pricingPlan !== 'enterprise' && (
-              <Button className="w-full mt-6 bg-gradient-to-r from-empathy-purple to-empathy-dark-purple hover:from-empathy-dark-purple hover:to-empathy-deep-purple">
+              <Button 
+                className="w-full mt-6 bg-gradient-to-r from-empathy-purple to-empathy-dark-purple hover:from-empathy-dark-purple hover:to-empathy-deep-purple"
+                onClick={handleUpgradePlan}
+              >
                 Upgrade Plan
               </Button>
             )}
@@ -257,21 +338,55 @@ const DashboardPage = () => {
           </CardHeader>
           <CardContent>
             {isSessionActive ? (
-              <div className="bg-empathy-soft-purple/20 border border-empathy-soft-purple/30 rounded-md p-4">
+              <div className="bg-empathy-soft-purple/20 border border-empathy-soft-purple/30 rounded-md p-4 mb-4">
                 <h4 className="font-medium text-empathy-dark-purple mb-2">Current Session</h4>
                 <div className="flex items-center justify-between">
                   <div>
                     <p>Started: {new Date(currentSession?.startTime || '').toLocaleTimeString()}</p>
                     <p>Duration: {formatTime(sessionTime)}</p>
                   </div>
-                  <Button 
-                    variant="outline" 
-                    className="border-empathy-purple text-empathy-purple hover:bg-empathy-soft-purple/20"
-                    onClick={handleEndSession}
-                  >
-                    End Session
-                  </Button>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button 
+                          variant="outline" 
+                          className="border-empathy-purple text-empathy-purple hover:bg-empathy-soft-purple/20"
+                          onClick={handleEndSession}
+                        >
+                          End Session
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>End your current voice session</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </div>
+              </div>
+            ) : null}
+            
+            {pastSessions.length > 0 ? (
+              <div className="space-y-4">
+                {pastSessions.slice(0, 5).map((session) => (
+                  <div key={session.sessionId} className="border-b pb-4 last:border-b-0">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h4 className="font-medium text-gray-800">
+                          Session on {new Date(session.startTime).toLocaleDateString()}
+                        </h4>
+                        <div className="text-sm text-gray-600 mt-1">
+                          <p>Started: {new Date(session.startTime).toLocaleTimeString()}</p>
+                          {session.endTime && (
+                            <p>Duration: {formatTime(session.durationInSeconds || 0)}</p>
+                          )}
+                        </div>
+                      </div>
+                      <span className={`text-xs px-2 py-1 rounded-full ${session.isTrial ? 'bg-amber-100 text-amber-800' : 'bg-green-100 text-green-800'}`}>
+                        {session.isTrial ? 'Trial' : 'Premium'}
+                      </span>
+                    </div>
+                  </div>
+                ))}
               </div>
             ) : (
               <div className="text-center py-10 text-muted-foreground">
@@ -280,6 +395,7 @@ const DashboardPage = () => {
                 <Button 
                   className="mt-4 bg-empathy-purple hover:bg-empathy-dark-purple"
                   onClick={startVoiceSession}
+                  disabled={trialTimeData && !trialTimeData.isPremium && trialTimeData.remainingSeconds !== null && trialTimeData.remainingSeconds <= 0}
                 >
                   Begin a New Session
                 </Button>
