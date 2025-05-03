@@ -19,12 +19,22 @@ const defaultAuthContext: AuthContextType = {
   googleAuth: async () => {},
   startSession: async () => {
     try {
+      // Check if browser supports mediaDevices
+      if (!(navigator && navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
+        toast({
+          title: "Browser Incompatible",
+          description: "Your browser doesn't support microphone access. Try using Chrome, Firefox, or Edge.",
+          variant: "destructive",
+        });
+        throw new Error('Browser does not support microphone access');
+      }
+      
       // First request microphone permissions
       const permissionGranted = await vapiService.requestMicrophonePermission();
       if (!permissionGranted) {
         toast({
           title: "Permission Required",
-          description: "Microphone access is needed for voice sessions",
+          description: "Microphone access is needed for voice sessions. Please allow access when prompted.",
           variant: "destructive",
         });
         throw new Error('Microphone permission required');

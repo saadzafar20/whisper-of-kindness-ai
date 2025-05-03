@@ -37,8 +37,19 @@ class VapiService {
     });
   }
 
+  // Check if browser supports mediaDevices
+  private isMicrophoneSupported(): boolean {
+    return !!(navigator && navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+  }
+
   public async requestMicrophonePermission(): Promise<boolean> {
     try {
+      // Check browser compatibility first
+      if (!this.isMicrophoneSupported()) {
+        console.error('Browser does not support mediaDevices.getUserMedia');
+        return false;
+      }
+      
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       // Stop tracks immediately after getting permissions
       stream.getTracks().forEach(track => track.stop());
@@ -53,6 +64,11 @@ class VapiService {
 
   public async startCall(initialMessage: string): Promise<void> {
     try {
+      // Check if browser supports microphone access
+      if (!this.isMicrophoneSupported()) {
+        throw new Error('Your browser does not support microphone access, which is required for voice sessions');
+      }
+      
       // Request microphone permissions before starting the call
       if (!this.permissionsGranted) {
         const permitted = await this.requestMicrophonePermission();
