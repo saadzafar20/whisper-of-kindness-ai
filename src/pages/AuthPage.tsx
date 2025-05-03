@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Eye, EyeOff, Mail } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLocation } from "react-router-dom";
 
 // Form schemas
 const loginSchema = z.object({
@@ -33,7 +35,13 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
 const AuthPage = () => {
-  const [activeTab, setActiveTab] = useState("login");
+  // Parse URL parameters
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const tabParam = searchParams.get('tab');
+  const isDemo = searchParams.get('demo') === 'true';
+  
+  const [activeTab, setActiveTab] = useState(tabParam === 'register' ? 'register' : 'login');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const { login, register: registerUser, googleAuth } = useAuth();
@@ -54,7 +62,7 @@ const AuthPage = () => {
       fullName: "",
       email: "",
       gender: "prefer-not-to-say",
-      pricingPlan: "free",
+      pricingPlan: isDemo ? "free" : "free", // Default to free, especially for demo users
       password: "",
       confirmPassword: "",
     },
@@ -81,12 +89,22 @@ const AuthPage = () => {
   return (
     <div className="container max-w-md mx-auto px-4 py-16">
       <Card className="border-empathy-soft-purple/30 shadow-md">
+        {isDemo && (
+          <div className="bg-empathy-purple/10 p-3 rounded-t-lg border-b border-empathy-purple/20">
+            <p className="text-center text-sm font-medium text-empathy-deep-purple">
+              Sign up to start your free 10-minute demo session
+            </p>
+          </div>
+        )}
+        
         <CardHeader>
           <CardTitle className="text-2xl text-center">Welcome to FeelCalm</CardTitle>
           <CardDescription className="text-center">
             {activeTab === "login" 
               ? "Sign in to your account" 
-              : "Create a new account"}
+              : isDemo 
+                ? "Create a new account and start your free trial" 
+                : "Create a new account"}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -259,6 +277,7 @@ const AuthPage = () => {
                           <Select 
                             onValueChange={field.onChange} 
                             defaultValue={field.value}
+                            disabled={isDemo} // Lock to free plan for demo users
                           >
                             <FormControl>
                               <SelectTrigger>
@@ -271,6 +290,9 @@ const AuthPage = () => {
                               <SelectItem value="enterprise">Enterprise</SelectItem>
                             </SelectContent>
                           </Select>
+                          {isDemo && (
+                            <p className="text-xs text-empathy-purple mt-1">Free trial plan selected for demo</p>
+                          )}
                           <FormMessage />
                         </FormItem>
                       )}
@@ -340,7 +362,7 @@ const AuthPage = () => {
                   />
                   
                   <Button type="submit" className="w-full bg-empathy-purple hover:bg-empathy-dark-purple">
-                    Create Account
+                    {isDemo ? "Create Account & Start Free Trial" : "Create Account"}
                   </Button>
                 </form>
               </Form>
@@ -374,7 +396,7 @@ const AuthPage = () => {
                     d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
                   />
                 </svg>
-                Sign up with Google
+                {isDemo ? "Sign up & Start Free Trial with Google" : "Sign up with Google"}
               </Button>
             </TabsContent>
           </Tabs>

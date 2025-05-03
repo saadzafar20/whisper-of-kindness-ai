@@ -1,4 +1,6 @@
 
+import { SessionData } from '@/services/sessionService';
+
 export interface User {
   userId: string;
   fullName: string;
@@ -20,8 +22,11 @@ export interface AuthContextType {
   loading: boolean;
   token: string | null;
   isAuthenticated: boolean;
+  currentSession: SessionData | null;
   login: (email: string, password: string) => Promise<void>;
   register: (userData: RegisterData) => Promise<void>;
   logout: () => void;
   googleAuth: (token: string) => Promise<void>;
+  startSession: () => Promise<SessionData>;
+  endSession: () => Promise<SessionData | undefined>;
 }

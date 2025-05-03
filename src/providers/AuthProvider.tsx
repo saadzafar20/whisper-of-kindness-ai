@@ -5,11 +5,13 @@ import { toast } from '@/hooks/use-toast';
 import { AuthContext } from '@/contexts/AuthContext';
 import { User, RegisterData } from '@/types/auth.types';
 import { loginUser, registerUser, processGoogleAuth } from '@/services/authService';
+import { sessionService, SessionData } from '@/services/sessionService';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
+  const [currentSession, setCurrentSession] = useState<SessionData | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,6 +21,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           // We would typically fetch user details from API here
           // For now, we'll just validate the token exists
           setUser(JSON.parse(localStorage.getItem('user') || '{}'));
+          
+          // Check if there's an active session in localStorage
+          const savedSession = localStorage.getItem('currentSession');
+          if (savedSession) {
+            setCurrentSession(JSON.parse(savedSession));
+          }
+          
           setLoading(false);
         } catch (error) {
           console.error('Error loading user:', error);
@@ -41,6 +50,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       // Save token to localStorage
       localStorage.setItem('token', authToken);
+      localStorage.setItem('user', JSON.stringify(userData));
       setToken(authToken);
       setUser(userData);
       
@@ -67,8 +77,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       const { token: authToken, user: registeredUser } = await registerUser(userData);
 
-      // Save token
+      // Save token and user data
       localStorage.setItem('token', authToken);
+      localStorage.setItem('user', JSON.stringify(registeredUser));
       setToken(authToken);
       setUser(registeredUser);
       
@@ -76,6 +87,23 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         title: "Registration successful",
         description: "Your account has been created",
       });
+      
+      // Start free trial session automatically for new users
+      try {
+        const session = await sessionService.startSession();
+        setCurrentSession(session);
+        
+        // Store session in localStorage to persist across refreshes
+        localStorage.setItem('currentSession', JSON.stringify(session));
+        
+        toast({
+          title: "Free trial started!",
+          description: "Your 10-minute free trial has begun",
+        });
+      } catch (sessionError) {
+        console.error("Error starting free trial session:", sessionError);
+      }
+      
       navigate('/dashboard');
     } catch (error) {
       console.error('Registration error:', error);
@@ -96,6 +124,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const { token: authToken, user: googleUser } = await processGoogleAuth(token);
       
       localStorage.setItem('token', authToken);
+      localStorage.setItem('user', JSON.stringify(googleUser));
       setToken(authToken);
       setUser(googleUser);
       
@@ -103,6 +132,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         title: "Google login successful",
         description: "Welcome to FeelCalm!",
       });
+      
+      // Check if this is a new user and start a session if needed
+      try {
+        const session = await sessionService.startSession();
+        setCurrentSession(session);
+        localStorage.setItem('currentSession', JSON.stringify(session));
+        
+        toast({
+          title: "Free trial started!",
+          description: "Your 10-minute free trial has begun",
+        });
+      } catch (sessionError) {
+        console.error("Error starting free trial session:", sessionError);
+      }
+      
       navigate('/dashboard');
     } catch (error) {
       console.error('Google auth error:', error);
@@ -117,15 +161,53 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = () => {
+    // End any active sessions
+    if (currentSession?.sessionId && !currentSession.endTime) {
+      try {
+        sessionService.endSession(currentSession.sessionId);
+      } catch (error) {
+        console.error('Error ending session during logout:', error);
+      }
+    }
+    
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    localStorage.removeItem('currentSession');
     setUser(null);
     setToken(null);
+    setCurrentSession(null);
     navigate('/');
     toast({
       title: "Logged out",
       description: "You have been logged out successfully",
     });
+  };
+  
+  const startSession = async (): Promise<SessionData> => {
+    try {
+      const session = await sessionService.startSession();
+      setCurrentSession(session);
+      localStorage.setItem('currentSession', JSON.stringify(session));
+      return session;
+    } catch (error) {
+      console.error("Error starting session:", error);
+      throw error;
+    }
+  };
+  
+  const endSession = async (): Promise<SessionData | undefined> => {
+    if (currentSession?.sessionId) {
+      try {
+        const endedSession = await sessionService.endSession(currentSession.sessionId);
+        setCurrentSession(null);
+        localStorage.removeItem('currentSession');
+        return endedSession;
+      } catch (error) {
+        console.error("Error ending session:", error);
+        throw error;
+      }
+    }
+    return undefined;
   };
 
   return (
@@ -134,11 +216,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         user,
         loading,
         token,
+        currentSession,
         isAuthenticated: !!user && !!token,
         login,
         register,
         logout,
-        googleAuth
+        googleAuth,
+        startSession,
+        endSession
       }}
     >
       {children}

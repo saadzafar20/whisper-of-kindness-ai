@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Brain, Heart, Mic, Moon, Smile, Sparkles, Leaf } from "lucide-react";
@@ -19,6 +20,7 @@ const wellnessIcons = [
 
 export const HeroSection = () => {
   const [isVoiceActive, setIsVoiceActive] = useState(false);
+  const navigate = useNavigate();
   
   const toggleVoiceDemo = () => {
     setIsVoiceActive(!isVoiceActive);
@@ -160,27 +162,25 @@ export const HeroSection = () => {
             <Button 
               variant="outline" 
               size="lg"
-              onClick={toggleVoiceDemo}
-              className={`relative overflow-hidden group transition-all duration-300 
-                ${isVoiceActive ? 'bg-empathy-purple/10' : 'bg-white/80'}
-                border-2 border-golden/30 hover:border-golden hover:bg-empathy-purple hover:text-white`}
+              onClick={() => navigate('/auth?tab=register&demo=true')}
+              className="relative overflow-hidden group transition-all duration-300 
+                bg-white/80 border-2 border-golden/30 hover:border-golden hover:bg-empathy-purple hover:text-white"
             >
               <span className="relative z-10 flex items-center text-empathy-dark-purple font-semibold">
-                {isVoiceActive ? "Hide Demo" : "Free Demo Call"} 
+                Free Demo Call 
                 <Mic 
-                  className={`ml-2 h-8 w-8 transition-all duration-500 
-                    ${isVoiceActive ? 'text-white' : 'text-white'}
-                    bg-gradient-to-r from-purple-500 to-pink-500 p-1 rounded-full`} 
+                  className="ml-2 h-8 w-8 transition-all duration-500 text-white
+                    bg-gradient-to-r from-purple-500 to-pink-500 p-1 rounded-full" 
                   strokeWidth={1.5}
                 />
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-golden/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Button>
-            <p className="text-xs text-gray-500 mt-1">Experience our voice companion and view pricing</p>
+            <p className="text-xs text-gray-500 mt-1">Sign up for 10-minute free session with our AI voice companion</p>
           </div>
         </div>
 
-        <VoiceDemoSection isActive={isVoiceActive} />
+        {/* We're removing the VoiceDemoSection here since users will be directed to sign up */}
         <StartNowCardSection />
       </div>
       
