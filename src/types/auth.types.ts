@@ -7,6 +7,7 @@ export interface User {
   email: string;
   gender?: string;
   pricingPlan?: string;
+  createdAt?: string; // Add createdAt property as an optional string
 }
 
 export interface RegisterData {
