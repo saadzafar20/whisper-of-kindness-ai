@@ -8,12 +8,16 @@ services:
       dockerfile: Dockerfile.frontend
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - backend
     networks:
       - app-network
     environment:
       - VITE_API_URL=/api
+    volumes:
+      - /etc/letsencrypt/live/feelcalm.ai/fullchain.pem:/etc/nginx/ssl/fullchain.pem:ro
+      - /etc/letsencrypt/live/feelcalm.ai/privkey.pem:/etc/nginx/ssl/privkey.pem:ro
 
   backend:
     build:
