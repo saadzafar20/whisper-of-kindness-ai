@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/hooks/useAuthContext';
-import { Clock, Volume2 } from 'lucide-react';
+import { Clock, Volume2, AlertTriangle } from 'lucide-react';
 import { sessionService, TrialTimeData, SessionData } from '@/services/sessionService';
 import { vapiService } from '@/services/vapiService';
 import { toast } from '@/hooks/use-toast';
@@ -19,9 +19,23 @@ const DashboardPage = () => {
   const { user, logout, currentSession, startSession, endSession } = useAuth();
   const [trialTimeData, setTrialTimeData] = useState<TrialTimeData | null>(null);
   const [sessionTime, setSessionTime] = useState(0);
-  const [isSessionActive, setIsSessionActive] = useState(!!currentSession && !currentSession.endTime);
+  const [isSessionActive, setIsSessionActive] = useState(false);
   const [pastSessions, setPastSessions] = useState<SessionData[]>([]);
+  const [isAlmostExpired, setIsAlmostExpired] = useState(false);
   const navigate = useNavigate();
+  
+  // Format join date
+  const formatJoinDate = () => {
+    if (!user?.createdAt) return "May 2025"; // Default fallback
+    
+    try {
+      const dateObj = new Date(user.createdAt);
+      return dateObj.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    } catch (error) {
+      console.error("Error formatting join date:", error);
+      return "May 2025"; // Fallback if parsing fails
+    }
+  };
   
   useEffect(() => {
     // Fetch trial time data when component mounts
@@ -47,11 +61,25 @@ const DashboardPage = () => {
     fetchTrialTime();
     fetchSessions();
     
-    // Session timer
-    let timer: number | undefined;
+    // Check if current session is active
     if (currentSession && !currentSession.endTime) {
       setIsSessionActive(true);
+    } else {
+      setIsSessionActive(false);
+    }
+  }, [currentSession]);
+  
+  useEffect(() => {
+    // Session timer
+    let timer: number | undefined;
+    
+    if (isSessionActive && currentSession) {
       const startTime = new Date(currentSession.startTime).getTime();
+      
+      // Initialize timer with current elapsed time
+      const now = Date.now();
+      const initialElapsed = Math.floor((now - startTime) / 1000);
+      setSessionTime(initialElapsed);
       
       // Update timer every second
       timer = window.setInterval(() => {
@@ -59,25 +87,45 @@ const DashboardPage = () => {
         const elapsed = Math.floor((now - startTime) / 1000);
         setSessionTime(elapsed);
         
-        // Auto-end session if trial time is up
+        // Check if approaching trial time limit (1 minute left)
         if (trialTimeData && 
             !trialTimeData.isPremium && 
-            trialTimeData.remainingSeconds !== null && 
-            trialTimeData.remainingSeconds <= elapsed) {
-          handleEndSession();
-          toast({
-            title: "Free Trial Ended",
-            description: "Your free trial minutes have been used up.",
-            variant: "destructive",
-          });
+            trialTimeData.remainingSeconds !== null) {
+          
+          const remainingTime = trialTimeData.remainingSeconds - elapsed;
+          // Set warning when less than 60 seconds remaining
+          if (remainingTime <= 60 && remainingTime > 0) {
+            setIsAlmostExpired(true);
+            // Show toast alert only once when we first cross the 1 minute threshold
+            if (Math.ceil(remainingTime) === 60) {
+              toast({
+                title: "Warning: Session Ending Soon",
+                description: "You have 1 minute remaining in your free trial.",
+                variant: "destructive",
+              });
+            }
+          }
+          
+          // Auto-end session if trial time is up
+          if (remainingTime <= 0) {
+            handleEndSession();
+            toast({
+              title: "Free Trial Ended",
+              description: "Your free trial minutes have been used up.",
+              variant: "destructive",
+            });
+          }
         }
       }, 1000);
+    } else {
+      setSessionTime(0);
+      setIsAlmostExpired(false);
     }
     
     return () => {
       if (timer) clearInterval(timer);
     };
-  }, [currentSession, trialTimeData]);
+  }, [isSessionActive, currentSession, trialTimeData]);
   
   // Format seconds to mm:ss
   const formatTime = (seconds: number) => {
@@ -92,18 +140,24 @@ const DashboardPage = () => {
     return date.toLocaleString();
   };
   
+  // Check if trial time is expired
+  const isTrialExpired = () => {
+    return trialTimeData && 
+           !trialTimeData.isPremium && 
+           trialTimeData.remainingSeconds !== null && 
+           trialTimeData.remainingSeconds <= 0;
+  };
+  
   // Start a session with voice
   const startVoiceSession = async () => {
     // Check if user has remaining trial time
-    if (trialTimeData && 
-        !trialTimeData.isPremium && 
-        trialTimeData.remainingSeconds !== null && 
-        trialTimeData.remainingSeconds <= 0) {
+    if (isTrialExpired()) {
       toast({
         title: "Free Trial Used",
         description: "Your free trial has expired. Please upgrade to continue.",
         variant: "destructive",
       });
+      navigate('/pricing');
       return;
     }
     
@@ -137,6 +191,7 @@ const DashboardPage = () => {
       await endSession();
       await vapiService.stopCall();
       setIsSessionActive(false);
+      setIsAlmostExpired(false);
       
       // Refresh trial time data
       const updatedTrialData = await sessionService.getTrialTimeRemaining();
@@ -192,14 +247,18 @@ const DashboardPage = () => {
   
   return (
     <div className="container mx-auto px-4 py-16">
-      {/* Active Session Timer */}
+      {/* Active Session Timer with Warning */}
       {isSessionActive && (
-        <div className="bg-empathy-purple text-white p-4 rounded-lg mb-6 shadow-lg flex items-center justify-between">
+        <div className={`${isAlmostExpired ? 'bg-red-600' : 'bg-empathy-purple'} text-white p-4 rounded-lg mb-6 shadow-lg flex items-center justify-between`}>
           <div className="flex items-center space-x-2">
+            {isAlmostExpired && <AlertTriangle className="h-6 w-6 animate-pulse" />}
             <Clock className="h-6 w-6" />
             <div>
               <h3 className="font-medium">Active Session</h3>
               <p className="text-2xl font-bold">{formatTime(sessionTime)}</p>
+              {isAlmostExpired && (
+                <p className="text-sm font-bold text-white">Less than 1 minute remaining!</p>
+              )}
             </div>
           </div>
           <TooltipProvider>
@@ -250,7 +309,7 @@ const DashboardPage = () => {
                   </div>
                   <div className="space-y-2">
                     <p className="text-sm font-medium text-gray-500">Member Since</p>
-                    <p>April 2025</p>
+                    <p>{formatJoinDate()}</p>
                   </div>
                 </div>
               </div>
@@ -263,16 +322,19 @@ const DashboardPage = () => {
                       <TooltipTrigger asChild>
                         <Button 
                           size="sm" 
-                          className="bg-empathy-purple hover:bg-empathy-dark-purple flex items-center gap-2"
-                          onClick={startVoiceSession}
-                          disabled={isSessionActive || (trialTimeData && !trialTimeData.isPremium && trialTimeData.remainingSeconds !== null && trialTimeData.remainingSeconds <= 0)}
+                          className={`flex items-center gap-2 ${isTrialExpired() ? 'bg-gray-400 cursor-not-allowed' : 'bg-empathy-purple hover:bg-empathy-dark-purple'}`}
+                          onClick={isTrialExpired() ? handleUpgradePlan : startVoiceSession}
+                          disabled={isSessionActive}
                         >
                           <Volume2 size={16} />
-                          {isSessionActive ? "Session in Progress" : "Start a Voice Session"}
+                          {isSessionActive ? "Session in Progress" : isTrialExpired() ? "Upgrade to Start" : "Start a Voice Session"}
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Begin a new voice session with your AI companion</p>
+                        {isTrialExpired() 
+                          ? <p>Your free trial is over. Upgrade to continue.</p>
+                          : <p>Begin a new voice session with your AI companion</p>
+                        }
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
