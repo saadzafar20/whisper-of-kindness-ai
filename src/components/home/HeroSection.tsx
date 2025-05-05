@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Brain, Heart, Mic, Moon, Smile, Sparkles, Leaf } from "lucide-react";
@@ -122,7 +121,38 @@ export const HeroSection = () => {
             })}
           </motion.div>
 
-          <motion.div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12"
+          {/* Free Demo Call button - MOVED UP */}
+          <motion.div 
+            className="flex justify-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            <div className="flex flex-col items-center">
+              <Button 
+                variant="outline" 
+                size="lg"
+                onClick={() => navigate('/auth?tab=register&demo=true')}
+                className="relative overflow-hidden group transition-all duration-300 
+                  bg-white/80 border-2 border-golden/30 hover:border-golden hover:bg-empathy-purple hover:text-white"
+              >
+                <span className="relative z-10 flex items-center text-empathy-dark-purple font-semibold">
+                  Free Demo Call 
+                  <Mic 
+                    className="ml-2 h-8 w-8 transition-all duration-500 text-white
+                      bg-gradient-to-r from-purple-500 to-pink-500 p-1 rounded-full" 
+                    strokeWidth={1.5}
+                  />
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-golden/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </Button>
+              <p className="text-xs text-gray-500 mt-1">Sign up for 10-minute free session with our AI voice companion</p>
+            </div>
+          </motion.div>
+
+          {/* Three boxes - MOVED DOWN */}
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
@@ -155,29 +185,6 @@ export const HeroSection = () => {
               </motion.div>
             ))}
           </motion.div>
-        </div>
-
-        <div className="flex justify-center mb-8">
-          <div className="flex flex-col items-center">
-            <Button 
-              variant="outline" 
-              size="lg"
-              onClick={() => navigate('/auth?tab=register&demo=true')}
-              className="relative overflow-hidden group transition-all duration-300 
-                bg-white/80 border-2 border-golden/30 hover:border-golden hover:bg-empathy-purple hover:text-white"
-            >
-              <span className="relative z-10 flex items-center text-empathy-dark-purple font-semibold">
-                Free Demo Call 
-                <Mic 
-                  className="ml-2 h-8 w-8 transition-all duration-500 text-white
-                    bg-gradient-to-r from-purple-500 to-pink-500 p-1 rounded-full" 
-                  strokeWidth={1.5}
-                />
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-golden/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </Button>
-            <p className="text-xs text-gray-500 mt-1">Sign up for 10-minute free session with our AI voice companion</p>
-          </div>
         </div>
 
         {/* We're removing the VoiceDemoSection here since users will be directed to sign up */}
