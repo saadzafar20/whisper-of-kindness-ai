@@ -46,9 +46,9 @@ const PricingCard = ({
   
   return (
     <div 
-      className={`h-full w-full bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300
+      className={`h-full flex flex-col bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300
         ${popular ? 'ring-2 ring-empathy-purple' : 'border border-gray-100'}
-        animate-fade-in flex flex-col`}
+        animate-fade-in`}
       style={{ animationDelay: `${delay}ms` }}
     >
       {/* Card header with popular badge */}

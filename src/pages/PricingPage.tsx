@@ -323,7 +323,7 @@ const PricingPage = () => {
 
       {/* Pricing Section */}
       <section className="py-8 md:py-12 bg-gray-50">
-        <div className="container px-4 mx-auto max-w-screen-xl">
+        <div className="container mx-auto px-4">
           {/* Tab Navigation */}
           <div className="flex justify-center mb-6 md:mb-8">
             <Tabs 
@@ -349,32 +349,28 @@ const PricingPage = () => {
               <TabsContent value="standard" className="mt-6">
                 <BillingToggle billingCycle={billingCycle} setBillingCycle={setBillingCycle} />
 
-                {/* Standard Plans - Properly responsive grid layout */}
-                <div className="w-full">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mx-auto">
-                    {currentPlans.map((plan, index) => {
-                      const typedPlan = plan as YearlyPlan;
-                      return (
-                        <div key={plan.name + (billingCycle === "yearly" ? "-yearly" : "")} 
-                            className="flex">
-                          <PricingCard
-                            name={plan.name}
-                            price={plan.price}
-                            description={plan.description}
-                            features={plan.features}
-                            popular={plan.popular}
-                            buttonText={getButtonText(plan.name)}
-                            buttonVariant={plan.buttonVariant}
-                            delay={isMobile ? 0 : index * 200}
-                            icon={plan.icon}
-                            yearlyBilling={billingCycle === "yearly" && plan.name !== "Free" ? true : undefined}
-                            monthlyEquivalent={typedPlan.monthlyEquivalent}
-                            billingNote={typedPlan.billingNote}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
+                {/* Standard Plans - Fixed grid layout */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
+                  {currentPlans.map((plan, index) => {
+                    const typedPlan = plan as YearlyPlan;
+                    return (
+                      <PricingCard
+                        key={plan.name + (billingCycle === "yearly" ? "-yearly" : "")}
+                        name={plan.name}
+                        price={plan.price}
+                        description={plan.description}
+                        features={plan.features}
+                        popular={plan.popular}
+                        buttonText={getButtonText(plan.name)}
+                        buttonVariant={plan.buttonVariant}
+                        delay={isMobile ? 0 : index * 200}
+                        icon={plan.icon}
+                        yearlyBilling={billingCycle === "yearly" && plan.name !== "Free" ? true : undefined}
+                        monthlyEquivalent={typedPlan.monthlyEquivalent}
+                        billingNote={typedPlan.billingNote}
+                      />
+                    );
+                  })}
                 </div>
                 
                 <div className="text-center mt-4 md:mt-6">
