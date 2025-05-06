@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,7 +24,6 @@ const loginSchema = z.object({
 const registerSchema = z.object({
   fullName: z.string().min(2, { message: "Full name must be at least 2 characters" }),
   email: z.string().email({ message: "Please enter a valid email address" }),
-  gender: z.string().optional(),
   pricingPlan: z.string(),
   password: z.string().min(6, { message: "Password must be at least 6 characters" }),
   confirmPassword: z.string(),
@@ -62,7 +62,6 @@ const AuthPage = () => {
     defaultValues: {
       fullName: "",
       email: "",
-      gender: "prefer-not-to-say",
       pricingPlan: isDemo ? "free" : "free", // Default to free, especially for demo users
       password: "",
       confirmPassword: "",
@@ -78,7 +77,6 @@ const AuthPage = () => {
       fullName: data.fullName,
       email: data.email,
       password: data.password,
-      gender: data.gender,
       pricingPlan: data.pricingPlan
     });
   };
@@ -243,64 +241,35 @@ const AuthPage = () => {
                     )}
                   />
                   
-                  <div className="grid grid-cols-2 gap-4">
-                    <FormField
-                      control={registerForm.control}
-                      name="gender"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Gender</FormLabel>
-                          <Select 
-                            onValueChange={field.onChange} 
-                            defaultValue={field.value}
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select gender" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="male">Male</SelectItem>
-                              <SelectItem value="female">Female</SelectItem>
-                              <SelectItem value="other">Other</SelectItem>
-                              <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={registerForm.control}
-                      name="pricingPlan"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Pricing Plan</FormLabel>
-                          <Select 
-                            onValueChange={field.onChange} 
-                            defaultValue={field.value}
-                            disabled={isDemo} // Lock to free plan for demo users
-                          >
-                            <FormControl>
-                              <SelectTrigger>
-                                <SelectValue placeholder="Select a plan" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              <SelectItem value="free">Free</SelectItem>
-                              <SelectItem value="pro">Professional</SelectItem>
-                              <SelectItem value="enterprise">Enterprise</SelectItem>
-                            </SelectContent>
-                          </Select>
-                          {isDemo && (
-                            <p className="text-xs text-empathy-purple mt-1">Free trial plan selected for demo</p>
-                          )}
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
+                  <FormField
+                    control={registerForm.control}
+                    name="pricingPlan"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Pricing Plan</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                          disabled={isDemo} // Lock to free plan for demo users
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a plan" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="free">Free</SelectItem>
+                            <SelectItem value="pro">Professional</SelectItem>
+                            <SelectItem value="enterprise">Enterprise</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        {isDemo && (
+                          <p className="text-xs text-empathy-purple mt-1">Free trial plan selected for demo</p>
+                        )}
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                   
                   <FormField
                     control={registerForm.control}
