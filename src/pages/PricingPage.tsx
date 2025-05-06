@@ -351,29 +351,31 @@ const PricingPage = () => {
                 <BillingToggle billingCycle={billingCycle} setBillingCycle={setBillingCycle} />
 
                 {/* Standard Plans - Fixed grid layout for better tablet and laptop display */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                  {currentPlans.map((plan, index) => {
-                    const typedPlan = plan as YearlyPlan;
-                    return (
-                      <div key={plan.name + (billingCycle === "yearly" ? "-yearly" : "")} 
-                           className="h-full">
-                        <PricingCard
-                          name={plan.name}
-                          price={plan.price}
-                          description={plan.description}
-                          features={plan.features}
-                          popular={plan.popular}
-                          buttonText={getButtonText(plan.name)}
-                          buttonVariant={plan.buttonVariant}
-                          delay={isMobile ? 0 : index * 200}
-                          icon={plan.icon}
-                          yearlyBilling={billingCycle === "yearly" && plan.name !== "Free" ? true : undefined}
-                          monthlyEquivalent={typedPlan.monthlyEquivalent}
-                          billingNote={typedPlan.billingNote}
-                        />
-                      </div>
-                    );
-                  })}
+                <div className="w-full mx-auto">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 lg:gap-6 max-w-6xl mx-auto">
+                    {currentPlans.map((plan, index) => {
+                      const typedPlan = plan as YearlyPlan;
+                      return (
+                        <div key={plan.name + (billingCycle === "yearly" ? "-yearly" : "")} 
+                            className="flex">
+                          <PricingCard
+                            name={plan.name}
+                            price={plan.price}
+                            description={plan.description}
+                            features={plan.features}
+                            popular={plan.popular}
+                            buttonText={getButtonText(plan.name)}
+                            buttonVariant={plan.buttonVariant}
+                            delay={isMobile ? 0 : index * 200}
+                            icon={plan.icon}
+                            yearlyBilling={billingCycle === "yearly" && plan.name !== "Free" ? true : undefined}
+                            monthlyEquivalent={typedPlan.monthlyEquivalent}
+                            billingNote={typedPlan.billingNote}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
                 
                 <div className="text-center mt-4 md:mt-6">

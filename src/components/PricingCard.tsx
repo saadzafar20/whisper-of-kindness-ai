@@ -48,7 +48,7 @@ const PricingCard = ({
     <div 
       className={`h-full bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300
         ${popular ? 'ring-2 ring-empathy-purple' : 'border border-gray-100'}
-        animate-fade-in flex flex-col`}
+        animate-fade-in flex flex-col w-full`}
       style={{ animationDelay: `${delay}ms` }}
     >
       {/* Card header with popular badge */}
@@ -60,14 +60,14 @@ const PricingCard = ({
         )}
         
         {/* Plan name and icon */}
-        <div className={`pt-6 px-4 md:px-6 text-center ${popular ? 'pt-8' : ''}`}>
+        <div className={`pt-6 pb-2 px-4 md:px-6 text-center ${popular ? 'pt-8' : ''}`}>
           {icon && <div className="mb-3 flex justify-center">{icon}</div>}
           <h3 className="text-lg md:text-xl font-bold text-gray-800 mb-1">{name}</h3>
           
           {/* Pricing section */}
           <div className="mt-2 md:mt-3 mb-2">
             <div className="flex items-baseline justify-center flex-wrap gap-1">
-              <span className="text-3xl md:text-4xl font-bold text-gray-900">{price}</span>
+              <span className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">{price}</span>
               {price !== "Free" && !oneTime && !yearlyBilling && (
                 <span className="text-gray-600 ml-1 text-sm md:text-base">/month</span>
               )}
@@ -84,7 +84,7 @@ const PricingCard = ({
             )}
           </div>
           
-          <p className="text-gray-600 mt-2 mb-4 px-2 text-sm min-h-[50px] max-w-[250px] mx-auto">{description}</p>
+          <p className="text-gray-600 mt-2 mb-4 text-sm md:text-base px-2 md:px-4 min-h-[40px] md:min-h-[50px] mx-auto">{description}</p>
         </div>
       </div>
       
@@ -92,7 +92,7 @@ const PricingCard = ({
       <div className="h-px bg-gray-100 mx-4 md:mx-6"></div>
       
       {/* Features list */}
-      <div className="px-4 md:px-6 py-4 md:py-5 flex-1 overflow-auto">
+      <div className="px-4 md:px-6 py-4 flex-1 overflow-y-auto">
         <ul className="space-y-3">
           {features.map((feature, i) => (
             <li 
