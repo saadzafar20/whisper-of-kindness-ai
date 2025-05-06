@@ -22,9 +22,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Brain, HeartPulse, Users, CheckCircle } from "lucide-react";
+import { Brain, HeartPulse, Users, CheckCircle, Lightbulb, MessageSquare } from "lucide-react";
 import FloatingElements from "@/components/FloatingElements";
 import { toast } from "@/components/ui/use-toast";
+import { Card, CardContent } from "@/components/ui/card";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -74,6 +75,10 @@ const JoinNetworkPage = () => {
     { id: "relationships", label: "Relationships" },
     { id: "selfEsteem", label: "Self-Esteem" },
     { id: "workLife", label: "Work-Life Balance" },
+    { id: "emotionalRegulation", label: "Emotional Regulation" },
+    { id: "emotionalIntelligence", label: "Emotional Intelligence" },
+    { id: "empathy", label: "Empathy Development" },
+    { id: "resilience", label: "Emotional Resilience" },
   ];
 
   return (
@@ -84,10 +89,10 @@ const JoinNetworkPage = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-6 animate-fade-in">
-              Join Our <span className="text-empathy-purple">Mental Wellness</span> Network
+              Join Our <span className="text-empathy-purple">Mental & Emotional Wellness</span> Network
             </h1>
             <p className="text-xl text-muted-foreground mb-10 animate-fade-in" style={{ animationDelay: "200ms" }}>
-              Collaborate with us to shape the future of AI-powered emotional support and mental wellness.
+              Collaborate with us to shape the future of AI-powered emotional support and mental wellness for everyone.
             </p>
           </div>
         </div>
@@ -106,7 +111,7 @@ const JoinNetworkPage = () => {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Shape AI Development</h3>
                 <p className="text-muted-foreground">
-                  Help us build AI systems that truly understand human emotions and provide effective support.
+                  Help us build AI systems that truly understand human emotions and provide effective emotional support.
                 </p>
               </div>
               
@@ -114,22 +119,93 @@ const JoinNetworkPage = () => {
                 <div className="h-12 w-12 rounded-lg bg-empathy-soft-purple flex items-center justify-center mb-4">
                   <HeartPulse className="h-6 w-6 text-empathy-purple" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Improve Mental Health</h3>
+                <h3 className="text-xl font-semibold mb-2">Improve Emotional Wellbeing</h3>
                 <p className="text-muted-foreground">
-                  Extend your impact beyond traditional practice and help make mental wellness support accessible to all.
+                  Extend your impact beyond traditional practice and help make emotional wellness support accessible to all.
                 </p>
               </div>
               
               <div className="p-6 border rounded-xl animate-fade-in" style={{ animationDelay: "400ms" }}>
                 <div className="h-12 w-12 rounded-lg bg-empathy-soft-purple flex items-center justify-center mb-4">
-                  <Users className="h-6 w-6 text-empathy-purple" />
+                  <MessageSquare className="h-6 w-6 text-empathy-purple" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Join a Community</h3>
                 <p className="text-muted-foreground">
-                  Connect with other mental health professionals passionate about innovation in emotional support.
+                  Connect with other professionals passionate about innovation in emotional support technology.
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* AI Development Stage Section - NEW */}
+      <section className="py-16 bg-empathy-soft-purple/30 dark:bg-empathy-purple/10">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-4">We're in Early Development</h2>
+              <p className="text-xl text-muted-foreground mb-6 max-w-2xl mx-auto">
+                Our AI is still learning and growing - and we need your expertise to help shape it.
+              </p>
+            </div>
+            
+            <Card className="bg-white/70 dark:bg-empathy-dark-navy/70 backdrop-blur-sm border-empathy-purple">
+              <CardContent className="pt-6 px-6 pb-8">
+                <div className="grid md:grid-cols-2 gap-8 items-center">
+                  <div className="flex flex-col space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="h-10 w-10 rounded-full bg-empathy-purple flex items-center justify-center">
+                        <Lightbulb className="h-5 w-5 text-white" />
+                      </div>
+                      <h3 className="text-xl font-semibold">Your Ideas Matter</h3>
+                    </div>
+                    
+                    <p className="text-muted-foreground">
+                      We're at a pivotal stage in our AI development journey. While our technology shows promise, 
+                      we know it's not perfect. That's exactly why your professional expertise is invaluable.
+                    </p>
+                    
+                    <p className="text-muted-foreground">
+                      By joining our network, you'll have the opportunity to provide critical feedback that will 
+                      directly shape how our AI understands and responds to emotional needs.
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="flex gap-3">
+                      <CheckCircle className="h-6 w-6 text-empathy-purple flex-shrink-0 mt-1" />
+                      <div>
+                        <h4 className="font-medium mb-1">Help train our AI</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Provide feedback on AI responses to improve emotional intelligence
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex gap-3">
+                      <CheckCircle className="h-6 w-6 text-empathy-purple flex-shrink-0 mt-1" />
+                      <div>
+                        <h4 className="font-medium mb-1">Suggest new approaches</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Share therapeutic techniques that could be integrated into our AI system
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex gap-3">
+                      <CheckCircle className="h-6 w-6 text-empathy-purple flex-shrink-0 mt-1" />
+                      <div>
+                        <h4 className="font-medium mb-1">Test early features</h4>
+                        <p className="text-sm text-muted-foreground">
+                          Get access to prototype features and help us refine them before public release
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -198,6 +274,7 @@ const JoinNetworkPage = () => {
                               <SelectItem value="social_worker">Social Worker</SelectItem>
                               <SelectItem value="researcher">Researcher</SelectItem>
                               <SelectItem value="coach">Mental Health Coach</SelectItem>
+                              <SelectItem value="emotional_coach">Emotional Wellness Coach</SelectItem>
                               <SelectItem value="other">Other Professional</SelectItem>
                             </SelectContent>
                           </Select>
@@ -427,7 +504,11 @@ const JoinNetworkPage = () => {
                 },
                 {
                   q: "Do I need AI or technical experience?",
-                  a: "No technical experience is required. Your mental health expertise is what matters most. Our technical team will handle the AI implementation aspects."
+                  a: "No technical experience is required. Your expertise in emotional and mental wellness is what matters most. Our technical team will handle the AI implementation aspects."
+                },
+                {
+                  q: "How developed is your AI technology currently?",
+                  a: "Our AI is in active development. While it shows promising results, we're continuously improving its emotional intelligence and support capabilities. Your input will directly influence its development."
                 },
                 {
                   q: "Can I participate remotely?",
@@ -435,7 +516,7 @@ const JoinNetworkPage = () => {
                 },
                 {
                   q: "What kinds of projects will I work on?",
-                  a: "Projects may include AI response evaluation, therapeutic protocol development, emotional support effectiveness research, and voice interaction design."
+                  a: "Projects may include AI response evaluation, emotional support effectiveness research, voice interaction design, and helping develop frameworks for emotional intelligence in AI."
                 }
               ].map((faq, index) => (
                 <div key={index} className="p-6 border rounded-xl bg-card">
@@ -457,7 +538,7 @@ const JoinNetworkPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="p-6 rounded-xl glass-card dark:glass-card-dark">
                 <p className="mb-6 italic">
-                  "Collaborating with EmpathyVoice has been incredibly rewarding. I'm able to share my expertise in anxiety management while learning about cutting-edge AI applications in mental health."
+                  "Collaborating with EmpathyVoice has been incredibly rewarding. I'm able to share my expertise in anxiety management while learning about cutting-edge AI applications in emotional wellness."
                 </p>
                 <div className="flex items-center">
                   <div className="h-12 w-12 rounded-full bg-empathy-purple/20 flex items-center justify-center text-empathy-purple font-semibold mr-4">
@@ -472,7 +553,7 @@ const JoinNetworkPage = () => {
               
               <div className="p-6 rounded-xl glass-card dark:glass-card-dark">
                 <p className="mb-6 italic">
-                  "I was skeptical about AI in mental health at first, but seeing how EmpathyVoice incorporates professional guidance has changed my perspective. The team truly values clinical expertise."
+                  "I was skeptical about AI in emotional support at first, but seeing how EmpathyVoice incorporates professional guidance has changed my perspective. The team truly values our expertise in developing AI that responds with genuine empathy."
                 </p>
                 <div className="flex items-center">
                   <div className="h-12 w-12 rounded-full bg-empathy-purple/20 flex items-center justify-center text-empathy-purple font-semibold mr-4">
