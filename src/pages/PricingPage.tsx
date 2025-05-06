@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Check, HelpCircle, Rocket, Users } from "lucide-react";
@@ -324,7 +323,7 @@ const PricingPage = () => {
 
       {/* Pricing Section */}
       <section className="py-8 md:py-12 bg-gray-50">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 max-w-7xl">
           {/* Tab Navigation */}
           <div className="flex justify-center mb-6 md:mb-8">
             <Tabs 
@@ -350,9 +349,9 @@ const PricingPage = () => {
               <TabsContent value="standard" className="mt-6">
                 <BillingToggle billingCycle={billingCycle} setBillingCycle={setBillingCycle} />
 
-                {/* Standard Plans - Fixed grid layout for better tablet and laptop display */}
-                <div className="w-full mx-auto">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-4 lg:gap-6 max-w-6xl mx-auto">
+                {/* Standard Plans - Responsive grid layout */}
+                <div className="mx-auto">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                     {currentPlans.map((plan, index) => {
                       const typedPlan = plan as YearlyPlan;
                       return (
