@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using FeelCalm.API.Services;
 using FeelCalm.API.DTOs;
+using Google.Apis.Auth;
 
 namespace FeelCalm.API.Controllers
 {
@@ -10,10 +11,12 @@ namespace FeelCalm.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
+        private readonly IConfiguration _configuration;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, IConfiguration configuration)
         {
             _authService = authService;
+            _configuration = configuration;
         }
 
         // POST: api/auth/register
@@ -42,6 +45,25 @@ namespace FeelCalm.API.Controllers
             try
             {
                 var result = await _authService.LoginAsync(loginDto);
+                return Ok(result);
+            }
+            catch (ApplicationException ex)
+            {
+                return BadRequest(new { msg = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { msg = "Server error" });
+            }
+        }
+
+        // POST: api/auth/google
+        [HttpPost("google")]
+        public async Task<ActionResult<AuthResponseDto>> GoogleAuth([FromBody] GoogleAuthDto googleAuthDto)
+        {
+            try
+            {
+                var result = await _authService.GoogleAuthAsync(googleAuthDto.Credential);
                 return Ok(result);
             }
             catch (ApplicationException ex)

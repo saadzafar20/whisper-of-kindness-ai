@@ -8,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using BC = BCrypt.Net.BCrypt;
+using Google.Apis.Auth;
 
 namespace FeelCalm.API.Services
 {
@@ -90,6 +91,66 @@ namespace FeelCalm.API.Services
             {
                 Token = token
             };
+        }
+
+        public async Task<AuthResponseDto> GoogleAuthAsync(string credential)
+        {
+            try
+            {
+                var settings = new GoogleJsonWebSignature.ValidationSettings
+                {
+                    Audience = new[] { _configuration["Authentication:Google:ClientId"] ?? throw new InvalidOperationException("Google ClientId not configured") }
+                };
+
+                var payload = await GoogleJsonWebSignature.ValidateAsync(credential, settings);
+                
+                // Check if user exists
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == payload.Email);
+
+                if (user == null)
+                {
+                    // Create new user
+                    string userId = $"google_user_{DateTimeOffset.Now.ToUnixTimeMilliseconds()}";
+                    
+                    user = new User
+                    {
+                        UserId = userId,
+                        Email = payload.Email,
+                        FullName = payload.Name,
+                        ProfilePicture = payload.Picture,
+                        GoogleId = payload.Subject,
+                        CreatedAt = DateTime.UtcNow,
+                        LastLogin = DateTime.UtcNow,
+                        PricingPlan = "free"
+                    };
+
+                    _context.Users.Add(user);
+                }
+                else
+                {
+                    // Update existing user with Google info
+                    if (string.IsNullOrEmpty(user.GoogleId))
+                    {
+                        user.GoogleId = payload.Subject;
+                        user.ProfilePicture = payload.Picture;
+                    }
+                    user.LastLogin = DateTime.UtcNow;
+                }
+
+                await _context.SaveChangesAsync();
+
+                // Generate JWT token
+                string token = GenerateJwtToken(user);
+
+                return new AuthResponseDto
+                {
+                    Token = token
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"Google authentication failed: {ex.Message}");
+            }
         }
 
         public string GenerateJwtToken(User user)

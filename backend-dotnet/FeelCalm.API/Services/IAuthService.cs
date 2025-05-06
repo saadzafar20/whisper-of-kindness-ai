@@ -8,6 +8,7 @@ namespace FeelCalm.API.Services
     {
         Task<AuthResponseDto> RegisterAsync(RegisterDto registerDto);
         Task<AuthResponseDto> LoginAsync(LoginDto loginDto);
+        Task<AuthResponseDto> GoogleAuthAsync(string credential);
         string GenerateJwtToken(User user);
     }
 }

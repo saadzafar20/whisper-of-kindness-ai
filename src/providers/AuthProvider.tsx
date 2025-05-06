@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/hooks/use-toast';
@@ -117,11 +116,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const googleAuth = async (token: string) => {
+  const googleAuth = async (credential: string) => {
     try {
       setLoading(true);
       
-      const { token: authToken, user: googleUser } = await processGoogleAuth(token);
+      const { token: authToken, user: googleUser } = await processGoogleAuth(credential);
       
       localStorage.setItem('token', authToken);
       localStorage.setItem('user', JSON.stringify(googleUser));

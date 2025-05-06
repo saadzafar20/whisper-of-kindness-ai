@@ -18,6 +18,7 @@ namespace FeelCalm.API.Models
         public bool IsPremium { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? LastLogin { get; set; }
+        public string? GoogleId { get; set; }
 
         [JsonIgnore]
         public ICollection<UserSession> Sessions { get; set; } = new List<UserSession>();

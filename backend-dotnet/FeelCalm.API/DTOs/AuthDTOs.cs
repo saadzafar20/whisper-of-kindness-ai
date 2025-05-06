@@ -20,4 +20,9 @@ namespace FeelCalm.API.DTOs
     {
         public required string Token { get; set; }
     }
+
+    public class GoogleAuthDto
+    {
+        public required string Credential { get; set; }
+    }
 }

@@ -7,7 +7,9 @@ export interface User {
   email: string;
   gender?: string;
   pricingPlan?: string;
-  createdAt?: string; // Add createdAt property as an optional string
+  createdAt?: string;
+  profilePicture?: string;
+  googleId?: string;
 }
 
 export interface RegisterData {
