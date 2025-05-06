@@ -13,14 +13,14 @@ import { useIsMobile } from "@/hooks/use-mobile";
 // Create smaller components for better organization
 const PricingHeader = () => {
   return (
-    <section className="relative pt-16 sm:pt-20 md:pt-28 lg:pt-32 pb-8 sm:pb-12 lg:pb-16 overflow-hidden bg-empathy-dark-navy">
+    <section className="relative pt-16 md:pt-24 lg:pt-28 pb-8 md:pb-12 overflow-hidden bg-empathy-dark-navy">
       <FloatingElements count={8} />
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 md:mb-6 animate-fade-in text-white">
+          <h1 className="text-2xl md:text-4xl font-bold mb-4 md:mb-6 animate-fade-in text-white">
             Simple, Transparent <span className="text-empathy-purple">Pricing</span>
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-6 sm:mb-8 md:mb-10 animate-fade-in" style={{ animationDelay: "200ms" }}>
+          <p className="text-base md:text-lg text-gray-300 mb-6 md:mb-8 animate-fade-in" style={{ animationDelay: "200ms" }}>
             Choose the plan that works best for you.
           </p>
         </div>
@@ -36,24 +36,24 @@ const BillingToggle = ({ billingCycle, setBillingCycle }: {
   const isMobile = useIsMobile();
   
   return (
-    <div className="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 mb-6 sm:mb-8 lg:mb-12">
-      <span className={`text-sm sm:text-base lg:text-lg ${billingCycle === "monthly" ? "font-medium text-empathy-purple" : "text-gray-600"}`}>
+    <div className="flex flex-col md:flex-row justify-center items-center space-y-3 md:space-y-0 md:space-x-4 mb-6 md:mb-8">
+      <span className={`text-sm md:text-base ${billingCycle === "monthly" ? "font-medium text-empathy-purple" : "text-gray-600"}`}>
         Monthly
       </span>
       <button
         onClick={() => setBillingCycle(billingCycle === "monthly" ? "yearly" : "monthly")}
-        className={`relative inline-flex h-5 sm:h-6 w-10 sm:w-11 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+        className={`relative inline-flex h-5 md:h-6 w-10 md:w-11 items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
           billingCycle === "yearly" ? "bg-empathy-purple" : "bg-gray-400"
         }`}
       >
         <span
-          className={`pointer-events-none block h-4 sm:h-5 w-4 sm:w-5 rounded-full bg-white shadow-lg ring-0 transition-transform ${
-            billingCycle === "yearly" ? "translate-x-5 sm:translate-x-6" : "translate-x-1"
+          className={`pointer-events-none block h-4 md:h-5 w-4 md:w-5 rounded-full bg-white shadow-lg ring-0 transition-transform ${
+            billingCycle === "yearly" ? "translate-x-5 md:translate-x-6" : "translate-x-1"
           }`}
         />
       </button>
-      <div className="flex items-center gap-1 sm:gap-2">
-        <span className={`text-sm sm:text-base lg:text-lg ${billingCycle === "yearly" ? "font-medium text-empathy-purple" : "text-gray-600"}`}>
+      <div className="flex items-center gap-2">
+        <span className={`text-sm md:text-base ${billingCycle === "yearly" ? "font-medium text-empathy-purple" : "text-gray-600"}`}>
           Yearly
         </span>
         <Badge className="bg-yellow-500 text-black hover:bg-yellow-400 text-xs">Save 20%</Badge>
@@ -66,12 +66,12 @@ const PartnershipBenefits = () => {
   const isMobile = useIsMobile();
   
   return (
-    <div className="mt-6 sm:mt-8 lg:mt-12 bg-white rounded-xl p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto shadow-md">
-      <h3 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 sm:mb-6 lg:mb-8 text-center text-gray-800">
+    <div className="mt-8 bg-white rounded-xl p-5 md:p-6 max-w-4xl mx-auto shadow-md">
+      <h3 className="text-lg md:text-xl font-bold mb-6 text-center text-gray-800">
         Partnership Benefits
       </h3>
       
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
         {[
           "Custom branding and UI elements",
           "Dedicated account manager",
@@ -82,12 +82,12 @@ const PartnershipBenefits = () => {
         ].map((benefit, index) => (
           <div 
             key={index} 
-            className="flex items-center gap-2 sm:gap-3 lg:gap-4 bg-gray-50 p-3 sm:p-4 lg:p-5 rounded-lg shadow-sm"
+            className="flex items-center gap-3 bg-gray-50 p-3 md:p-4 rounded-lg shadow-sm"
           >
-            <div className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10 rounded-full bg-empathy-purple flex items-center justify-center flex-shrink-0">
-              <Check className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-white" />
+            <div className="h-8 w-8 rounded-full bg-empathy-purple flex items-center justify-center flex-shrink-0">
+              <Check className="h-4 w-4 text-white" />
             </div>
-            <span className="text-gray-800 text-xs sm:text-sm lg:text-lg">{benefit}</span>
+            <span className="text-gray-800 text-sm">{benefit}</span>
           </div>
         ))}
       </div>
@@ -97,12 +97,12 @@ const PartnershipBenefits = () => {
 
 const PricingFAQ = () => {
   return (
-    <section className="py-8 sm:py-12 lg:py-16 bg-white">
+    <section className="py-10 md:py-14 bg-white">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-6 sm:mb-8 lg:mb-10 text-center">Pricing FAQs</h2>
+          <h2 className="text-xl md:text-2xl font-bold mb-8 text-center">Pricing FAQs</h2>
 
-          <div className="space-y-3 sm:space-y-4 lg:space-y-6">
+          <div className="space-y-4">
             {[
               {
                 q: "What specialized companions are available?",
@@ -121,23 +121,23 @@ const PricingFAQ = () => {
                 a: "Yes, you can upgrade your plan at any time. Your billing will be prorated so you only pay for the difference."
               }
             ].map((faq, index) => (
-              <div key={index} className="p-3 sm:p-4 lg:p-6 border rounded-xl bg-gray-50">
-                <h3 className="text-base sm:text-lg lg:text-xl font-semibold mb-1 sm:mb-2 lg:mb-3 flex items-center gap-1 sm:gap-2 text-gray-900">
+              <div key={index} className="p-4 md:p-5 border rounded-xl bg-gray-50">
+                <h3 className="text-base md:text-lg font-semibold mb-2 flex items-center gap-2 text-gray-900">
                   {faq.q}
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <span className="cursor-help">
-                          <HelpCircle className="h-3 w-3 sm:h-4 sm:w-4 text-gray-400" />
+                          <HelpCircle className="h-4 w-4 text-gray-400" />
                         </span>
                       </TooltipTrigger>
-                      <TooltipContent className="bg-white p-2 sm:p-3 rounded-md shadow-lg max-w-xs sm:max-w-sm">
-                        <p className="text-xs sm:text-sm">{faq.a}</p>
+                      <TooltipContent className="bg-white p-3 rounded-md shadow-lg max-w-sm">
+                        <p className="text-sm">{faq.a}</p>
                       </TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
                 </h3>
-                <p className="text-xs sm:text-sm lg:text-base text-gray-600">{faq.a}</p>
+                <p className="text-sm text-gray-600">{faq.a}</p>
               </div>
             ))}
           </div>
@@ -149,15 +149,15 @@ const PricingFAQ = () => {
 
 const MoneyBackGuarantee = ({ navigate }: { navigate: ReturnType<typeof useNavigate> }) => {
   return (
-    <section className="py-8 sm:py-12 lg:py-16 bg-empathy-soft-purple">
+    <section className="py-10 md:py-14 bg-empathy-soft-purple">
       <div className="container mx-auto px-4">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 sm:mb-4 lg:mb-6">30-Day Money-Back Guarantee</h2>
-          <p className="text-sm sm:text-base lg:text-lg mb-4 sm:mb-6 lg:mb-10 text-gray-700">
+          <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-5">30-Day Money-Back Guarantee</h2>
+          <p className="text-sm md:text-base mb-6 md:mb-8 text-gray-700">
             We're confident you'll love FeelCalm. If you're not completely satisfied within the first 30 days, we'll refund your purchase.
           </p>
           <button 
-            className="bg-empathy-purple hover:bg-empathy-dark-purple text-white px-4 sm:px-6 lg:px-8 py-2 sm:py-3 lg:py-4 rounded-lg font-medium text-sm sm:text-base lg:text-lg shadow-md"
+            className="bg-empathy-purple hover:bg-empathy-dark-purple text-white px-5 md:px-6 py-2.5 md:py-3 rounded-lg font-medium text-sm md:text-base shadow-md"
             onClick={() => navigate('/partnership-network')}
           >
             Learn More About Partnership
@@ -218,7 +218,7 @@ const PricingPage = () => {
       name: "Free",
       description: "Try our AI emotional support",
       price: "Free",
-      icon: <Rocket className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-12 text-empathy-purple mb-1 sm:mb-2" />,
+      icon: <Rocket className="h-8 w-8 text-empathy-purple" />,
       features: [
         { name: "Session Limit", included: true, value: "1 AI session (15 min) per month" },
         { name: "Specialized Companions", included: false, value: "No specialized companions" },
@@ -237,7 +237,7 @@ const PricingPage = () => {
       name: "Premium",
       description: "Enhanced emotional support",
       price: "$49.99",
-      icon: <Users className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-12 text-empathy-purple mb-1 sm:mb-2" />,
+      icon: <Users className="h-8 w-8 text-empathy-purple" />,
       popular: true,
       features: [
         { name: "Session Limit", included: true, value: "4 AI sessions (30 min each) per month" },
@@ -256,7 +256,7 @@ const PricingPage = () => {
       name: "Ultimate",
       description: "Complete AI support solution",
       price: "$99.99",
-      icon: <Check className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-12 text-empathy-purple mb-1 sm:mb-2" />,
+      icon: <Check className="h-8 w-8 text-empathy-purple" />,
       features: [
         { name: "Session Limit", included: true, value: "15 AI sessions (30 min each) per month" },
         { name: "Specialized Companions", included: true, value: "2 specialized companions" },
@@ -301,7 +301,7 @@ const PricingPage = () => {
     description: "Custom enterprise solution",
     price: "$8,000",
     oneTime: true,
-    icon: <Users className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-12 text-empathy-purple mb-1 sm:mb-2" />,
+    icon: <Users className="h-8 w-8 text-empathy-purple" />,
     features: [
       { name: "Payment", included: true, value: "One-time payment - No monthly fees!" },
       { name: "Custom branding and UI elements", included: true },
@@ -323,40 +323,40 @@ const PricingPage = () => {
       <PricingHeader />
 
       {/* Pricing Section */}
-      <section className="py-6 sm:py-10 lg:py-16 bg-gray-50">
+      <section className="py-8 md:py-12 bg-gray-50">
         <div className="container mx-auto px-4">
           {/* Tab Navigation */}
-          <div className="flex justify-center mb-6 sm:mb-8 lg:mb-12">
+          <div className="flex justify-center mb-6 md:mb-8">
             <Tabs 
               defaultValue="standard" 
-              className="w-full max-w-xs sm:max-w-sm lg:max-w-md"
+              className="w-full max-w-xs md:max-w-sm"
               onValueChange={(value) => setActiveTab(value as "standard" | "partnership")}
             >
               <TabsList className="grid grid-cols-2 w-full bg-gray-200">
                 <TabsTrigger 
                   value="standard" 
-                  className="data-[state=active]:bg-empathy-purple data-[state=active]:text-white text-xs sm:text-sm py-1 sm:py-1.5 lg:py-2"
+                  className="data-[state=active]:bg-empathy-purple data-[state=active]:text-white text-xs md:text-sm py-1.5"
                 >
                   Standard Plans
                 </TabsTrigger>
                 <TabsTrigger 
                   value="partnership" 
-                  className="data-[state=active]:bg-empathy-purple data-[state=active]:text-white text-xs sm:text-sm py-1 sm:py-1.5 lg:py-2"
+                  className="data-[state=active]:bg-empathy-purple data-[state=active]:text-white text-xs md:text-sm py-1.5"
                 >
                   Partnership
                 </TabsTrigger>
               </TabsList>
 
-              <TabsContent value="standard" className="mt-4 sm:mt-6 lg:mt-8">
+              <TabsContent value="standard" className="mt-6">
                 <BillingToggle billingCycle={billingCycle} setBillingCycle={setBillingCycle} />
 
-                {/* Standard Plans */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-4 lg:gap-6 max-w-6xl mx-auto">
+                {/* Standard Plans - Fixed grid layout for better tablet and laptop display */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
                   {currentPlans.map((plan, index) => {
                     const typedPlan = plan as YearlyPlan;
                     return (
                       <div key={plan.name + (billingCycle === "yearly" ? "-yearly" : "")} 
-                           className={`${isMobile ? 'col-span-1' : index === 1 && 'sm:col-span-2 lg:col-span-1'}`}>
+                           className="h-full">
                         <PricingCard
                           name={plan.name}
                           price={plan.price}
@@ -376,16 +376,16 @@ const PricingPage = () => {
                   })}
                 </div>
                 
-                <div className="text-center mt-4 sm:mt-6 lg:mt-8">
-                  <p className="text-gray-600 text-xs sm:text-sm lg:text-base">
+                <div className="text-center mt-4 md:mt-6">
+                  <p className="text-gray-600 text-xs md:text-sm">
                     All plans include 14-day free trial. No credit card required.
                   </p>
                 </div>
               </TabsContent>
 
-              <TabsContent value="partnership" className="mt-4 sm:mt-6 lg:mt-8">
+              <TabsContent value="partnership" className="mt-6">
                 {/* Partnership Plan */}
-                <div className="max-w-xs sm:max-w-sm lg:max-w-lg mx-auto">
+                <div className="max-w-md mx-auto">
                   <PricingCard
                     key={partnershipPlan.name}
                     name={partnershipPlan.name}
@@ -401,11 +401,11 @@ const PricingPage = () => {
                   />
                 </div>
                 
-                <div className="mt-6 sm:mt-8 lg:mt-12 text-center">
-                  <p className="text-sm sm:text-base lg:text-lg text-gray-800 mb-2 sm:mb-3 lg:mb-6">
+                <div className="mt-8 text-center">
+                  <p className="text-base md:text-lg text-gray-800 mb-3 md:mb-4">
                     Looking for a custom solution for your business?
                   </p>
-                  <p className="text-sm sm:text-base lg:text-lg text-gray-800 mb-2 sm:mb-3 lg:mb-6">
+                  <p className="text-base md:text-lg text-gray-800 mb-6">
                     Our partnership program offers tailored AI solutions to match your specific needs.
                   </p>
                 </div>
