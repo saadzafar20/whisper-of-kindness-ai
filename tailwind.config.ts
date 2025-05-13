@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -67,15 +68,17 @@ export default {
           "platinum": "#E5E4E2", // Metallic platinum
           "pearl": "#FDEEF4", // Soft pearl
           "wine": "#722F37", // Deep wine
-        },
-        backgroundImage: {
-          "luxury-gradient": "linear-gradient(135deg, #9b87f5 0%, #7E69AB 100%)",
-          "gold-gradient": "linear-gradient(90deg, #D4AF37 0%, #B4974C 100%)",
-          "pearl-gradient": "linear-gradient(135deg, #FDEEF4 0%, #E5E4E2 100%)",
-        },
-        boxShadow: {
-          "luxury": "0 10px 25px rgba(75, 0, 130, 0.2), 0 5px 15px rgba(102, 56, 84, 0.15)",
-          "gold-shine": "0 8px 20px rgba(212, 175, 55, 0.3)",
+          // New ultra-luxury colors
+          "gold": "#D4AF37", 
+          "ivory": "#FFFFF0",
+          "obsidian": "#0D0D0D",
+          "onyx": "#353935",
+          "velvet": "#5D3954",
+          "noir": "#121212",
+          "ebony": "#282C35",
+          "bronze": "#CD7F32",
+          "silver": "#C0C0C0",
+          "rich-black": "#010B13",
         },
       },
       borderRadius: {
@@ -140,6 +143,14 @@ export default {
             opacity: "0.7",
           },
         },
+        "shimmer": {
+          "0%": {
+            backgroundPosition: "-200% 0",
+          },
+          "100%": {
+            backgroundPosition: "200% 0",
+          },
+        },
         "wave": {
           "0%": {
             transform: "scaleY(0.5)",
@@ -165,6 +176,7 @@ export default {
         "fade-out": "fade-out 0.5s ease-out",
         "float": "float 6s ease-in-out infinite",
         "pulse-slow": "pulse-slow 3s ease-in-out infinite",
+        "shimmer": "shimmer 2s linear infinite",
         "wave-1": "wave 1.5s ease-in-out infinite",
         "wave-2": "wave 1.7s ease-in-out infinite",
         "wave-3": "wave 1.3s ease-in-out infinite",
@@ -173,7 +185,18 @@ export default {
       },
       fontFamily: {
         sans: ["Inter", "sans-serif"],
-        serif: ["Georgia", "serif"],
+        serif: ["Playfair Display", "Georgia", "serif"],
+      },
+      backgroundImage: {
+        "luxury-gradient": "linear-gradient(135deg, #010B13 0%, #1A1F2C 100%)",
+        "gold-gradient": "linear-gradient(90deg, #D4AF37 0%, #F2D58E 50%, #D4AF37 100%)",
+        "pearl-gradient": "linear-gradient(135deg, #FDEEF4 0%, #E5E4E2 100%)",
+        "royal-purple": "linear-gradient(135deg, #4A3064 0%, #8B5CF6 100%)",
+      },
+      boxShadow: {
+        "luxury": "0 10px 25px rgba(0, 0, 0, 0.3), 0 5px 10px rgba(0, 0, 0, 0.2)",
+        "gold-glow": "0 0 15px rgba(212, 175, 55, 0.5)",
+        "soft-glow": "0 5px 15px rgba(155, 135, 245, 0.15)",
       },
     },
   },
