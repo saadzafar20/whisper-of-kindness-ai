@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,19 @@ export default {
           silver: "#E5E4E2",
           deepPurple: "#4A3064",
           pearl: "#FDEEF4",
+        },
+        // Adding empathy color palette to match the CSS
+        empathy: {
+          gold: "#D4AF37",
+          noir: "#010B13",
+          ebony: "#1A1F2C",
+          champagne: "#F7E7CE",
+          silver: "#E5E4E2",
+          purple: "#4A3064",
+          velvet: "#2A1A3A",
+          "deep-purple": "#1A0E26",
+          "rich-black": "#050911",
+          "midnight-blue": "#10131E",
         }
       },
       fontFamily: {
