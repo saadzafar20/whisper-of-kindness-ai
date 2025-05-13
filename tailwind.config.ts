@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss";
 
 export default {
@@ -53,33 +52,20 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        empathy: {
-          purple: "#9b87f5", // Rich purple
-          "dark-purple": "#4A3064", // Deeper, more readable dark purple
-          "soft-purple": "#A78BFA", // Brighter soft purple for better contrast
-          "dark-navy": "#1E2433", // Slightly lighter dark navy
-          "deep-purple": "#6E59A5", // Deep accent purple
-          "royal-gold": "#D4AF37", // Luxury gold
-          "rich-plum": "#8B5CF6", // Vibrant plum
-          "midnight-blue": "#1A1F2C", // Elegant dark blue
-          "champagne": "#F7E7CE", // Warm champagne
-          "emerald": "#50C878", // Rich emerald
-          "lavender-silk": "#E6E6FA", // Soft lavender
-          "platinum": "#E5E4E2", // Metallic platinum
-          "pearl": "#FDEEF4", // Soft pearl
-          "wine": "#722F37", // Deep wine
-          // New ultra-luxury colors
-          "gold": "#D4AF37", 
-          "ivory": "#FFFFF0",
-          "obsidian": "#0D0D0D",
-          "onyx": "#353935",
-          "velvet": "#5D3954",
-          "noir": "#121212",
-          "ebony": "#282C35",
-          "bronze": "#CD7F32",
-          "silver": "#C0C0C0",
-          "rich-black": "#010B13",
-        },
+        // Luxury color palette
+        luxury: {
+          gold: "#D4AF37",
+          black: "#010B13",
+          darkBlue: "#1A1F2C",
+          champagne: "#F7E7CE",
+          silver: "#E5E4E2",
+          deepPurple: "#4A3064",
+          pearl: "#FDEEF4",
+        }
+      },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+        serif: ["Playfair Display", "Georgia", "serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -183,10 +169,6 @@ export default {
         "wave-4": "wave 1.6s ease-in-out infinite",
         "wave-5": "wave 1.4s ease-in-out infinite",
       },
-      fontFamily: {
-        sans: ["Inter", "sans-serif"],
-        serif: ["Playfair Display", "Georgia", "serif"],
-      },
       backgroundImage: {
         "luxury-gradient": "linear-gradient(135deg, #010B13 0%, #1A1F2C 100%)",
         "gold-gradient": "linear-gradient(90deg, #D4AF37 0%, #F2D58E 50%, #D4AF37 100%)",
@@ -196,7 +178,6 @@ export default {
       boxShadow: {
         "luxury": "0 10px 25px rgba(0, 0, 0, 0.3), 0 5px 10px rgba(0, 0, 0, 0.2)",
         "gold-glow": "0 0 15px rgba(212, 175, 55, 0.5)",
-        "soft-glow": "0 5px 15px rgba(155, 135, 245, 0.15)",
       },
     },
   },

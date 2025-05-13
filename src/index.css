@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
 
 @tailwind base;
@@ -35,24 +34,13 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif tracking-tight text-empathy-deep-purple;
+    @apply font-serif tracking-tight;
   }
 }
 
 @layer components {
-  .gradient-bg-luxury {
-    @apply bg-gradient-to-br from-empathy-rich-black to-empathy-midnight-blue;
-  }
-  
-  .gold-shimmer {
-    background: linear-gradient(90deg, 
-      rgba(212,175,55,0.8) 0%, 
-      rgba(242,213,142,1) 25%, 
-      rgba(212,175,55,0.8) 50%, 
-      rgba(242,213,142,1) 75%,
-      rgba(212,175,55,0.8) 100%);
-    background-size: 200% auto;
-    @apply animate-shimmer;
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-luxury-gold via-luxury-champagne to-luxury-gold bg-clip-text text-transparent;
   }
   
   .glass-card {
@@ -60,11 +48,7 @@
   }
   
   .luxury-button {
-    @apply relative overflow-hidden bg-gradient-to-r from-empathy-gold to-empathy-bronze text-empathy-rich-black font-medium px-6 py-2.5 rounded-md shadow-md transition-all duration-300 hover:shadow-gold-glow;
-  }
-  
-  .text-gradient-gold {
-    @apply bg-gradient-to-r from-empathy-gold via-empathy-champagne to-empathy-gold bg-clip-text text-transparent;
+    @apply relative overflow-hidden bg-gradient-to-r from-luxury-gold to-luxury-champagne text-luxury-black font-medium px-6 py-2.5 rounded-md shadow-md transition-all duration-300 hover:shadow-gold-glow;
   }
 }
 
@@ -77,3 +61,4 @@
     @apply shadow-[0_10px_50px_-12px_rgba(0,0,0,0.25)];
   }
 }
+
