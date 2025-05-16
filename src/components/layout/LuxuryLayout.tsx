@@ -38,7 +38,7 @@ const LuxuryLayout = ({
               className="inline-flex items-center gap-2 mb-3"
             >
               <Crown size={24} className="text-empathy-gold" />
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-semibold text-white">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-semibold">
                 <span className="text-gradient-gold">{title}</span>
               </h1>
             </motion.div>
@@ -48,7 +48,7 @@ const LuxuryLayout = ({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto"
+              className="text-lg md:text-xl text-white max-w-3xl mx-auto font-medium"
             >
               {subtitle}
             </motion.p>

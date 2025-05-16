@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Brain, Heart, Mic, Moon, Smile, Sparkles, Leaf } from "lucide-react";
@@ -77,13 +78,13 @@ export const HeroSection = () => {
                 ease: "easeInOut",
               }}
             />
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-empathy-purple to-empathy-dark-purple">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-empathy-deep-purple">
               Experience a Revolutionary Companion for Emotional Wellness
             </h1>
           </motion.div>
 
           <motion.p 
-            className="text-xl md:text-2xl text-gray-600 mb-12 leading-relaxed"
+            className="text-xl md:text-2xl text-gray-800 mb-12 leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -136,7 +137,7 @@ export const HeroSection = () => {
                 className="relative overflow-hidden group transition-all duration-300 
                   bg-white/80 border-2 border-golden/30 hover:border-golden hover:bg-empathy-purple hover:text-white"
               >
-                <span className="relative z-10 flex items-center text-empathy-dark-purple font-semibold">
+                <span className="relative z-10 flex items-center text-empathy-deep-purple font-semibold group-hover:text-white">
                   Free Demo Call 
                   <Mic 
                     className="ml-2 h-8 w-8 transition-all duration-500 text-white
@@ -146,7 +147,7 @@ export const HeroSection = () => {
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-golden/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Button>
-              <p className="text-xs text-gray-500 mt-1">Sign up for 10-minute free session with our AI voice companion</p>
+              <p className="text-xs text-gray-600 mt-1">Sign up for 10-minute free session with our AI voice companion</p>
             </div>
           </motion.div>
 
@@ -164,7 +165,7 @@ export const HeroSection = () => {
             ].map((text, index) => (
               <motion.div
                 key={index}
-                className="bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-gray-200 group hover:shadow-xl transition-all duration-300"
+                className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-gray-200 group hover:shadow-xl transition-all duration-300"
                 whileHover={{ 
                   scale: 1.02,
                   y: -5,
@@ -295,14 +296,14 @@ const StartNowCardSection = () => {
   
   return (
     <motion.div
-      className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-md border border-gray-200 mt-10"
+      className="bg-white/90 backdrop-blur-sm p-6 rounded-xl shadow-md border border-gray-200 mt-10"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 1.5 }}
     >
       <Button 
         onClick={() => navigate('/pricing')}
-        className="w-full bg-empathy-purple hover:bg-empathy-dark-purple text-white"
+        className="w-full bg-empathy-purple hover:bg-empathy-dark-purple text-white font-medium"
       >
         View Pricing & Start Your Journey
       </Button>

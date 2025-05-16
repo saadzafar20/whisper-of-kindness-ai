@@ -30,7 +30,7 @@ const PartnershipBenefits = () => {
             <div className="h-8 w-8 rounded-full bg-empathy-purple flex items-center justify-center flex-shrink-0">
               <Check className="h-4 w-4 text-white" />
             </div>
-            <span className="text-gray-800 text-sm md:text-base">{benefit}</span>
+            <span className="text-gray-800 font-medium text-sm md:text-base">{benefit}</span>
           </div>
         ))}
       </div>

@@ -12,7 +12,7 @@ const PricingToggle = ({ billingCycle, setBillingCycle }: PricingToggleProps) =>
   return (
     <div className="flex flex-col md:flex-row justify-center items-center space-y-3 md:space-y-0 md:space-x-6 mb-10 md:mb-12">
       <motion.span
-        className={`text-base md:text-lg ${billingCycle === "monthly" ? "font-semibold text-empathy-purple" : "text-gray-600"}`}
+        className={`text-base md:text-lg ${billingCycle === "monthly" ? "font-semibold text-empathy-purple" : "text-gray-800"}`}
         animate={{ opacity: billingCycle === "monthly" ? 1 : 0.7 }}
       >
         Monthly
@@ -39,12 +39,12 @@ const PricingToggle = ({ billingCycle, setBillingCycle }: PricingToggleProps) =>
       
       <div className="flex items-center gap-2">
         <motion.span
-          className={`text-base md:text-lg ${billingCycle === "yearly" ? "font-semibold text-empathy-purple" : "text-gray-600"}`}
+          className={`text-base md:text-lg ${billingCycle === "yearly" ? "font-semibold text-empathy-purple" : "text-gray-800"}`}
           animate={{ opacity: billingCycle === "yearly" ? 1 : 0.7 }}
         >
           Yearly
         </motion.span>
-        <Badge className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-black hover:from-yellow-400 hover:to-yellow-500 text-xs md:text-sm px-3 py-1">
+        <Badge className="bg-gradient-to-r from-yellow-500 to-yellow-400 text-black hover:from-yellow-400 hover:to-yellow-500 text-xs md:text-sm px-3 py-1 font-medium">
           Save 20%
         </Badge>
       </div>

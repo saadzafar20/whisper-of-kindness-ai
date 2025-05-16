@@ -35,17 +35,17 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif tracking-tight;
+    @apply font-serif tracking-tight text-gray-800;
   }
 }
 
 @layer components {
   .text-gradient-gold {
-    @apply bg-gradient-to-r from-luxury-gold via-luxury-champagne to-luxury-gold bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-luxury-gold via-luxury-champagne to-luxury-gold bg-clip-text text-transparent font-bold;
   }
   
   .glass-card {
-    @apply backdrop-blur-lg bg-white/10 border border-white/20 rounded-2xl shadow-luxury;
+    @apply backdrop-blur-lg bg-white/80 border border-white/20 rounded-2xl shadow-luxury;
   }
   
   .luxury-button {
@@ -60,5 +60,17 @@
   
   .premium-shadow {
     @apply shadow-[0_10px_50px_-12px_rgba(0,0,0,0.25)];
+  }
+
+  .text-readable {
+    @apply text-gray-800;
+  }
+  
+  .text-readable-light {
+    @apply text-gray-700;
+  }
+  
+  .text-readable-white {
+    @apply text-white font-medium;
   }
 }

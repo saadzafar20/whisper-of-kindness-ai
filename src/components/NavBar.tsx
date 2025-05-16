@@ -42,14 +42,14 @@ const NavBar = () => {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-md shadow-md' : 'bg-sky-50/10 backdrop-blur-sm'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-md' : 'bg-white/90 backdrop-blur-sm'}`}>
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 group">
           <div className="relative h-12 w-12 rounded-2xl bg-gradient-to-br from-empathy-purple via-empathy-dark-purple to-empathy-deep-purple flex items-center justify-center shadow-luxury overflow-hidden transition-all duration-300 hover:shadow-xl group-hover:scale-105">
             <div className="absolute inset-0 bg-gradient-to-tr from-empathy-purple/30 to-transparent opacity-50"></div>
             <Sparkles className="text-white w-7 h-7 animate-pulse-slow" />
           </div>
-          <span className="font-serif font-bold text-xl bg-gradient-to-r from-empathy-deep-purple to-empathy-dark-purple bg-clip-text text-transparent group-hover:from-empathy-purple group-hover:to-empathy-deep-purple transition-all duration-300">
+          <span className="font-serif font-bold text-xl text-empathy-deep-purple group-hover:text-empathy-purple transition-all duration-300">
             FeelCalm
           </span>
         </Link>
@@ -59,7 +59,7 @@ const NavBar = () => {
             <Link 
               key={link.path} 
               to={link.path} 
-              className="text-gray-800 hover:text-empathy-deep-purple transition-colors"
+              className="text-gray-800 hover:text-empathy-deep-purple transition-colors font-medium"
             >
               {link.name}
             </Link>
@@ -70,7 +70,7 @@ const NavBar = () => {
           {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="flex items-center gap-2 hover:bg-empathy-soft-purple/10 hover:text-empathy-deep-purple">
+                <Button variant="ghost" className="flex items-center gap-2 hover:bg-empathy-soft-purple/10 text-gray-800 hover:text-empathy-deep-purple">
                   <User size={18} />
                   <span className="max-w-[120px] truncate">{user?.fullName || 'Account'}</span>
                 </Button>
@@ -94,13 +94,13 @@ const NavBar = () => {
             <>
               <Button 
                 variant="ghost" 
-                className="text-gray-800 hover:bg-empathy-soft-purple/10 hover:text-empathy-deep-purple"
+                className="text-gray-800 hover:bg-empathy-soft-purple/10 hover:text-empathy-deep-purple font-medium"
                 onClick={() => navigate('/auth')}
               >
                 Sign In
               </Button>
               <Button 
-                className="bg-empathy-purple hover:bg-empathy-dark-purple text-white"
+                className="bg-empathy-purple hover:bg-empathy-dark-purple text-white font-medium"
                 onClick={() => navigate('/auth?tab=register')}
               >
                 Get Started
@@ -124,7 +124,7 @@ const NavBar = () => {
               <Link 
                 key={link.path} 
                 to={link.path} 
-                className="text-gray-800 hover:text-empathy-deep-purple transition-colors py-2"
+                className="text-gray-800 hover:text-empathy-deep-purple transition-colors py-2 font-medium"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.name}
@@ -136,7 +136,7 @@ const NavBar = () => {
                 <>
                   <Link 
                     to="/dashboard" 
-                    className="flex items-center gap-2 py-2"
+                    className="flex items-center gap-2 py-2 text-gray-800"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <User size={18} />
@@ -166,7 +166,7 @@ const NavBar = () => {
                     Sign In
                   </Button>
                   <Button 
-                    className="justify-center bg-empathy-purple hover:bg-empathy-dark-purple text-white"
+                    className="justify-center bg-empathy-purple hover:bg-empathy-dark-purple text-white font-medium"
                     onClick={() => {
                       navigate('/auth?tab=register');
                       setIsMenuOpen(false);
