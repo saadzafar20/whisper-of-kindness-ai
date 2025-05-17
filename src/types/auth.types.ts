@@ -13,6 +13,7 @@ export interface RegisterData {
   password: string;
   fullName: string;
   gender?: string;
+  pricingPlan?: 'free' | 'pro' | 'enterprise'; // Add pricingPlan to fix the TS error
 }
 
 export interface LoginResponse {
