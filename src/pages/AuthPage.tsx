@@ -24,7 +24,7 @@ const loginSchema = z.object({
 const registerSchema = z.object({
   fullName: z.string().min(2, { message: "Full name must be at least 2 characters" }),
   email: z.string().email({ message: "Please enter a valid email address" }),
-  pricingPlan: z.string(),
+  pricingPlan: z.enum(["free", "pro", "enterprise"]),
   password: z.string().min(6, { message: "Password must be at least 6 characters" }),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
@@ -62,7 +62,8 @@ const AuthPage = () => {
     defaultValues: {
       fullName: "",
       email: "",
-      pricingPlan: isDemo ? "free" : "free", // Default to free, especially for demo users
+      // Fix by ensuring this is one of the allowed values as defined by the enum type
+      pricingPlan: isDemo ? "free" : "free", 
       password: "",
       confirmPassword: "",
     },
@@ -77,7 +78,7 @@ const AuthPage = () => {
       fullName: data.fullName,
       email: data.email,
       password: data.password,
-      pricingPlan: data.pricingPlan
+      pricingPlan: data.pricingPlan // This will now be correctly typed
     });
   };
 
