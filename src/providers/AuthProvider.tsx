@@ -19,9 +19,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const loadUser = async () => {
       if (token) {
         try {
-          // We would typically fetch user details from API here
-          // For now, we'll just validate the token exists
-          setUser(JSON.parse(localStorage.getItem('user') || '{}'));
+          // Try to load user from localStorage first
+          const storedUser = localStorage.getItem('user');
+          if (storedUser) {
+            setUser(JSON.parse(storedUser));
+          }
           
           // Check if there's an active session in localStorage
           const savedSession = localStorage.getItem('currentSession');
@@ -29,10 +31,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             setCurrentSession(JSON.parse(savedSession));
           }
           
+          // Once all data is loaded, set loading to false
           setLoading(false);
         } catch (error) {
           console.error('Error loading user:', error);
-          logout();
+          logout();  // If there's an error, clean up and log out
           setLoading(false);
         }
       } else {
@@ -48,10 +51,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setLoading(true);
       
       const { token: authToken, user: userData } = await loginUser(email, password);
+      
+      if (!authToken || !userData) {
+        throw new Error("Authentication failed");
+      }
 
-      // Save token to localStorage
+      // Save token and user data to localStorage
       localStorage.setItem('token', authToken);
       localStorage.setItem('user', JSON.stringify(userData));
+      
+      // Update state
       setToken(authToken);
       setUser(userData);
       
@@ -59,6 +68,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         title: "Login successful",
         description: "Welcome back!",
       });
+      
+      // Navigate after state has been updated
       navigate('/dashboard');
     } catch (error) {
       console.error('Login error:', error);
@@ -77,10 +88,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setLoading(true);
       
       const { token: authToken, user: registeredUser } = await registerUser(userData);
+      
+      if (!authToken || !registeredUser) {
+        throw new Error("Registration failed");
+      }
 
-      // Save token and user data
+      // Save token and user data to localStorage
       localStorage.setItem('token', authToken);
       localStorage.setItem('user', JSON.stringify(registeredUser));
+      
+      // Update state
       setToken(authToken);
       setUser(registeredUser);
       setIsNewUser(true); // Mark as new user
@@ -90,6 +107,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         description: "Your account has been created",
       });
       
+      // Navigate after state has been updated
       navigate('/dashboard');
     } catch (error) {
       console.error('Registration error:', error);
@@ -109,17 +127,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       const { token: authToken, user: googleUser, isNewRegistration } = await processGoogleAuth(credential);
       
+      if (!authToken || !googleUser) {
+        throw new Error("Google authentication failed");
+      }
+      
+      // Save token and user data
       localStorage.setItem('token', authToken);
       localStorage.setItem('user', JSON.stringify(googleUser));
+      
+      // Update state
       setToken(authToken);
       setUser(googleUser);
-      setIsNewUser(isNewRegistration); // Set based on whether this is a new registration
+      setIsNewUser(isNewRegistration);
       
       toast({
         title: isNewRegistration ? "Welcome to FeelCalm!" : "Google login successful",
         description: isNewRegistration ? "Your account has been created" : "Welcome back!",
       });
       
+      // Navigate after state has been updated
       navigate('/dashboard');
     } catch (error) {
       console.error('Google auth error:', error);

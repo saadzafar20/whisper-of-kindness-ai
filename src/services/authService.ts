@@ -8,8 +8,7 @@ export const loginUser = async (
   password: string
 ): Promise<LoginResponse> => {
   try {
-    // In a real implementation, this would make an API call
-    // For now, it's just a simulation
+    // Make the API call
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
       method: 'POST',
       headers: {
@@ -20,10 +19,22 @@ export const loginUser = async (
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || 'Login failed');
+      throw new Error(errorData.msg || 'Login failed');
     }
 
-    return await response.json();
+    const data = await response.json();
+    
+    // Format response properly - ensure we have both token and user data
+    return {
+      token: data.token,
+      user: {
+        userId: data.user?.user_id || 'unknown',
+        email: email,
+        fullName: data.user?.full_name || email.split('@')[0],
+        createdAt: data.user?.created_at || new Date().toISOString(),
+        pricingPlan: data.user?.pricing_plan || 'free'
+      }
+    };
   } catch (error) {
     console.error('Login error:', error);
     throw error;
@@ -34,7 +45,6 @@ export const registerUser = async (
   userData: RegisterData
 ): Promise<LoginResponse> => {
   try {
-    // In a real implementation, this would make an API call
     const response = await fetch(`${API_BASE_URL}/auth/register`, {
       method: 'POST',
       headers: {
@@ -45,12 +55,21 @@ export const registerUser = async (
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || 'Registration failed');
+      throw new Error(errorData.msg || 'Registration failed');
     }
 
     const data = await response.json();
+    
+    // Format response properly - ensure we have both token and user data
     return { 
-      ...data,
+      token: data.token,
+      user: {
+        userId: data.user?.user_id || 'unknown',
+        email: userData.email,
+        fullName: userData.fullName,
+        createdAt: new Date().toISOString(),
+        pricingPlan: userData.pricingPlan
+      },
       isNewRegistration: true 
     };
   } catch (error) {
@@ -63,8 +82,6 @@ export const processGoogleAuth = async (
   credential: string
 ): Promise<LoginResponse> => {
   try {
-    // In a real implementation, this would verify the credential with Google
-    // and then authenticate the user
     const response = await fetch(`${API_BASE_URL}/auth/google`, {
       method: 'POST',
       headers: {
@@ -75,10 +92,26 @@ export const processGoogleAuth = async (
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new Error(errorData.message || 'Google authentication failed');
+      throw new Error(errorData.msg || 'Google authentication failed');
     }
 
-    return await response.json();
+    const data = await response.json();
+    
+    // For Google auth, we need to make sure we have user info
+    const googleData = data.userData || {};
+    
+    return {
+      token: data.token,
+      user: {
+        userId: data.user?.user_id || googleData.sub || 'unknown',
+        email: googleData.email || 'unknown@example.com',
+        fullName: googleData.name || 'Google User',
+        createdAt: data.user?.created_at || new Date().toISOString(),
+        pricingPlan: data.user?.pricing_plan || 'free',
+        profilePicture: googleData.picture
+      },
+      isNewRegistration: !!data.isNewRegistration
+    };
   } catch (error) {
     console.error('Google auth error:', error);
     throw error;
