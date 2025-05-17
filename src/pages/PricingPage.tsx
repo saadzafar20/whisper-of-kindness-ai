@@ -33,7 +33,7 @@ const PricingPage = () => {
           <div className="flex justify-center mb-8 md:mb-10">
             <Tabs 
               defaultValue="standard" 
-              className="w-full max-w-sm"
+              className="w-full"
               onValueChange={(value) => setActiveTab(value as "standard" | "partnership")}
             >
               <TabsList className="grid grid-cols-2 w-full bg-gray-200/80 p-1 rounded-full">
