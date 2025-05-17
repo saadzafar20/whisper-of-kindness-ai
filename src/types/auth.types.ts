@@ -6,6 +6,7 @@ export interface User {
   gender?: string;
   createdAt?: string;
   pricingPlan: 'free' | 'pro' | 'enterprise';
+  profilePicture?: string;
 }
 
 export interface RegisterData {
