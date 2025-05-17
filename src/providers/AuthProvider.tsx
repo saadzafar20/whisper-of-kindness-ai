@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/hooks/use-toast';
@@ -11,6 +12,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
   const [currentSession, setCurrentSession] = useState<SessionData | null>(null);
+  const [isNewUser, setIsNewUser] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -81,27 +83,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       localStorage.setItem('user', JSON.stringify(registeredUser));
       setToken(authToken);
       setUser(registeredUser);
+      setIsNewUser(true); // Mark as new user
       
       toast({
         title: "Registration successful",
         description: "Your account has been created",
       });
-      
-      // Start free trial session automatically for new users
-      try {
-        const session = await sessionService.startSession();
-        setCurrentSession(session);
-        
-        // Store session in localStorage to persist across refreshes
-        localStorage.setItem('currentSession', JSON.stringify(session));
-        
-        toast({
-          title: "Free trial started!",
-          description: "Your 10-minute free trial has begun",
-        });
-      } catch (sessionError) {
-        console.error("Error starting free trial session:", sessionError);
-      }
       
       navigate('/dashboard');
     } catch (error) {
@@ -120,31 +107,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       setLoading(true);
       
-      const { token: authToken, user: googleUser } = await processGoogleAuth(credential);
+      const { token: authToken, user: googleUser, isNewRegistration } = await processGoogleAuth(credential);
       
       localStorage.setItem('token', authToken);
       localStorage.setItem('user', JSON.stringify(googleUser));
       setToken(authToken);
       setUser(googleUser);
+      setIsNewUser(isNewRegistration); // Set based on whether this is a new registration
       
       toast({
-        title: "Google login successful",
-        description: "Welcome to FeelCalm!",
+        title: isNewRegistration ? "Welcome to FeelCalm!" : "Google login successful",
+        description: isNewRegistration ? "Your account has been created" : "Welcome back!",
       });
-      
-      // Check if this is a new user and start a session if needed
-      try {
-        const session = await sessionService.startSession();
-        setCurrentSession(session);
-        localStorage.setItem('currentSession', JSON.stringify(session));
-        
-        toast({
-          title: "Free trial started!",
-          description: "Your 10-minute free trial has begun",
-        });
-      } catch (sessionError) {
-        console.error("Error starting free trial session:", sessionError);
-      }
       
       navigate('/dashboard');
     } catch (error) {
@@ -209,6 +183,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return undefined;
   };
 
+  const resetNewUserState = () => {
+    setIsNewUser(false);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -216,13 +194,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         loading,
         token,
         currentSession,
+        isNewUser,
         isAuthenticated: !!user && !!token,
         login,
         register,
         logout,
         googleAuth,
         startSession,
-        endSession
+        endSession,
+        resetNewUserState
       }}
     >
       {children}

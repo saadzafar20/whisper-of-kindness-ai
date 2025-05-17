@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -14,14 +13,24 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import SessionStartDialog from '@/components/dashboard/SessionStartDialog';
 
 const DashboardPage = () => {
-  const { user, logout, currentSession, startSession, endSession } = useAuth();
+  const { 
+    user, 
+    logout, 
+    currentSession, 
+    startSession, 
+    endSession, 
+    isNewUser,
+    resetNewUserState 
+  } = useAuth();
   const [trialTimeData, setTrialTimeData] = useState<TrialTimeData | null>(null);
   const [sessionTime, setSessionTime] = useState(0);
   const [isSessionActive, setIsSessionActive] = useState(false);
   const [pastSessions, setPastSessions] = useState<SessionData[]>([]);
   const [isAlmostExpired, setIsAlmostExpired] = useState(false);
+  const [showSessionDialog, setShowSessionDialog] = useState(false);
   const navigate = useNavigate();
   
   // Format join date
@@ -38,6 +47,11 @@ const DashboardPage = () => {
   };
   
   useEffect(() => {
+    // Show session dialog for new users
+    if (isNewUser) {
+      setShowSessionDialog(true);
+    }
+
     // Fetch trial time data when component mounts
     const fetchTrialTime = async () => {
       try {
@@ -67,7 +81,12 @@ const DashboardPage = () => {
     } else {
       setIsSessionActive(false);
     }
-  }, [currentSession]);
+    
+    // Cleanup function to reset new user state when component unmounts
+    return () => {
+      resetNewUserState();
+    };
+  }, [currentSession, isNewUser, resetNewUserState]);
   
   useEffect(() => {
     // Session timer
@@ -148,9 +167,8 @@ const DashboardPage = () => {
            trialTimeData.remainingSeconds <= 0;
   };
   
-  // Start a session with voice
-  const startVoiceSession = async () => {
-    // Check if user has remaining trial time
+  // Open session dialog
+  const openSessionDialog = () => {
     if (isTrialExpired()) {
       toast({
         title: "Free Trial Used",
@@ -161,7 +179,23 @@ const DashboardPage = () => {
       return;
     }
     
+    setShowSessionDialog(true);
+  };
+  
+  // Handle dialog confirmation to start a session
+  const handleStartVoiceSession = async () => {
     try {
+      // First request microphone permissions
+      const permissionGranted = await vapiService.requestMicrophonePermission();
+      if (!permissionGranted) {
+        toast({
+          title: "Permission Required",
+          description: "Microphone access is needed for voice sessions. Please allow access when prompted.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
       // Start backend session tracking
       const session = await startSession();
       
@@ -170,6 +204,7 @@ const DashboardPage = () => {
       
       // Update UI
       setIsSessionActive(true);
+      setShowSessionDialog(false);
       
       toast({
         title: "Session Started",
@@ -247,6 +282,14 @@ const DashboardPage = () => {
   
   return (
     <div className="container mx-auto px-4 py-16">
+      {/* Session Start Dialog */}
+      <SessionStartDialog
+        open={showSessionDialog}
+        onOpenChange={setShowSessionDialog}
+        onStartSession={handleStartVoiceSession}
+        isNewUser={isNewUser}
+      />
+      
       {/* Active Session Timer with Warning */}
       {isSessionActive && (
         <div className={`${isAlmostExpired ? 'bg-red-600' : 'bg-empathy-purple'} text-white p-4 rounded-lg mb-6 shadow-lg flex items-center justify-between`}>
@@ -323,7 +366,7 @@ const DashboardPage = () => {
                         <Button 
                           size="sm" 
                           className={`flex items-center gap-2 ${isTrialExpired() ? 'bg-gray-400 cursor-not-allowed' : 'bg-empathy-purple hover:bg-empathy-dark-purple'}`}
-                          onClick={isTrialExpired() ? handleUpgradePlan : startVoiceSession}
+                          onClick={isTrialExpired() ? handleUpgradePlan : isSessionActive ? () => {} : openSessionDialog}
                           disabled={isSessionActive}
                         >
                           <Volume2 size={16} />
@@ -333,7 +376,9 @@ const DashboardPage = () => {
                       <TooltipContent>
                         {isTrialExpired() 
                           ? <p>Your free trial is over. Upgrade to continue.</p>
-                          : <p>Begin a new voice session with your AI companion</p>
+                          : isSessionActive
+                            ? <p>A session is already in progress</p>
+                            : <p>Begin a new voice session with your AI companion</p>
                         }
                       </TooltipContent>
                     </Tooltip>
@@ -456,8 +501,8 @@ const DashboardPage = () => {
                 <p className="mt-2 text-sm">Start a new session to see your activity here.</p>
                 <Button 
                   className="mt-4 bg-empathy-purple hover:bg-empathy-dark-purple"
-                  onClick={startVoiceSession}
-                  disabled={trialTimeData && !trialTimeData.isPremium && trialTimeData.remainingSeconds !== null && trialTimeData.remainingSeconds <= 0}
+                  onClick={openSessionDialog}
+                  disabled={isTrialExpired()}
                 >
                   Begin a New Session
                 </Button>

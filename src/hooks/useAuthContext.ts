@@ -13,6 +13,7 @@ const defaultAuthContext: AuthContextType = {
   token: null,
   isAuthenticated: false,
   currentSession: null,
+  isNewUser: false,
   login: async () => {},
   register: async () => {},
   logout: () => {},
@@ -49,7 +50,8 @@ const defaultAuthContext: AuthContextType = {
   endSession: async () => {
     throw new Error('Auth context not initialized');
     return undefined;
-  }
+  },
+  resetNewUserState: () => {}
 };
 
 export const useAuth = () => {
