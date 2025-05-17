@@ -28,7 +28,7 @@ export const loginUser = async (
     return {
       token: data.token,
       user: {
-        userId: data.user?.user_id || 'unknown',
+        id: data.user?.user_id || 'unknown',
         email: email,
         fullName: data.user?.full_name || email.split('@')[0],
         createdAt: data.user?.created_at || new Date().toISOString(),
@@ -64,7 +64,7 @@ export const registerUser = async (
     return { 
       token: data.token,
       user: {
-        userId: data.user?.user_id || 'unknown',
+        id: data.user?.user_id || 'unknown',
         email: userData.email,
         fullName: userData.fullName,
         createdAt: new Date().toISOString(),
@@ -103,7 +103,7 @@ export const processGoogleAuth = async (
     return {
       token: data.token,
       user: {
-        userId: data.user?.user_id || googleData.sub || 'unknown',
+        id: data.user?.user_id || googleData.sub || 'unknown',
         email: googleData.email || 'unknown@example.com',
         fullName: googleData.name || 'Google User',
         createdAt: data.user?.created_at || new Date().toISOString(),
